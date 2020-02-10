@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "SyetemFrontend": {
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "SyetemFrontend"
+    }
+  },
+  "defaultProject": "SyetemFrontend",
+  "cli": {
+    "analytics": "bf051ba4-7f15-4944-998a-05cb6484b564"
+  }
 }
