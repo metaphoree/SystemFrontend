@@ -1,0 +1,29 @@
+<div class="ui-fluid">
+    <div class="ui-g-6">
+        <div class="ui-g-12">
+            <label> Add New Client</label>
+        </div>
+        <div class="ui-g-6">
+            <input type="text" placeholder="Name" [(ngModel)]="viewModel.Name" pInputText />
+        </div>
+        <div class="ui-g-6">
+            <input type="text" placeholder="Email Address" [(ngModel)]="viewModel.Email"  pInputText />
+        </div>
+        <div class="ui-g-6">           
+            <textarea pInputTextarea placeholder="Permanent Address" [(ngModel)]="viewModel.PermanentAddress" ></textarea>
+        </div>
+        <div class="ui-g-6">
+            <textarea pInputTextarea placeholder="Present Address" [(ngModel)]="viewModel.PresentAddress" ></textarea>
+        </div>
+        <div class="ui-g-6">
+            <input type="text" placeholder="Cell No" pInputText  [(ngModel)]="viewModel.CellNo" />
+        </div>
+        <div class="ui-g-6">
+            <input type="text" placeholder="Alternate Cell No" pInputText  [(ngModel)]="viewModel.AlternateCellNo" />
+        </div>
+        <div class="ui-g-6">
+            <button pButton type="button" label="Add Client" (click)="AddCustomer($event)" ></button>
+            <!-- (click)="handleClick($event)" -->
+        </div>
+    </div>
+</div>
