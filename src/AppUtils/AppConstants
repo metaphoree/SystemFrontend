@@ -1,5 +1,0 @@
-export class AppConstants{
-
-var BASE_URL : string = '';
-
-}

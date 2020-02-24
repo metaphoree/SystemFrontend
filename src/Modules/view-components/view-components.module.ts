@@ -8,15 +8,19 @@ import { MenuItem } from 'primeng/api';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule, SidebarModule, BrowserModule,
-    BrowserAnimationsModule, PanelMenuModule, InputTextModule, ButtonModule, InputTextareaModule
+    CommonModule, FormsModule, SidebarModule, BrowserModule,
+    BrowserAnimationsModule, PanelMenuModule,
+    InputTextModule, ButtonModule, InputTextareaModule, DynamicDialogModule
   ],
-  exports: [SidebarModule, BrowserModule, BrowserAnimationsModule, PanelMenuModule, InputTextModule, ButtonModule, InputTextareaModule]
+  exports: [SidebarModule, BrowserModule, BrowserAnimationsModule, PanelMenuModule, InputTextModule, ButtonModule,
+    InputTextareaModule, DynamicDialogModule, FormsModule]
 
 })
 

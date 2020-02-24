@@ -1,4 +1,4 @@
-<div class="ui-fluid">
+<div class="ui-fluid" style="background-color: brown;">
     <div class="ui-g-6">
         <div class="ui-g-12">
             <label> Add New Client</label>
@@ -26,4 +26,36 @@
             <!-- (click)="handleClick($event)" -->
         </div>
     </div>
+<div class="ui-g-6"></div>
+<div class="ui-g-12" *ngIf="listVM">
+    <!-- <div *ngFor="let item of listVM">     
+        <div>{{item.Name}}</div>        
+    </div> -->
+    <table class="table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Permanent Address</th>
+              <th>Present Address</th>
+              <th>Cell no</th>
+              <th>Alternate Cell No</th>
+          </tr>
+        </thead>
+        <tbody>
+            <!-- *ngFor is used to display all the record from employees. -->
+            <tr *ngFor="let b of listVM">
+                <td>{{ b.Name }}</td>
+                <td>{{ b.Email }}</td>
+                <td>{{ b.PermanentAddress }}</td>
+                <td>{{ b.PresentAddress }}</td>
+                <td>{{ b.CellNo }}</td>
+                <td>{{ b.AlternateCellNo }}</td>
+                <td>
+                  <a [routerLink]="['/employee/', b.id]">Edit</a>
+                </td>
+              </tr>
+        </tbody>
+    </table>
+</div>
 </div>

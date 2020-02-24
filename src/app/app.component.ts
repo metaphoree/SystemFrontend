@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
             icon: 'pi pi-fw pi-plus',
             items:
               [
-                { label: 'Client Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'client-mgmt' },
+                { label: 'Client Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'client-mgmt-home' },
                 { label: 'Filter', icon: 'pi pi-fw pi-filter' }
               ]
           },
