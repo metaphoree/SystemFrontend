@@ -16,10 +16,5 @@ export class ClientManagementHomeComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  show() {
-    const ref = this.dialogService.open(ClientManagementComponent, {
-      header: 'Please provide Data for client',
-      width: '70%'
-    });
-  }
+
 }

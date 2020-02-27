@@ -10,18 +10,20 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { FormsModule } from '@angular/forms';
-
-
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 @NgModule({
   declarations: [],
   imports: [
     CommonModule, FormsModule, SidebarModule, BrowserModule,
     BrowserAnimationsModule, PanelMenuModule,
-    InputTextModule, ButtonModule, InputTextareaModule, DynamicDialogModule
+    InputTextModule, ButtonModule, InputTextareaModule, DynamicDialogModule, TableModule, ToastModule, MessagesModule, MessageModule
   ],
   exports: [SidebarModule, BrowserModule, BrowserAnimationsModule, PanelMenuModule, InputTextModule, ButtonModule,
-    InputTextareaModule, DynamicDialogModule, FormsModule]
-
+    InputTextareaModule, DynamicDialogModule, FormsModule, TableModule, ToastModule, MessagesModule, MessageModule
+  ]
 })
 
 export class ViewComponentsModule { }

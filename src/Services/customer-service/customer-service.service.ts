@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import { BaseServiceService } from '../base-service/base-service.service';
 import { AddCustomerViewModel } from 'src/Modules/primary/domainModels/AddCustomerViewModel';
 import { ApiUrl } from '../RestUrls/api-url';
+import { GetDataListVM } from 'src/Modules/primary/domainModels/GetDataListVM';
+import { WrapperListCustomerVM } from 'src/Modules/primary/domainModels/WrapperListCustomerVM';
+import { ListCustomerVM } from 'src/Modules/primary/domainModels/ListCustomerVM';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +18,15 @@ export class CustomerServiceService {
   }
 
   public setCustomer(customerModel: AddCustomerViewModel) {
-    customerModel.FactoryId = 'c90a9cdf-ca6b-4f74-b9f6-d00cd37b1b30';
     return this.baseService.setNo(ApiUrl.SetCustomer, customerModel);
   }
-  public getAllCustomer(FactoryId: string) {
-    this.customer.FactoryId = 'c90a9cdf-ca6b-4f74-b9f6-d00cd37b1b30';
-    return this.baseService.set<AddCustomerViewModel[]>(ApiUrl.GetCustomer, this.customer);
+  public getAllCustomer(temp : GetDataListVM) {
+    return this.baseService.set<WrapperListCustomerVM>(ApiUrl.GetCustomer, temp);
   }
-
+  public updateCustomer(customerModel: ListCustomerVM) {
+    return this.baseService.set<WrapperListCustomerVM>(ApiUrl.UpdateCustomer + '/' + customerModel.CustomerId, customerModel);
+  }
+  public deleteCustomer(customerModel: ListCustomerVM) {
+    return this.baseService.set<WrapperListCustomerVM>(ApiUrl.DeleteCustomer, customerModel);
+  }
 }
