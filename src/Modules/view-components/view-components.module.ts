@@ -14,15 +14,18 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import {DropdownModule} from 'primeng/dropdown';
 @NgModule({
   declarations: [],
   imports: [
     CommonModule, FormsModule, SidebarModule, BrowserModule,
     BrowserAnimationsModule, PanelMenuModule,
-    InputTextModule, ButtonModule, InputTextareaModule, DynamicDialogModule, TableModule, ToastModule, MessagesModule, MessageModule
+    InputTextModule, ButtonModule, InputTextareaModule, DynamicDialogModule, 
+    TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule
   ],
   exports: [SidebarModule, BrowserModule, BrowserAnimationsModule, PanelMenuModule, InputTextModule, ButtonModule,
-    InputTextareaModule, DynamicDialogModule, FormsModule, TableModule, ToastModule, MessagesModule, MessageModule
+    InputTextareaModule, DynamicDialogModule, FormsModule,
+     TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule
   ]
 })
 

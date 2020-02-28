@@ -1,0 +1,62 @@
+<div class="ui-fluid" style="background-color: brown;">
+    <div class="ui-g-3"><button pButton type="button" label="Add" (click)="AddEvent($event)"></button></div>
+        <p-toast [style]="{marginTop: '80px'}"></p-toast>
+        <table>
+            <thead>
+                <tr>
+                    <th *ngFor="let column of columnList">
+                        {{column.header}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dataRow of dataList">
+                    <td *ngFor="let col of columnList">
+                        <span *ngIf="col.field == 'button'" style="width: auto;">
+                            <span (click)="ModifyEvent($event,col.header,dataRow)"><i class="pi pi-check"></i></span>
+                        </span>
+                        <span *ngIf="col.field != 'button'" style="width: 150px;">
+                            {{dataRow[col.field]}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- <p-table #tt [value]="listVM" [columns]="cols" [scrollable]="true" scrollHeight="600px" [paginator]="true"
+            [first]="first" [rows]="PageSize"
+            [globalFilterFields]="['Name','Email','PermanentAddress','PresentAddress','CellNo','AlternateCellNo']"
+            [style]="{width:'1000px'}" [loading]="loading" [showLoader]="true" [lazy]="true"
+            (onLazyLoad)="loadDataLazy($event)" [totalRecords]="totalRecords">
+
+            <ng-template pTemplate="caption">
+                List of Client
+                <input type="text" pInputText size="50" placeholder="Global Filter"
+                    (input)="tt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </ng-template>
+
+            <ng-template pTemplate="colgroup" let-columns>
+                <colgroup>
+                    <col *ngFor="let col of columns" style="width:150px">
+                </colgroup>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-values let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns">
+                        <span *ngIf="col.field == 'button'" style="width: auto;">
+                            <span (click)="Modify($event,col.header,values)"><i class="pi pi-check"></i></span>
+                        </span>
+                        <span *ngIf="col.field != 'button'" style="width: 150px;">
+                            {{values[col.field]}}
+                        </span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table> -->
+    </div>

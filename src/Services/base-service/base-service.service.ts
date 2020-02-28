@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { throwError } from 'rxjs';
 import { AppConstant } from '../../AppUtils/AppConstant/app-constant';
 import { catchError, retry } from 'rxjs/operators';
+import { SessionService } from '../session-service/session.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +15,7 @@ export class BaseServiceService {
       // 'Authorization': 'my-auth-token'
     })
   };
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private sessionService: SessionService) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -30,6 +31,7 @@ export class BaseServiceService {
   }
   // POST
   public set<T>(url, postBody: any) {
+    postBody["FactoryId"] = this.sessionService.getFactoryId();
     return this.http.post<T>(AppConstant.BASE_URL + url, postBody)
       .pipe(
         // retry(3), // retry a failed request up to 3 times
@@ -42,7 +44,7 @@ export class BaseServiceService {
   }
   // POST
   public setNo(url, postBody: any) {
-
+    postBody["FactoryId"] = this.sessionService.getFactoryId();
     return this.http.post(AppConstant.BASE_URL + url, postBody)
       .pipe(
         // retry(3), // retry a failed request up to 3 times
