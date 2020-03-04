@@ -1,6 +1,7 @@
 export class ItemVM {
     Name: string;
     CategoryId: string;
+    CategoryName: string;
     UnitPrice: number | null;
     FactoryId: string;
     Id: string;
@@ -11,5 +12,6 @@ export class ItemVM {
         this.Id = '';
         this.Name = '';
         this.UnitPrice = 0;
+        this.CategoryName = '';
     }
 }

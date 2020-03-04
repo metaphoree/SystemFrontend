@@ -7,6 +7,5 @@ export class WrapperListCustomerVM {
         CustomerList: ListCustomerVM[]) {
         this.TotalRecoreds = 0;
         this.CustomerList = [];
-
     }
 }

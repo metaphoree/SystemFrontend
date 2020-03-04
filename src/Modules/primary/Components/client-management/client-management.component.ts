@@ -24,10 +24,9 @@ export class ClientManagementComponent implements OnInit {
   totalRecords: number;
   cols: any[];
   loading: boolean;
-  first: number = 0;
   PageSize: number = 10;
   // frozenCols : any[];
-
+first : number = 0;
   constructor(private customerService: CustomerServiceService,
     private sessionService: SessionService,
     private dialogService: DialogService,
@@ -54,7 +53,10 @@ export class ClientManagementComponent implements OnInit {
 
     // ];
   }
+reset() : void {
 
+  this.first = 0;
+}
   AddCustomer(event): void {
     this.openModalAddCustomer();
   }
@@ -89,9 +91,6 @@ export class ClientManagementComponent implements OnInit {
     this.GetAllCustomer(this.PageSize, pageNumberTemp, event.globalFilter);
   }
 
-  reset() {
-    this.first = 0;
-  }
   Modify(event, operationType, entity): void {
     console.log(operationType);
     console.log(entity);
@@ -150,7 +149,9 @@ export class ClientManagementComponent implements OnInit {
         customer.FactoryId = this.sessionService.getFactoryId();
         this.customerService.setCustomer(customer).
           subscribe((data: any) => {
-            this.GetAllCustomer(10, 1, null);
+            this.listVM = data.CustomerList;
+        this.totalRecords = data.TotalRecoreds;
+            // this.GetAllCustomer(10, 1, null);
             // console.log(this.listVM);
           });
     

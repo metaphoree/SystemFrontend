@@ -3,7 +3,7 @@
         <label> Add New Item</label>
     </div>
     <div class="ui-g-6">
-        <p-dropdown [options]="categories" [(ngModel)]="selectedItem" [filter]="true" filterBy="Name"></p-dropdown>
+        <p-dropdown [options]="ddModel" [(ngModel)]="selectedItem" [filter]="true" filterBy="label"></p-dropdown>
     </div>
     <div class="ui-g-6">
         <input type="text" placeholder="Name" [(ngModel)]="viewModel.Name" pInputText />

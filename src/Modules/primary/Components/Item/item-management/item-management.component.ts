@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { ItemCategoryVM } from 'src/Modules/primary/domainModels/ItemCategory/ItemCategoryVM';
 import { AddItemComponent } from '../add-item/add-item.component';
-import { DialogService } from 'primeng/dynamicdialog/public_api';
+import { DialogService } from 'primeng/dynamicdialog';
 import { ItemVM } from 'src/Modules/primary/domainModels/item/ItemVM';
 import { BaseServiceService } from 'src/Services/base-service/base-service.service';
 import { WrapperListCustomerVM } from 'src/Modules/primary/domainModels/WrapperListCustomerVM';
 import { ApiUrl } from '../../../../../Services/RestUrls/api-url'
 import { WrapperItemListVM } from 'src/Modules/primary/domainModels/item/WrapperItemListVM';
 import { EditItemComponent } from '../edit-item/edit-item.component';
+import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
+import { GetDataListVM } from 'src/Modules/primary/domainModels/GetDataListVM';
+import { MessageService } from 'primeng/api';
+import { WrapperItemCategoryListVM } from 'src/Modules/primary/domainModels/ItemCategory/WrapperItemCategoryListVM';
 @Component({
   selector: 'app-item-management',
   templateUrl: './item-management.component.html',
@@ -20,31 +24,39 @@ export class ItemManagementComponent implements OnInit {
   categories: ItemCategoryVM[];
   selectedCategory: ItemCategoryVM;
   wrapperItemList: WrapperItemListVM;
-  itemList: ItemVM[];
-  TotalRecords: number;
-
+  getDataListVM : GetDataListVM;
   constructor(private dialogService: DialogService,
-    private baseService: BaseServiceService) {
+    private baseService: BaseServiceService,
+    private messageService : MessageService) {
     this.wrapperItemList = new WrapperItemListVM();
-    this.itemList = [];
-    this.TotalRecords = 0;
   }
 
   ngOnInit(): void {
     this.columnList = [
       { field: 'button', header: 'Edit' },
       { field: 'button', header: 'Delete' },
+      { field: 'CategoryName', header: 'Name' },
       { field: 'Name', header: 'Name' }
     ];
-    this.categories = [
-      { Name: 'Select City', Id: 'qqqqqqq' },
-      { Name: 'New York', Id: 'qqqqqqq1' },
-      { Name: 'Rome', Id: 'qqqqqqq12' },
-      { Name: 'London', Id: 'qqqqqqq13' }, ,
-      { Name: 'Istanbul', Id: 'qqqqqqq14' },
-      { Name: 'Paris', Id: 'qqqqqqq15' }
-    ];
+    this.categories = [];
+    this.getDataListVM = new GetDataListVM();
+    this.getDataListVM.PageNumber = 1;
+    this.getDataListVM.PageSize = 10;
+    this.DoDBOperation(DB_OPERATION.READ,this.getDataListVM);
+    this.GetInitialData();
   }
+
+  GetInitialData() : void{
+    this.getDataListVM = new GetDataListVM();
+    this.getDataListVM.PageNumber = 1;
+    this.getDataListVM.PageSize = 100;
+
+    this.baseService.set<WrapperItemCategoryListVM>(ApiUrl.GetItemCategory, this.getDataListVM)
+      .subscribe((data) => {
+        this.categories = data.ListOfData;
+        console.log(this.categories);
+      });
+  } 
   AddEvent(event): void {
     this.openModalAdd();
   }
@@ -56,39 +68,52 @@ export class ItemManagementComponent implements OnInit {
       this.openModalUpdate(entity);
     }
     if (operationType == 'Delete') {
-      this.Delete(entity);
+      this.DoDBOperation(DB_OPERATION.DELETE, entity);
     }
   }
-  Add(item: ItemVM): void {
-    this.baseService.set<WrapperItemListVM>(ApiUrl.SetItem, item)
+  DoDBOperation(operationType: DB_OPERATION, item: any): void {
+    let URL: string = '';
+    switch (operationType) {
+      case DB_OPERATION.CREATE:
+        URL = ApiUrl.SetItem;
+        break;
+      case DB_OPERATION.READ:
+        URL = ApiUrl.GetItem;
+        break;
+      case DB_OPERATION.UPDATE:
+        URL = ApiUrl.UpdateItem + '/' + item.Id;
+        break;
+      case DB_OPERATION.DELETE:
+        URL = ApiUrl.DeleteItem;
+        break;
+      default:
+        break;
+    }
+    this.baseService.set<WrapperItemListVM>(URL, item)
       .subscribe((data) => {
-        this.itemList = data.ListOfData;
-        this.TotalRecords = data.TotalRecoreds;
-        console.log(data);
-        console.log(this.itemList);
+        this.wrapperItemList.ListOfData = data.ListOfData;
+        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
       });
   }
-  Update(item: ItemVM): void {
-    this.baseService.set<WrapperItemListVM>(ApiUrl.UpdateItem, item)
-      .subscribe((data) => {
-        this.itemList = data.ListOfData;
-        this.TotalRecords = data.TotalRecoreds;
-        console.log(data);
-        console.log(this.itemList);
-      });
 
-  }
-  Delete(item: ItemVM): void {
-    this.baseService.set<WrapperItemListVM>(ApiUrl.DeleteItem, item)
-      .subscribe((data) => {
-        this.itemList = data.ListOfData;
-        this.TotalRecords = data.TotalRecoreds;
-        console.log(data);
-        console.log(this.itemList);
-      });
-
-  }
-
+  // Update(item: ItemVM): void {
+  //   this.baseService.set<WrapperItemListVM>(ApiUrl.UpdateItem, item)
+  //     .subscribe((data) => {
+  //       this.itemList = data.ListOfData;
+  //       this.TotalRecords = data.TotalRecoreds;
+  //       console.log(data);
+  //       console.log(this.itemList);
+  //     });
+  // }
+  // Delete(item: ItemVM): void {
+  //   this.baseService.set<WrapperItemListVM>(ApiUrl.DeleteItem, item)
+  //     .subscribe((data) => {
+  //       this.itemList = data.ListOfData;
+  //       this.TotalRecords = data.TotalRecoreds;
+  //       console.log(data);
+  //       console.log(this.itemList);
+  //     });
+  // }
   openModalAdd() {
     const ref = this.dialogService.open(AddItemComponent, {
       data: {
@@ -101,7 +126,7 @@ export class ItemManagementComponent implements OnInit {
     });
     ref.onClose.subscribe((item: ItemVM) => {
       if (item) {
-        this.Add(item);
+        this.DoDBOperation(DB_OPERATION.CREATE, item);
       }
     });
   }
@@ -118,7 +143,7 @@ export class ItemManagementComponent implements OnInit {
     });
     ref.onClose.subscribe((item: ItemVM) => {
       if (item) {
-        this.Update(item);
+        this.DoDBOperation(DB_OPERATION.UPDATE, item);
       }
     });
   }

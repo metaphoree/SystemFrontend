@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { ItemCategoryVM } from 'src/Modules/primary/domainModels/ItemCategory/ItemCategoryVM';
 
 @Component({
   selector: 'app-edit-item-category',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditItemCategoryComponent implements OnInit {
 
-  constructor() { }
+  viewModel : ItemCategoryVM;
+  constructor(private dynamicDialogRef : DynamicDialogRef,private  dynamicDialogConfig : DynamicDialogConfig) { 
+    this.viewModel =  this.dynamicDialogConfig.data.modelData;
+  }
 
   ngOnInit(): void {
+  }
+
+  Edit(event) : void{
+    this.dynamicDialogRef.close(this.viewModel);
   }
 
 }

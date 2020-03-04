@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.items = [
       {
-        label: 'File',
+        label: 'Factory Mgmt',
         icon: 'pi pi-pw pi-file',
         items:
           [{
@@ -21,6 +21,8 @@ export class AppComponent implements OnInit {
             items:
               [
                 { label: 'Client Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'client-mgmt-home' },
+                { label: 'Item Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'item-mgmt-home' },
+                { label: 'Item Category Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'item-category-mgmt-home' },
                 { label: 'Filter', icon: 'pi pi-fw pi-filter' }
               ]
           },

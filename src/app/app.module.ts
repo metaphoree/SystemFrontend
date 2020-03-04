@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ViewComponentsModule } from '../Modules/view-components/view-components.module';
 import { PrimaryModule } from 'src/Modules/primary/primary.module';
 import { HttpClientModule } from '@angular/common/http';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     ViewComponentsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

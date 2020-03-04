@@ -1,21 +1,21 @@
 export class ApiUrl {
-    static SetCustomer = 'api/Customers';
-    static GetCustomer = 'api/Customers/getAll';
-    static GetCustomerById = 'api/Customers/getById';
-    static UpdateCustomer = 'api/Customers/update';
-    static DeleteCustomer = 'api/Customers/delete';
+    static SetCustomer = 'api/Customer/add';
+    static GetCustomer = 'api/Customer/getAll';
+    static GetCustomerById = 'api/Customer/getById';
+    static UpdateCustomer = 'api/Customer/update';
+    static DeleteCustomer = 'api/Customer/delete';
 
-    static SetItem = 'api/Items';
-    static GetItem = 'api/Items/getAll';
-    static GetItemById = 'api/Items/getById';
-    static UpdateItem = 'api/Items/update';
-    static DeleteItem = 'api/Items/delete';
+    static SetItem = 'api/Item/add';
+    static GetItem = 'api/Item/getAll';
+    static GetItemById = 'api/Item/getById';
+    static UpdateItem = 'api/Item/update';
+    static DeleteItem = 'api/Item/delete';
 
-    static SetItemCategory = 'api/ItemCategories';
-    static GetItemCategory = 'api/ItemCategories/getAll';
-    static GetItemCategoryById = 'api/ItemCategories/getById';
-    static UpdateItemCategory = 'api/ItemCategories/update';
-    static DeleteItemCategory = 'api/ItemCategories/delete';
+    static SetItemCategory = 'api/ItemCategory/add';
+    static GetItemCategory = 'api/ItemCategory/getAll';
+    static GetItemCategoryById = 'api/ItemCategory/getById';
+    static UpdateItemCategory = 'api/ItemCategory/update';
+    static DeleteItemCategory = 'api/ItemCategory/delete';
 
 
 

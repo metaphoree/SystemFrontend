@@ -1,1 +1,27 @@
-<p>item-category-management works!</p>
+<div class="ui-fluid" >
+    <div class="ui-g-3"><button pButton type="button" label="Add" (click)="AddEvent($event)"></button></div>
+    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+    <div class="ui-g-12">
+    <table>
+        <thead>
+            <tr>
+                <th *ngFor="let column of columnList">
+                    {{column.header}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dataRow of wrapperItemList.ListOfData">
+                <td *ngFor="let col of columnList">
+                    <span *ngIf="col.field == 'button'" style="width: auto;">
+                        <span (click)="ModifyEvent($event,col.header,dataRow)"><i class="pi pi-check"></i></span>
+                    </span>
+                    <span *ngIf="col.field != 'button'" style="width: 150px;">
+                        {{dataRow[col.field]}}
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
