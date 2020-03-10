@@ -6,19 +6,20 @@ import { AppComponent } from './app.component';
 import { ViewComponentsModule } from '../Modules/view-components/view-components.module';
 import { PrimaryModule } from 'src/Modules/primary/primary.module';
 import { HttpClientModule } from '@angular/common/http';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    PrimaryModule,
-    AppRoutingModule,
     ViewComponentsModule,
+    PrimaryModule,
+    AppRoutingModule, 
     HttpClientModule
   ],
-  providers: [MessageService],
+  providers: [MessageService,ConfirmationService,DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

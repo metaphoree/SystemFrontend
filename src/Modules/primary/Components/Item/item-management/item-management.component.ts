@@ -10,31 +10,40 @@ import { WrapperItemListVM } from 'src/Modules/primary/domainModels/item/Wrapper
 import { EditItemComponent } from '../edit-item/edit-item.component';
 import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
 import { GetDataListVM } from 'src/Modules/primary/domainModels/GetDataListVM';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { WrapperItemCategoryListVM } from 'src/Modules/primary/domainModels/ItemCategory/WrapperItemCategoryListVM';
 @Component({
   selector: 'app-item-management',
   templateUrl: './item-management.component.html',
-  styleUrls: ['./item-management.component.css'],
-  providers: [DialogService]
+  styleUrls: ['./item-management.component.css']
 })
 export class ItemManagementComponent implements OnInit {
 
+    // VARIABLES
   columnList: any;
   categories: ItemCategoryVM[];
   selectedCategory: ItemCategoryVM;
   wrapperItemList: WrapperItemListVM;
   getDataListVM : GetDataListVM;
+  CurrentPageNo: number = 1;
+  CurrentPageSize: number = 10;
+
+
+  // CONSTRUCTOR
   constructor(private dialogService: DialogService,
     private baseService: BaseServiceService,
-    private messageService : MessageService) {
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) {
     this.wrapperItemList = new WrapperItemListVM();
+    this.getDataListVM = new GetDataListVM();
   }
 
+
+
+   // INIT
   ngOnInit(): void {
     this.columnList = [
-      { field: 'button', header: 'Edit' },
-      { field: 'button', header: 'Delete' },
+      { field: 'Action', header: 'Action' },
       { field: 'CategoryName', header: 'Name' },
       { field: 'Name', header: 'Name' }
     ];
@@ -46,6 +55,7 @@ export class ItemManagementComponent implements OnInit {
     this.GetInitialData();
   }
 
+  // GETTING LIST CATEGORIES FOR DROP DOWN
   GetInitialData() : void{
     this.getDataListVM = new GetDataListVM();
     this.getDataListVM.PageNumber = 1;
@@ -56,8 +66,11 @@ export class ItemManagementComponent implements OnInit {
         this.categories = data.ListOfData;
         console.log(this.categories);
       });
-  } 
-  AddEvent(event): void {
+  }
+  
+  
+   // EVENTS
+   AddEvent(event): void {
     this.openModalAdd();
   }
   ModifyEvent(event, operationType, entity): void {
@@ -68,9 +81,23 @@ export class ItemManagementComponent implements OnInit {
       this.openModalUpdate(entity);
     }
     if (operationType == 'Delete') {
-      this.DoDBOperation(DB_OPERATION.DELETE, entity);
+      this.confirm(entity);
     }
   }
+  SearchEvent(event): void {
+    this.CurrentPageNo = 1;
+    this.getDataListVM.PageNumber = this.CurrentPageNo;
+    this.getDataListVM.PageSize = this.CurrentPageSize;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+  }
+
+
+
+
+
+
+
+// DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
     let URL: string = '';
     switch (operationType) {
@@ -89,62 +116,96 @@ export class ItemManagementComponent implements OnInit {
       default:
         break;
     }
+    console.log(URL);
     this.baseService.set<WrapperItemListVM>(URL, item)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
-      });
+        this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+      }
+      );
   }
 
-  // Update(item: ItemVM): void {
-  //   this.baseService.set<WrapperItemListVM>(ApiUrl.UpdateItem, item)
-  //     .subscribe((data) => {
-  //       this.itemList = data.ListOfData;
-  //       this.TotalRecords = data.TotalRecoreds;
-  //       console.log(data);
-  //       console.log(this.itemList);
-  //     });
-  // }
-  // Delete(item: ItemVM): void {
-  //   this.baseService.set<WrapperItemListVM>(ApiUrl.DeleteItem, item)
-  //     .subscribe((data) => {
-  //       this.itemList = data.ListOfData;
-  //       this.TotalRecords = data.TotalRecoreds;
-  //       console.log(data);
-  //       console.log(this.itemList);
-  //     });
-  // }
+  // MODAL FUNCTION
   openModalAdd() {
     const ref = this.dialogService.open(AddItemComponent, {
       data: {
-        categoriesData: this.categories
+        categoriesData :  this.categories
       },
       header: 'Give necessary  info',
       width: '70%',
       height: '90%',
       footer: "This is footer"
     });
-    ref.onClose.subscribe((item: ItemVM) => {
+    ref.onClose.subscribe((item: any) => {
       if (item) {
         this.DoDBOperation(DB_OPERATION.CREATE, item);
       }
     });
   }
-  openModalUpdate(item: ItemVM) {
+  openModalUpdate(item: any) {
     const ref = this.dialogService.open(EditItemComponent, {
       data: {
-        categoriesData: this.categories,
-        modelData: item
+        modelData: item,
+        categoriesData :  this.categories
       },
       header: 'Give necessary  info',
       width: '70%',
       height: '90%',
       footer: "This is footer"
     });
-    ref.onClose.subscribe((item: ItemVM) => {
+    ref.onClose.subscribe((item: any) => {
       if (item) {
         this.DoDBOperation(DB_OPERATION.UPDATE, item);
       }
     });
+  }
+
+
+  // DELETION CONFIRMATION
+  confirm(entity: any) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        //Actual logic to perform a confirmation
+        this.DoDBOperation(DB_OPERATION.DELETE, entity);
+      },
+      reject: () => {
+
+
+      }
+    });
+  }
+
+  // PAGING FUNCTION
+  GoToPage(op: any): void {
+    switch (op) {
+      case '+':
+        this.CurrentPageNo++;
+        // this.getDataListVM = new GetDataListVM();
+        this.getDataListVM.PageNumber = this.CurrentPageNo;
+        this.getDataListVM.PageSize = this.CurrentPageSize;
+        this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+        break;
+      case '-':
+        if (this.CurrentPageNo > 1) {
+          this.CurrentPageNo--
+          // this.getDataListVM = new GetDataListVM();
+          this.getDataListVM.PageNumber = this.CurrentPageNo;
+          this.getDataListVM.PageSize = this.CurrentPageSize;
+          this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+        }
+        break;
+    }
+  }
+
+  // RESET DATA TABLE
+  Reset(): void {
+    this.CurrentPageNo = 1;
+    this.getDataListVM.GlobalFilter = "";
+    this.getDataListVM.PageNumber = this.CurrentPageNo;
+    this.getDataListVM.PageSize = this.CurrentPageSize;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+
   }
 }

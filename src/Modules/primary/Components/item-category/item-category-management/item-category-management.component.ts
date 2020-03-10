@@ -7,38 +7,43 @@ import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
 import { ApiUrl } from 'src/Services/RestUrls/api-url';
 import { AddItemCategoryComponent } from '../add-item-category/add-item-category.component';
 import { EditItemCategoryComponent } from '../edit-item-category/edit-item-category.component';
-import { MessageService } from 'primeng/api';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { GetDataListVM } from 'src/Modules/primary/domainModels/GetDataListVM';
+import { noop } from 'rxjs';
 
 @Component({
   selector: 'app-item-category-management',
   templateUrl: './item-category-management.component.html',
-  styleUrls: ['./item-category-management.component.css'],
-  providers : [DialogService]
+  styleUrls: ['./item-category-management.component.css']
 })
 export class ItemCategoryManagementComponent implements OnInit {
-
+  // VARIABLES
   columnList: any;
   wrapperItemList: WrapperItemCategoryListVM;
-  getDataListVM : GetDataListVM;
+  getDataListVM: GetDataListVM;
+  CurrentPageNo: number = 1;
+  CurrentPageSize: number = 10;
+
+  // CONSTRUCTOR
   constructor(private dialogService: DialogService,
     private baseService: BaseServiceService,
-    private messageService : MessageService) {
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) {
     this.wrapperItemList = new WrapperItemCategoryListVM();
+    this.getDataListVM = new GetDataListVM();
   }
-
+  // INIT
   ngOnInit(): void {
     this.columnList = [
-      { field: 'button', header: 'Edit' },
-      { field: 'button', header: 'Delete' },
+      { field: 'Action', header: 'Action' },
       { field: 'Name', header: 'Name' }
     ];
-
-    this.getDataListVM = new GetDataListVM();
     this.getDataListVM.PageNumber = 1;
     this.getDataListVM.PageSize = 10;
-    this.DoDBOperation(DB_OPERATION.READ,this.getDataListVM);
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
   }
+
+  // EVENTS
   AddEvent(event): void {
     this.openModalAdd();
   }
@@ -50,9 +55,23 @@ export class ItemCategoryManagementComponent implements OnInit {
       this.openModalUpdate(entity);
     }
     if (operationType == 'Delete') {
-      this.DoDBOperation(DB_OPERATION.DELETE,entity);
+      this.confirm(entity);
     }
   }
+  SearchEvent(event): void {
+    this.CurrentPageNo = 1;
+    this.getDataListVM.PageNumber = this.CurrentPageNo;
+    this.getDataListVM.PageSize = this.CurrentPageSize;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+  }
+
+
+
+
+
+
+
+// DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
     let URL: string = '';
     switch (operationType) {
@@ -76,12 +95,16 @@ export class ItemCategoryManagementComponent implements OnInit {
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
-      });
+        this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+      }
+      );
   }
+
+  // MODAL FUNCTION
   openModalAdd() {
     const ref = this.dialogService.open(AddItemCategoryComponent, {
       data: {
-       
+
       },
       header: 'Give necessary  info',
       width: '70%',
@@ -90,7 +113,7 @@ export class ItemCategoryManagementComponent implements OnInit {
     });
     ref.onClose.subscribe((item: any) => {
       if (item) {
-        this.DoDBOperation(DB_OPERATION.CREATE,item);
+        this.DoDBOperation(DB_OPERATION.CREATE, item);
       }
     });
   }
@@ -106,8 +129,66 @@ export class ItemCategoryManagementComponent implements OnInit {
     });
     ref.onClose.subscribe((item: any) => {
       if (item) {
-        this.DoDBOperation(DB_OPERATION.UPDATE,item);
+        this.DoDBOperation(DB_OPERATION.UPDATE, item);
       }
     });
   }
+
+
+  // DELETION CONFIRMATION
+  confirm(entity: any) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        //Actual logic to perform a confirmation
+        this.DoDBOperation(DB_OPERATION.DELETE, entity);
+      },
+      reject: () => {
+
+
+      }
+    });
+  }
+
+  // PAGING FUNCTION
+  GoToPage(op: any): void {
+    switch (op) {
+      case '+':
+        this.CurrentPageNo++;
+        // this.getDataListVM = new GetDataListVM();
+        this.getDataListVM.PageNumber = this.CurrentPageNo;
+        this.getDataListVM.PageSize = this.CurrentPageSize;
+        this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+        break;
+      case '-':
+        if (this.CurrentPageNo > 1) {
+          this.CurrentPageNo--
+          // this.getDataListVM = new GetDataListVM();
+          this.getDataListVM.PageNumber = this.CurrentPageNo;
+          this.getDataListVM.PageSize = this.CurrentPageSize;
+          this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+        }
+        break;
+    }
+  }
+
+  // RESET DATA TABLE
+  Reset(): void {
+    this.CurrentPageNo = 1;
+    this.getDataListVM.GlobalFilter = "";
+    this.getDataListVM.PageNumber = this.CurrentPageNo;
+    this.getDataListVM.PageSize = this.CurrentPageSize;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+
+  }
+
+
+
+
+
+
+
+
+
+  
 }

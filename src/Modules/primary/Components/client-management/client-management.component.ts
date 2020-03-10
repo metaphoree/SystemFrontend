@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { AddCustomerViewModel } from '../../domainModels/AddCustomerViewModel';
 import { CustomerServiceService } from 'src/Services/customer-service/customer-service.service';
 import { GetDataListVM } from '../../domainModels/GetDataListVM';
 import { SessionService } from 'src/Services/session-service/session.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EditCustomerComponent } from '../edit-customer/edit-customer.component';
-import { MessageService } from 'primeng/api';
-import { ListCustomerVM } from '../../domainModels/ListCustomerVM';
+import { MessageService, ConfirmationService } from 'primeng/api';
+import { CustomerVM } from '../../domainModels/CustomerVM';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
+import { WrapperListCustomerVM } from '../../domainModels/WrapperListCustomerVM';
+import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
+import { ApiUrl } from 'src/Services/RestUrls/api-url';
 
 @Component({
   selector: 'app-client-management',
@@ -17,150 +20,198 @@ import { AddCustomerComponent } from '../add-customer/add-customer.component';
 })
 export class ClientManagementComponent implements OnInit {
 
-  viewModel: AddCustomerViewModel;
-  listVM: Array<AddCustomerViewModel>;
+  // VARIABLES
+  columnList: any;
+  wrapperItemList: WrapperListCustomerVM;
+  getDataListVM: GetDataListVM;
+  CurrentPageNo: number = 1;
+  CurrentPageSize: number = 10;
 
-  // Table 
-  totalRecords: number;
-  cols: any[];
-  loading: boolean;
-  PageSize: number = 10;
-  // frozenCols : any[];
-first : number = 0;
-  constructor(private customerService: CustomerServiceService,
-    private sessionService: SessionService,
-    private dialogService: DialogService,
-    private messageService: MessageService) {
-    this.viewModel = new AddCustomerViewModel('', '', '', '', '', '', '');
-    //this.listVM = new Array<AddCustomerViewModel>(1000);
+
+
+  // CONSTRUCTOR
+  constructor(private dialogService: DialogService,
+    private baseService: BaseServiceService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService) {
+    this.wrapperItemList = new WrapperListCustomerVM();
+    this.getDataListVM = new GetDataListVM();
   }
 
+// INIT
   ngOnInit(): void {
-    this.GetAllCustomer(10, 1, null);
-    // Table 
-    this.cols = [
-      { field: 'button', header: 'Edit' },
-      { field: 'button', header: 'Delete' },
+    this.columnList = [
+      { field: 'Action', header: 'Action' },
       { field: 'Name', header: 'Name' },
       { field: 'Email', header: 'Email' },
-      { field: 'PermanentAddress', header: 'PermanentAddress' },
-      { field: 'PresentAddress', header: 'PresentAddress' },
+      { field: 'PermanentAddress', header: 'Permanent Address' },
+      { field: 'PresentAddress', header: 'Present Address' },
       { field: 'CellNo', header: 'CellNo' },
-      { field: 'AlternateCellNo', header: 'AlternateCellNo' }
+      { field: 'AlternateCellNo', header: 'Alternate CellNo' }
      
     ];
-    //   this.frozenCols = [
-
-    // ];
-  }
-reset() : void {
-
-  this.first = 0;
-}
-  AddCustomer(event): void {
-    this.openModalAddCustomer();
-  }
-  GetAllCustomer(pageSize: number, pageNumber: number, globalFilter: string): void {
-    // session management 
-    let temp: GetDataListVM = new GetDataListVM();
-    temp.FactoryId = this.sessionService.getFactoryId();
-    temp.PageNumber = pageNumber;
-    temp.PageSize = pageSize;
-    temp.GlobalFilter = globalFilter;
-    this.customerService.getAllCustomer(temp)
-      .subscribe((data) => {
-        this.listVM = data.CustomerList;
-        this.totalRecords = data.TotalRecoreds;
-        console.log(data);
-        console.log(this.listVM);
-        this.messageService.add({severity:'success', summary: 'Well Done', detail:'Operation Successfull'});
-      });
-  }
-  loadDataLazy(event): void {
-    console.log(event);
-    //event.first = First row offset
-    //event.rows = 5;
-    //event.sortField = Field name to sort in single sort mode
-    //event.sortOrder = Sort order as number, 1 for asc and -1 for dec in single sort mode
-    //multiSortMeta: An array of SortMeta objects used in multiple columns sorting. Each SortMeta has field and order properties.
-    //filters: Filters object having field as key and filter value, filter matchMode as value
-    //globalFilter: Value of the global filter if available
-    //this.cars = do a request to a remote datasource using a service and return the cars that match the lazy load criteria
-    //this.listVM = 
-    let pageNumberTemp = event.first == 0 ? 1 : 1 + (event.first / this.PageSize);
-    this.GetAllCustomer(this.PageSize, pageNumberTemp, event.globalFilter);
+    this.getDataListVM.PageNumber = 1;
+    this.getDataListVM.PageSize = 10;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
   }
 
-  Modify(event, operationType, entity): void {
+  // EVENTS
+  AddEvent(event): void {
+    this.openModalAdd();
+  }
+  ModifyEvent(event, operationType, entity): void {
     console.log(operationType);
     console.log(entity);
     console.log(event);
     if (operationType == 'Edit') {
-      this.openModal(entity);
-      // messageService.
+      this.openModalUpdate(entity);
     }
     if (operationType == 'Delete') {
-      this.customerService.deleteCustomer(entity)
-        .subscribe((data) => {
-          this.listVM = data.CustomerList;
-          this.totalRecords = data.TotalRecoreds;
-          console.log(data);
-          console.log(this.listVM);
-
-        });
+      this.confirm(entity);
     }
   }
-  openModal(customerObj: ListCustomerVM) {
-    
-    const ref = this.dialogService.open(EditCustomerComponent, {
+  SearchEvent(event): void {
+    this.CurrentPageNo = 1;
+    this.getDataListVM.PageNumber = this.CurrentPageNo;
+    this.getDataListVM.PageSize = this.CurrentPageSize;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+  }
+
+
+
+
+
+
+
+// DB OPERATION FUNCTION
+  DoDBOperation(operationType: DB_OPERATION, item: any): void {
+    let URL: string = '';
+    switch (operationType) {
+      case DB_OPERATION.CREATE:
+        URL = ApiUrl.SetCustomer;
+        break;
+      case DB_OPERATION.READ:
+        URL = ApiUrl.GetCustomer;
+        break;
+      case DB_OPERATION.UPDATE:
+        URL = ApiUrl.UpdateCustomer + '/' + item.CustomerId;
+        break;
+      case DB_OPERATION.DELETE:
+        URL = ApiUrl.DeleteCustomer;
+        break;
+      default:
+        break;
+    }
+    console.log(URL);
+    this.baseService.set<WrapperListCustomerVM>(URL, item)
+      .subscribe((data) => {
+        this.wrapperItemList.ListOfData = data.ListOfData;
+        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+        console.log(this.wrapperItemList);
+        this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+      }
+      );
+  }
+
+  // MODAL FUNCTION
+  openModalAdd() {
+    const ref = this.dialogService.open(AddCustomerComponent, {
       data: {
-        modelData: customerObj
+
       },
-      header: 'Give necessary client info',
+      header: 'Give necessary  info',
       width: '70%',
       height: '90%',
       footer: "This is footer"
     });
-    ref.onClose.subscribe((customer: ListCustomerVM) => {
-      if (customer) {
-        this.customerService.updateCustomer(customer)
-          .subscribe((data) => {
-            this.listVM = data.CustomerList;
-            this.totalRecords = data.TotalRecoreds;
-            console.log(data);
-            console.log(this.listVM);
-          });
-        //console.log(customer);
-        // this.messageService.add({severity:'info', summary: 'Car Selected', detail:'Vin:' + car.vin});
+    ref.onClose.subscribe((item: any) => {
+      if (item) {
+        this.DoDBOperation(DB_OPERATION.CREATE, item);
       }
     });
   }
-  openModalAddCustomer() {
-    
-    const ref1 = this.dialogService.open(AddCustomerComponent, {
-    
-      header: 'Give necessary client info',
+  openModalUpdate(item: any) {
+    const ref = this.dialogService.open(EditCustomerComponent, {
+      data: {
+        modelData: item
+      },
+      header: 'Give necessary  info',
       width: '70%',
       height: '90%',
       footer: "This is footer"
     });
-    ref1.onClose.subscribe((customer: AddCustomerViewModel) => {
-      if (customer) {
-        customer.FactoryId = this.sessionService.getFactoryId();
-        this.customerService.setCustomer(customer).
-          subscribe((data: any) => {
-            this.listVM = data.CustomerList;
-        this.totalRecords = data.TotalRecoreds;
-            // this.GetAllCustomer(10, 1, null);
-            // console.log(this.listVM);
-          });
-    
-        //console.log(customer);
-      
+    ref.onClose.subscribe((item: any) => {
+      if (item) {
+        this.DoDBOperation(DB_OPERATION.UPDATE, item);
       }
     });
   }
 
+
+  // DELETION CONFIRMATION
+  confirm(entity: any) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        //Actual logic to perform a confirmation
+        this.DoDBOperation(DB_OPERATION.DELETE, entity);
+      },
+      reject: () => {
+
+
+      }
+    });
+  }
+
+  // PAGING FUNCTION
+  GoToPage(op: any): void {
+    switch (op) {
+      case '+':
+        this.CurrentPageNo++;
+        // this.getDataListVM = new GetDataListVM();
+        this.getDataListVM.PageNumber = this.CurrentPageNo;
+        this.getDataListVM.PageSize = this.CurrentPageSize;
+        this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+        break;
+      case '-':
+        if (this.CurrentPageNo > 1) {
+          this.CurrentPageNo--
+          // this.getDataListVM = new GetDataListVM();
+          this.getDataListVM.PageNumber = this.CurrentPageNo;
+          this.getDataListVM.PageSize = this.CurrentPageSize;
+          this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+        }
+        break;
+    }
+  }
+
+  // RESET DATA TABLE
+  Reset(): void {
+    this.CurrentPageNo = 1;
+    this.getDataListVM.GlobalFilter = "";
+    this.getDataListVM.PageNumber = this.CurrentPageNo;
+    this.getDataListVM.PageSize = this.CurrentPageSize;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
 
 }

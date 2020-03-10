@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { AddCustomerViewModel } from '../../domainModels/AddCustomerViewModel';
+import { CustomerVM } from '../../domainModels/CustomerVM';
+
 
 @Component({
   selector: 'app-add-customer',
@@ -9,9 +10,9 @@ import { AddCustomerViewModel } from '../../domainModels/AddCustomerViewModel';
 })
 export class AddCustomerComponent implements OnInit {
 
-  viewModel : AddCustomerViewModel;
+  viewModel : CustomerVM;
   constructor(private dynamicDialogRef : DynamicDialogRef,private  dynamicDialogConfig : DynamicDialogConfig) { 
-    this.viewModel = new AddCustomerViewModel('','','','','','','');
+    this.viewModel = new CustomerVM();
   }
   ngOnInit(): void {
   }

@@ -1,14 +1,14 @@
-<div class="ui-fluid">
-    <div class="ui-g-12">
+<div>
+    <div class="col-lg-12">
         <label> Add New Item</label>
     </div>
-    <div class="ui-g-6">
+    <div class="col-lg-6">
         <p-dropdown [options]="ddModel" [(ngModel)]="selectedItem" [filter]="true" filterBy="label"></p-dropdown>
     </div>
-    <div class="ui-g-6">
+    <div class="col-lg-6">
         <input type="text" placeholder="Name" [(ngModel)]="viewModel.Name" pInputText />
     </div>
-    <div class="ui-g-6">
+    <div class="col-lg-6">
         <textarea pInputTextarea placeholder="Unit Price" [(ngModel)]="viewModel.UnitPrice"></textarea>
     </div>
     <div>

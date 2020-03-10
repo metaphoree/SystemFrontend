@@ -4,6 +4,7 @@ import { throwError } from 'rxjs';
 import { AppConstant } from '../../AppUtils/AppConstant/app-constant';
 import { catchError, retry } from 'rxjs/operators';
 import { SessionService } from '../session-service/session.service';
+import { MessageService } from 'primeng/api';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,7 @@ export class BaseServiceService {
       // 'Authorization': 'my-auth-token'
     })
   };
-  constructor(private http: HttpClient, private sessionService: SessionService) {
+  constructor(private http: HttpClient, private sessionService: SessionService, private messageService : MessageService) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -35,7 +36,7 @@ export class BaseServiceService {
     return this.http.post<T>(AppConstant.BASE_URL + url, postBody)
       .pipe(
         // retry(3), // retry a failed request up to 3 times
-        // catchError(this.handleError)
+         catchError(this.handleError)
       );
   }
   // GET
@@ -48,7 +49,7 @@ export class BaseServiceService {
     return this.http.post(AppConstant.BASE_URL + url, postBody)
       .pipe(
         // retry(3), // retry a failed request up to 3 times
-        // catchError(this.handleError)
+         catchError(this.handleError)
       );
   }
   formUrlParam(url, data) {
@@ -65,6 +66,7 @@ export class BaseServiceService {
     return url + queryString;
   }
   private handleError(error: HttpErrorResponse) {
+    this.messageService.add({severity:'success', summary: 'Error', detail:'Something Wrong'});
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);
