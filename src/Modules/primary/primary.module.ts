@@ -15,10 +15,19 @@ import { EditItemComponent } from './Components/Item/edit-item/edit-item.compone
 import { ItemCategoryManagementComponent } from './Components/item-category/item-category-management/item-category-management.component';
 import { AddItemCategoryComponent } from './Components/item-category/add-item-category/add-item-category.component';
 import { EditItemCategoryComponent } from './Components/item-category/edit-item-category/edit-item-category.component';
+import { AddStaffComponent } from './Components/staff/add-staff/add-staff.component';
+import { EditStaffComponent } from './Components/staff/edit-staff/edit-staff.component';
+import { StaffMgmtComponent } from './Components/staff/staff-mgmt/staff-mgmt.component';
+import { AddStockComponent } from './Components/stock/add-stock/add-stock.component';
+import { EditStockComponent } from './Components/stock/edit-stock/edit-stock.component';
+import { StockMgmtComponent } from './Components/stock/stock-mgmt/stock-mgmt.component';
+import { SupplierMgmtComponent } from './Components/supplier/supplier-mgmt/supplier-mgmt.component';
+import { AddSupplierComponent } from './Components/supplier/add-supplier/add-supplier.component';
+import { EditSupplierComponent } from './Components/supplier/edit-supplier/edit-supplier.component';
 
 
 @NgModule({
-  declarations: [SalesComponent, ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent, ItemManagementComponent, AddItemComponent, EditItemComponent, ItemCategoryManagementComponent, AddItemCategoryComponent, EditItemCategoryComponent],
+  declarations: [SalesComponent, ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent, ItemManagementComponent, AddItemComponent, EditItemComponent, ItemCategoryManagementComponent, AddItemCategoryComponent, EditItemCategoryComponent, AddStaffComponent, EditStaffComponent, StaffMgmtComponent, AddStockComponent, EditStockComponent, StockMgmtComponent, SupplierMgmtComponent, AddSupplierComponent, EditSupplierComponent],
   imports: [
     CommonModule,
     BrowserModule,

@@ -1,31 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerServiceService } from 'src/Services/customer-service/customer-service.service';
-import { GetDataListVM } from '../../domainModels/GetDataListVM';
-import { SessionService } from 'src/Services/session-service/session.service';
+import { GetDataListVM } from 'src/Modules/primary/domainModels/GetDataListVM';
 import { DialogService } from 'primeng/dynamicdialog';
-import { EditCustomerComponent } from '../edit-customer/edit-customer.component';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { CustomerVM } from '../../domainModels/CustomerVM';
-import { AddCustomerComponent } from '../add-customer/add-customer.component';
-import { WrapperListCustomerVM } from '../../domainModels/WrapperListCustomerVM';
 import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
 import { ApiUrl } from 'src/Services/RestUrls/api-url';
+import { EditStockComponent } from '../edit-stock/edit-stock.component';
+import { AddStockComponent } from '../add-stock/add-stock.component';
+import { WrapperStockListVM } from 'src/Modules/primary/domainModels/stock/WrapperStockListVM';
+import { ItemStatusVM } from 'src/Modules/primary/domainModels/item-status/ItemStatusVM';
+import { ItemVM } from 'src/Modules/primary/domainModels/item/ItemVM';
+import { WrapperItemListVM } from 'src/Modules/primary/domainModels/item/WrapperItemListVM';
+import { WrapperItemStatusListVM } from 'src/Modules/primary/domainModels/item-status/WrapperItemStatusListVM';
 
 @Component({
-  selector: 'app-client-management',
-  templateUrl: './client-management.component.html',
-  styleUrls: ['./client-management.component.css'],
-  providers: [DialogService, MessageService]
+  selector: 'app-stock-mgmt',
+  templateUrl: './stock-mgmt.component.html',
+  styleUrls: ['./stock-mgmt.component.css']
 })
-export class ClientManagementComponent implements OnInit {
+export class StockMgmtComponent implements OnInit {
 
   // VARIABLES
   columnList: any;
-  wrapperItemList: WrapperListCustomerVM;
+  wrapperItemList: WrapperStockListVM;
   getDataListVM: GetDataListVM;
   CurrentPageNo: number = 1;
   CurrentPageSize: number = 10;
+
+  // initial data holder
+  itemStatusList: ItemStatusVM[];
+  itemList: ItemVM[];
 
 
 
@@ -34,26 +38,45 @@ export class ClientManagementComponent implements OnInit {
     private baseService: BaseServiceService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) {
-    this.wrapperItemList = new WrapperListCustomerVM();
+    this.wrapperItemList = new WrapperStockListVM();
     this.getDataListVM = new GetDataListVM();
   }
-
-// INIT
+  // INIT
   ngOnInit(): void {
+    this.getInitialData();
     this.columnList = [
-      { field: 'Action', header: 'Action' },
-      { field: 'Name', header: 'Name' },
-      { field: 'Email', header: 'Email' },
-      { field: 'PermanentAddress', header: 'Permanent Address' },
-      { field: 'PresentAddress', header: 'Present Address' },
-      { field: 'CellNo', header: 'CellNo' },
-      { field: 'AlternateCellNo', header: 'Alternate CellNo' }
-     
+      { field: 'Action', header: 'Action',fieldType : 'icon' },
+      { field: 'ItemName', header: 'Item Name',fieldType : 'string' },
+      { field: 'ItemStatus', header: 'Item Status' ,fieldType : 'string'},
+      { field: 'Quantity', header: 'Quantity',fieldType : 'number' },
+      { field: 'ExpiryDate', header: 'Expiry Date',fieldType : 'date' }
     ];
     this.getDataListVM.PageNumber = 1;
     this.getDataListVM.PageSize = 10;
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
   }
+
+  getInitialData(): void {
+    let temp = new GetDataListVM();
+    this.getDataListVM.PageNumber = 1;
+    this.getDataListVM.PageSize = 1000;
+    this.baseService.set<WrapperItemListVM>(ApiUrl.GetItem, this.getDataListVM)
+      .subscribe((data) => {
+        this.itemList = data.ListOfData;
+      }
+      );
+
+    this.getDataListVM.PageNumber = 1;
+    this.getDataListVM.PageSize = 1000;
+    this.baseService.set<WrapperItemStatusListVM>(ApiUrl.GetItemStatus, this.getDataListVM)
+      .subscribe((data) => {
+        this.itemStatusList = data.ListOfData;
+      }
+      );
+  }
+
+
+
 
   // EVENTS
   AddEvent(event): void {
@@ -77,37 +100,30 @@ export class ClientManagementComponent implements OnInit {
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
   }
 
-
-
-
-
-
-
-// DB OPERATION FUNCTION
+  // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
     let URL: string = '';
     switch (operationType) {
       case DB_OPERATION.CREATE:
-        URL = ApiUrl.SetCustomer;
+        URL = ApiUrl.SetStock;
         break;
       case DB_OPERATION.READ:
-        URL = ApiUrl.GetCustomer;
+        URL = ApiUrl.GetStock;
         break;
       case DB_OPERATION.UPDATE:
-        URL = ApiUrl.UpdateCustomer + '/' + item.CustomerId;
+        URL = ApiUrl.UpdateStock + '/' + item.Id;
         break;
       case DB_OPERATION.DELETE:
-        URL = ApiUrl.DeleteCustomer;
+        URL = ApiUrl.DeleteStock;
         break;
       default:
         break;
     }
     console.log(URL);
-    this.baseService.set<WrapperListCustomerVM>(URL, item)
+    this.baseService.set<WrapperStockListVM>(URL, item)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
-        console.log(this.wrapperItemList);
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
       }
       );
@@ -115,32 +131,34 @@ export class ClientManagementComponent implements OnInit {
 
   // MODAL FUNCTION
   openModalAdd() {
-    const ref = this.dialogService.open(AddCustomerComponent, {
+    const ref = this.dialogService.open(AddStockComponent, {
       data: {
-
+        ItemStatusList: this.itemStatusList,
+        ItemList: this.itemList
       },
       header: 'Give necessary  info',
       width: '70%',
       height: '90%',
-      footer: "This is footer",
-      dismissableMask : true
+      footer: "This is footer"
     });
     ref.onClose.subscribe((item: any) => {
       if (item) {
+        console.log("Stock Item to be added");
+        console.log(item);
         this.DoDBOperation(DB_OPERATION.CREATE, item);
+
       }
     });
   }
   openModalUpdate(item: any) {
-    const ref = this.dialogService.open(EditCustomerComponent, {
+    const ref = this.dialogService.open(EditStockComponent, {
       data: {
         modelData: item
       },
       header: 'Give necessary  info',
       width: '70%',
       height: '90%',
-      footer: "This is footer",
-      dismissableMask : true
+      footer: "This is footer"
     });
     ref.onClose.subscribe((item: any) => {
       if (item) {
@@ -213,7 +231,6 @@ export class ClientManagementComponent implements OnInit {
 
 
 
-  
 
 
 }

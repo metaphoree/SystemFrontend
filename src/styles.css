@@ -17,18 +17,35 @@ text-align: center;
     text-align: center;
     }
 
-    .space-around{
-padding:3px;
-
+.space-around{
+    padding:3px;
     }
-    .paging{text-align: center;}
-    .paging-icons{
-
-       
-        font-size: 40px;
+.paging{
+    text-align: center;
+}
+.paging-icons{
+    font-size: 40px;
     }
-    .page-no{
-border:4px solid black;
-font-size: 30px;
-
+.page-no{
+    border:2px solid black;
+    font-size: 30px;
     }
+
+
+
+    /* button design */
+.btn-label {
+    position: relative;
+    left: -12px;
+    display: inline-block;
+    padding: 6px 12px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px 0 0 3px;
+}
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.btn { 
+    margin-bottom:10px; 
+}

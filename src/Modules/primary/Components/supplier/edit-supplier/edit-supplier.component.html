@@ -1,0 +1,23 @@
+<div>
+    <div class="col-lg-6">
+        <input type="text" placeholder="Name" [(ngModel)]="model.Name" pInputText />
+    </div>
+    <div class="col-lg-6">
+        <input type="text" placeholder="Email Address" [(ngModel)]="model.Email" pInputText />
+    </div>
+    <div class="col-lg-6">
+        <textarea pInputTextarea placeholder="Permanent Address" [(ngModel)]="model.PermanentAddress"></textarea>
+    </div>
+    <div class="col-lg-6">
+        <textarea pInputTextarea placeholder="Present Address" [(ngModel)]="model.PresentAddress"></textarea>
+    </div>
+    <div class="col-lg-6">
+        <input type="text" placeholder="Cell No" pInputText [(ngModel)]="model.CellNo" />
+    </div>
+    <div class="col-lg-6">
+        <input type="text" placeholder="Alternate Cell No" pInputText [(ngModel)]="model.AlternateCellNo" />
+    </div>
+    <div>
+        <button  pButton type="button" label="Edit Client" (click)="EditCustomer($event)"></button>
+    </div>
+</div>

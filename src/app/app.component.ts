@@ -23,6 +23,9 @@ export class AppComponent implements OnInit {
                 { label: 'Client Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'client-mgmt-home' },
                 { label: 'Item Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'item-mgmt-home' },
                 { label: 'Item Category Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'item-category-mgmt-home' },
+                { label: 'Staff  Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'staff-mgmt-home' },
+                { label: 'Supplier Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'supplier-mgmt-home' },
+                { label: 'Stock Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'stock-mgmt-home' },
                 { label: 'Filter', icon: 'pi pi-fw pi-filter' }
               ]
           },

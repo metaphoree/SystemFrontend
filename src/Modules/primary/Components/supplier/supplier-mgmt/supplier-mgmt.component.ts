@@ -1,44 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerServiceService } from 'src/Services/customer-service/customer-service.service';
-import { GetDataListVM } from '../../domainModels/GetDataListVM';
-import { SessionService } from 'src/Services/session-service/session.service';
+import { GetDataListVM } from 'src/Modules/primary/domainModels/GetDataListVM';
 import { DialogService } from 'primeng/dynamicdialog';
-import { EditCustomerComponent } from '../edit-customer/edit-customer.component';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { CustomerVM } from '../../domainModels/CustomerVM';
-import { AddCustomerComponent } from '../add-customer/add-customer.component';
-import { WrapperListCustomerVM } from '../../domainModels/WrapperListCustomerVM';
 import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { MessageService, ConfirmationService } from 'primeng/api';
 import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
 import { ApiUrl } from 'src/Services/RestUrls/api-url';
+import { AddSupplierComponent } from '../add-supplier/add-supplier.component';
+import { EditSupplierComponent } from '../edit-supplier/edit-supplier.component';
+import { WrapperSupplierListVM } from 'src/Modules/primary/domainModels/supplier/WrapperSupplierListVM';
 
 @Component({
-  selector: 'app-client-management',
-  templateUrl: './client-management.component.html',
-  styleUrls: ['./client-management.component.css'],
-  providers: [DialogService, MessageService]
+  selector: 'app-supplier-mgmt',
+  templateUrl: './supplier-mgmt.component.html',
+  styleUrls: ['./supplier-mgmt.component.css']
 })
-export class ClientManagementComponent implements OnInit {
+export class SupplierMgmtComponent implements OnInit {
+
+
 
   // VARIABLES
   columnList: any;
-  wrapperItemList: WrapperListCustomerVM;
+  wrapperItemList: WrapperSupplierListVM;
   getDataListVM: GetDataListVM;
   CurrentPageNo: number = 1;
   CurrentPageSize: number = 10;
-
-
 
   // CONSTRUCTOR
   constructor(private dialogService: DialogService,
     private baseService: BaseServiceService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService) {
-    this.wrapperItemList = new WrapperListCustomerVM();
+    this.wrapperItemList = new WrapperSupplierListVM();
     this.getDataListVM = new GetDataListVM();
   }
-
-// INIT
+  // INIT
   ngOnInit(): void {
     this.columnList = [
       { field: 'Action', header: 'Action' },
@@ -48,7 +43,7 @@ export class ClientManagementComponent implements OnInit {
       { field: 'PresentAddress', header: 'Present Address' },
       { field: 'CellNo', header: 'CellNo' },
       { field: 'AlternateCellNo', header: 'Alternate CellNo' }
-     
+
     ];
     this.getDataListVM.PageNumber = 1;
     this.getDataListVM.PageSize = 10;
@@ -77,37 +72,30 @@ export class ClientManagementComponent implements OnInit {
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
   }
 
-
-
-
-
-
-
-// DB OPERATION FUNCTION
+  // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
     let URL: string = '';
     switch (operationType) {
       case DB_OPERATION.CREATE:
-        URL = ApiUrl.SetCustomer;
+        URL = ApiUrl.SetSupplier;
         break;
       case DB_OPERATION.READ:
-        URL = ApiUrl.GetCustomer;
+        URL = ApiUrl.GetSupplier;
         break;
       case DB_OPERATION.UPDATE:
-        URL = ApiUrl.UpdateCustomer + '/' + item.CustomerId;
+        URL = ApiUrl.UpdateSupplier + '/' + item.Id;
         break;
       case DB_OPERATION.DELETE:
-        URL = ApiUrl.DeleteCustomer;
+        URL = ApiUrl.DeleteSupplier;
         break;
       default:
         break;
     }
     console.log(URL);
-    this.baseService.set<WrapperListCustomerVM>(URL, item)
+    this.baseService.set<WrapperSupplierListVM>(URL, item)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
-        console.log(this.wrapperItemList);
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
       }
       );
@@ -115,15 +103,14 @@ export class ClientManagementComponent implements OnInit {
 
   // MODAL FUNCTION
   openModalAdd() {
-    const ref = this.dialogService.open(AddCustomerComponent, {
+    const ref = this.dialogService.open(AddSupplierComponent, {
       data: {
 
       },
       header: 'Give necessary  info',
       width: '70%',
       height: '90%',
-      footer: "This is footer",
-      dismissableMask : true
+      footer: "This is footer"
     });
     ref.onClose.subscribe((item: any) => {
       if (item) {
@@ -132,15 +119,14 @@ export class ClientManagementComponent implements OnInit {
     });
   }
   openModalUpdate(item: any) {
-    const ref = this.dialogService.open(EditCustomerComponent, {
+    const ref = this.dialogService.open(EditSupplierComponent, {
       data: {
         modelData: item
       },
       header: 'Give necessary  info',
       width: '70%',
       height: '90%',
-      footer: "This is footer",
-      dismissableMask : true
+      footer: "This is footer"
     });
     ref.onClose.subscribe((item: any) => {
       if (item) {
@@ -213,7 +199,8 @@ export class ClientManagementComponent implements OnInit {
 
 
 
-  
+
+
 
 
 }
