@@ -23,26 +23,13 @@ export class ApiUrl {
     static UpdateStock = 'api/stock/update';
     static DeleteStock = 'api/stock/delete';
 
-
-
     static SetItem = 'api/Item/add';
     static GetItem = 'api/Item/getAll';
     static GetItemById = 'api/Item/getById';
     static UpdateItem = 'api/Item/update';
     static DeleteItem = 'api/Item/delete';
 
-
-
     static GetItemStatus = 'api/Item/status/getAll';
-
-
-
-
-
-
-
-
-
 
     static SetItemCategory = 'api/ItemCategory/add';
     static GetItemCategory = 'api/ItemCategory/getAll';
@@ -50,7 +37,41 @@ export class ApiUrl {
     static UpdateItemCategory = 'api/ItemCategory/update';
     static DeleteItemCategory = 'api/ItemCategory/delete';
 
+    static SetExpenseType = 'api/ExpenseType/add';
+    static GetExpenseType = 'api/ExpenseType/getAll';
+    static GetExpenseTypeById = 'api/ExpenseType/getById';
+    static UpdateExpenseType = 'api/ExpenseType/update';
+    static DeleteExpenseType = 'api/ExpenseType/delete';
 
+    static SetIncomeType = 'api/IncomeType/add';
+    static GetIncomeType = 'api/IncomeType/getAll';
+    static GetIncomeTypeById = 'api/IncomeType/getById';
+    static UpdateIncomeType = 'api/IncomeType/update';
+    static DeleteIncomeType = 'api/IncomeType/delete';
+
+    static SetInvoiceType = 'api/InvoiceType/add';
+    static GetInvoiceType = 'api/InvoiceType/getAll';
+    static GetInvoiceTypeById = 'api/InvoiceType/getById';
+    static UpdateInvoiceType = 'api/InvoiceType/update';
+    static DeleteInvoiceType = 'api/InvoiceType/delete';
+
+    static SetEquipment = 'api/Equipment/add';
+    static GetEquipment = 'api/Equipment/getAll';
+    static GetEquipmentById = 'api/Equipment/getById';
+    static UpdateEquipment = 'api/Equipment/update';
+    static DeleteEquipment = 'api/Equipment/delete';
+
+    static SetEquipmentCategory = 'api/EquipmentCategory/add';
+    static GetEquipmentCategory = 'api/EquipmentCategory/getAll';
+    static GetEquipmentCategoryById = 'api/EquipmentCategory/getById';
+    static UpdateEquipmentCategory = 'api/EquipmentCategory/update';
+    static DeleteEquipmentCategory = 'api/EquipmentCategory/delete';
+
+    static SetDepartment = 'api/Department/add';
+    static GetDepartment = 'api/Department/getAll';
+    static GetDepartmentById = 'api/Department/getById';
+    static UpdateDepartment = 'api/Department/update';
+    static DeleteDepartment = 'api/Department/delete';
 
 }
 

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { PrimaryRoutingModule } from './primary-routing.module';
-import { SalesComponent } from './Components/sales/sales.component';
+
 import { ClientManagementComponent } from './Components/client-management/client-management.component';
 import { ViewComponentsModule } from '../view-components/view-components.module';
 import { ClientManagementHomeComponent } from './Components/client-management-home/client-management-home.component';
@@ -24,10 +24,43 @@ import { StockMgmtComponent } from './Components/stock/stock-mgmt/stock-mgmt.com
 import { SupplierMgmtComponent } from './Components/supplier/supplier-mgmt/supplier-mgmt.component';
 import { AddSupplierComponent } from './Components/supplier/add-supplier/add-supplier.component';
 import { EditSupplierComponent } from './Components/supplier/edit-supplier/edit-supplier.component';
+import { PurchaseHomeComponent } from './Components/purchase/purchase-home/purchase-home.component';
+import { PurchaseProductComponent } from './Components/purchase/purchase-product/purchase-product.component';
+import { SalesHomeComponent } from './Components/sales/sales-home/sales-home.component';
+import { SaleProductComponent } from './Components/sales/sale-product/sale-product.component';
+
+import { DepartmentMgmtComponent } from './Components/department/department-mgmt/department-mgmt.component';
+import { EquipmentMgmtComponent } from './Components/equipment/equipment-mgmt/equipment-mgmt.component';
+import { EquipmentCategoryMgmtComponent } from './Components/equipment-category/equipment-category-mgmt/equipment-category-mgmt.component';
+import { IncomeTypeMgmtComponent } from './Components/income-type/income-type-mgmt/income-type-mgmt.component';
+
+import { InvoiceTypeMgmtComponent } from './Components/invoice-type/invoice-type-mgmt/invoice-type-mgmt.component';
+import { ExpenseTypeMgmtComponent } from './Components/expense-type/expense-type-mgmt/expense-type-mgmt.component';
+
+import { AddExpenseTypeComponent } from './Components/expense-type/add-expense-type/add-expense-type.component';
+import { EditExpenseTypeComponent } from './Components/expense-type/edit-expense-type/edit-expense-type.component';
+import { EditDepartmentComponent } from './Components/department/edit-department/edit-department.component';
+import { AddDepartmentComponent } from './Components/department/add-department/add-department.component';
+import { AddIncomeTypeComponent } from './Components/income-type/add-income-type/add-income-type.component';
+import { EditIncomeTypeComponent } from './Components/income-type/edit-income-type/edit-income-type.component';
+import { EditInvoiceTypeComponent } from './Components/invoice-type/edit-invoice-type/edit-invoice-type.component';
+import { AddInvoiceTypeComponent } from './Components/invoice-type/add-invoice-type/add-invoice-type.component';
+import { AddEquipmentComponent } from './Components/equipment/add-equipment/add-equipment.component';
+import { EditEquipmentComponent } from './Components/equipment/edit-equipment/edit-equipment.component';
+import { EditEquipmentCategoryComponent } from './Components/equipment-category/edit-equipment-category/edit-equipment-category.component';
+import { AddEquipmentCategoryComponent } from './Components/equipment-category/add-equipment-category/add-equipment-category.component';
 
 
 @NgModule({
-  declarations: [SalesComponent, ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent, ItemManagementComponent, AddItemComponent, EditItemComponent, ItemCategoryManagementComponent, AddItemCategoryComponent, EditItemCategoryComponent, AddStaffComponent, EditStaffComponent, StaffMgmtComponent, AddStockComponent, EditStockComponent, StockMgmtComponent, SupplierMgmtComponent, AddSupplierComponent, EditSupplierComponent],
+  declarations: [ ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent,
+     ItemManagementComponent, AddItemComponent, EditItemComponent, ItemCategoryManagementComponent, AddItemCategoryComponent,
+      EditItemCategoryComponent, AddStaffComponent, EditStaffComponent, StaffMgmtComponent, AddStockComponent, EditStockComponent, 
+      StockMgmtComponent, SupplierMgmtComponent, AddSupplierComponent, EditSupplierComponent, PurchaseHomeComponent, 
+      PurchaseProductComponent, SalesHomeComponent, SaleProductComponent, DepartmentMgmtComponent, EquipmentMgmtComponent,
+        EquipmentCategoryMgmtComponent, IncomeTypeMgmtComponent,
+      InvoiceTypeMgmtComponent, ExpenseTypeMgmtComponent, AddExpenseTypeComponent, EditExpenseTypeComponent, EditDepartmentComponent, 
+      AddDepartmentComponent, AddIncomeTypeComponent, EditIncomeTypeComponent, EditInvoiceTypeComponent, AddInvoiceTypeComponent, 
+      AddEquipmentComponent, EditEquipmentComponent, EditEquipmentCategoryComponent, AddEquipmentCategoryComponent],
   imports: [
     CommonModule,
     BrowserModule,

@@ -1,0 +1,20 @@
+<div >
+    <div class="col-lg-12">
+        <label> Edit Item </label>
+    </div>
+    <div class="col-lg-6">
+        <input type="text" placeholder="Name" [(ngModel)]="viewModel.Name" pInputText />
+    </div>
+    <div class="col-lg-6">
+        <p-dropdown [options]="ddModel" [(ngModel)]="viewModel.EquipmentCategoryId" [filter]="true" filterBy="label"></p-dropdown>
+    </div>
+    <div class="col-lg-6">
+        <input type="text" placeholder="Price" [(ngModel)]="viewModel.Price" pInputText />
+    </div>
+    <div class="col-lg-6">
+        <input type="text" placeholder="Description" [(ngModel)]="viewModel.Description" pInputText />
+    </div>
+    <div>
+        <button pButton type="button" label="Add Item Category" (click)="Edit($event)"></button>
+    </div>
+</div>
