@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { CustomerVM } from '../../domainModels/CustomerVM';
+import { CustomerVM } from 'src/Modules/primary/domainModels/CustomerVM';
+
 
 @Component({
   selector: 'app-edit-customer',

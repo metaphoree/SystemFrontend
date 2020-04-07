@@ -40,12 +40,15 @@ export class AppComponent implements OnInit {
           { label: 'Quit', icon: 'pi pi-fw pi-times' }
           ]
       },
+      
       {
         label: 'Edit',
         icon: 'pi pi-fw pi-pencil',
         items: [
           { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-          { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
+          { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+          { label: 'Purchase Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'purchase-mgmt' },
+          { label: 'Sales Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'sales-mgmt' }
         ]
       },
       {

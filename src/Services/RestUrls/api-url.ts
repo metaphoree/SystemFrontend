@@ -73,5 +73,11 @@ export class ApiUrl {
     static UpdateDepartment = 'api/Department/update';
     static DeleteDepartment = 'api/Department/delete';
 
+
+    static GetPurchaseInitData = 'api/business/purchase/getInitData';
+    static AddPurchase = 'api/business/purchase/add';
+    static GetSalesInitData = 'api/business/sales/getInitData';
+    static AddSales = 'api/business/sales/add';
+
 }
 

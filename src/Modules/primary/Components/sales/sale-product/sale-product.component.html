@@ -1,1 +1,90 @@
-<p>sale-product works!</p>
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <label>New Sale</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <p-dropdown [options]="ddModelVmsPageSpecific.CustomerVMs" (onChange)="CustomerSelected($event)"
+                [(ngModel)]="selectedCustomer" [filter]="true" filterBy="label"></p-dropdown>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 bord">Name : {{selectedCustomer.Name}}</div>
+        <div class="col-lg-6 bord">Email : {{selectedCustomer.Email}}</div>
+
+        <div class="col-lg-6 bord">Permanent Address : {{selectedCustomer.PermanentAddress}}</div>
+        <div class="col-lg-6 bord">Present Address : {{selectedCustomer.PresentAddress}}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 bord"><label>Name</label></div>
+        <div class="col-lg-2 bord"><label >Category</label></div>
+        <div class="col-lg-2 bord"><label >Quantity</label></div>
+        <div class="col-lg-2 bord"><label >UnitPrice</label></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <p-dropdown [options]="ddModelVmsPageSpecific.ItemVMs" [(ngModel)]="selectedItem" (onChange)="ItemSelected($event)"
+                [filter]="true" filterBy="label"></p-dropdown>
+        </div>
+        <div class="col-lg-2">
+            <p-dropdown [options]="ddModelVmsPageSpecific.ItemCategoryVMs" [(ngModel)]="selectedItemCategory"
+                (onChange)="ItemCategorySelected($event)" [filter]="true" filterBy="label"></p-dropdown>
+        </div>
+        <div class="col-lg-2">
+            <input type="text" placeholder="Quantity" [(ngModel)]="quantity" pInputText />
+        </div>
+        <div class="col-lg-6">
+            <input type="text" placeholder="UnitPrice" [(ngModel)]="unitPrice" pInputText />
+
+
+            <button pButton type="button" label="Add Item"
+                (click)="Add($event,selectedItem,selectedItemCategory,quantity,unitPrice)"></button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2 bord"><label>Name</label></div>
+        <div class="col-lg-2 bord"><label>ItemCategory</label></div>
+        <div class="col-lg-2 bord"><label>Quantity</label></div>
+        <div class="col-lg-2 bord"><label>UnitPrice</label></div>
+        <div class="col-lg-2 bord"><label>Total</label></div>
+        <div class="col-lg-1 bord"><label>Action</label></div>
+    </div>
+    <div class="row" *ngFor="let temp of salesVm.ItemList">
+        <div class="col-lg-2 bord"><label>{{temp.Item.Name}}</label></div>
+        <div class="col-lg-2 bord"><label>{{temp.ItemCategory.Name}}</label></div>
+        <div class="col-lg-2 bord"><label>{{temp.Quantity}}</label></div>
+        <div class="col-lg-2 bord"><label>{{temp.UnitPrice}}</label></div>
+        <div class="col-lg-2 bord"><label>{{temp.UnitPrice * temp.Quantity}}</label></div>
+        <div class="col-lg-2 bord"><i (click)="Remove(temp)" class="fa fa-remove"></i></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2">
+            <label >Paid Amount</label>
+            <input type="text" placeholder="UnitPrice" (input)="Changed('PaidAmount')" [(ngModel)]="salesVm.PaidAmount" pInputText />
+        </div>
+        <div class="col-lg-2">
+            <label>Due Amount</label>
+            <input type="text" placeholder="UnitPrice" [(ngModel)]="salesVm.DueAmount" pInputText />
+        </div>
+
+        <div class="col-lg-2">
+            <label>Discount Amount</label>
+            <input type="text" placeholder="UnitPrice" (input)="Changed('DiscountAmount')"  [(ngModel)]="salesVm.DiscountAmount" pInputText />
+        </div>
+        <div class="col-lg-2">
+            <label>Total Amount</label>
+            <input type="text" placeholder="UnitPrice" [(ngModel)]="salesVm.TotalAmount" pInputText />
+        </div>
+    </div>
+    <div  class="row">
+        <div class="col-lg-2">
+            <button  pButton type="button" label="Add"  (click)="AddSales()"></button>
+        </div>
+    </div>
+</div>

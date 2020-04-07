@@ -3,12 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { PrimaryRoutingModule } from './primary-routing.module';
 
-import { ClientManagementComponent } from './Components/client-management/client-management.component';
+
 import { ViewComponentsModule } from '../view-components/view-components.module';
-import { ClientManagementHomeComponent } from './Components/client-management-home/client-management-home.component';
+
 import { BrowserModule } from '@angular/platform-browser';
-import { EditCustomerComponent } from './Components/edit-customer/edit-customer.component';
-import { AddCustomerComponent } from './Components/add-customer/add-customer.component';
+
 import { ItemManagementComponent } from './Components/Item/item-management/item-management.component';
 import { AddItemComponent } from './Components/Item/add-item/add-item.component';
 import { EditItemComponent } from './Components/Item/edit-item/edit-item.component';
@@ -50,6 +49,13 @@ import { EditEquipmentComponent } from './Components/equipment/edit-equipment/ed
 import { EditEquipmentCategoryComponent } from './Components/equipment-category/edit-equipment-category/edit-equipment-category.component';
 import { AddEquipmentCategoryComponent } from './Components/equipment-category/add-equipment-category/add-equipment-category.component';
 
+import {EditCustomerComponent} from  './Components/customer/edit-customer/edit-customer.component';
+import {AddCustomerComponent} from  './Components/customer/add-customer/add-customer.component'; 
+import {ClientManagementComponent} from  './Components/customer/client-management/client-management.component';
+import {ClientManagementHomeComponent} from  './Components/customer/client-management-home/client-management-home.component';
+import { CustomerPaymentComponent } from './Components/customer/customer-payment/customer-payment.component';
+import { SupplierPaymentComponent } from './Components/supplier/supplier-payment/supplier-payment.component';
+import { StaffPaymentComponent } from './Components/staff/staff-payment/staff-payment.component';
 
 @NgModule({
   declarations: [ ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent,
@@ -60,7 +66,8 @@ import { AddEquipmentCategoryComponent } from './Components/equipment-category/a
         EquipmentCategoryMgmtComponent, IncomeTypeMgmtComponent,
       InvoiceTypeMgmtComponent, ExpenseTypeMgmtComponent, AddExpenseTypeComponent, EditExpenseTypeComponent, EditDepartmentComponent, 
       AddDepartmentComponent, AddIncomeTypeComponent, EditIncomeTypeComponent, EditInvoiceTypeComponent, AddInvoiceTypeComponent, 
-      AddEquipmentComponent, EditEquipmentComponent, EditEquipmentCategoryComponent, AddEquipmentCategoryComponent],
+      AddEquipmentComponent, EditEquipmentComponent, EditEquipmentCategoryComponent, AddEquipmentCategoryComponent,
+    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent],
   imports: [
     CommonModule,
     BrowserModule,

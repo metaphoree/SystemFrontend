@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DDModel } from 'src/Models/Utils/DDModel';
+import { DDModelVAOB } from 'src/Modules/primary/domainModels/DDModelVAOB';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,16 @@ export class UtilService {
     }
     return outputArr;
   }
+  public convertToDDM_ValueAsObject(arr: any[], propertyNames: string[],titleValue: string ): DDModelVAOB[] {
 
+    let outputArr: DDModelVAOB[] = [{label:titleValue,value:{value:'TitleVal'}}];
+    
+    for (let i = 0; i < arr.length; i++) {
+      let temp = new DDModelVAOB(arr[i][propertyNames[0]], arr[i]);
+      outputArr.push(temp);
+    }
+    return outputArr;
+  }
 public getUTCDateTime(input_date : Date) : Date {
   let date = input_date; 
   let now_utc =  Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),

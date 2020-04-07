@@ -1,1 +1,93 @@
+<div>
+    <div class="row">
+        <div class="col-lg-12">
+            <label>New Purchase</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <p-dropdown [options]="ddModelVmsPageSpecific.SupplierVMs" (onChange)="CustomerSelected($event)"
+                [(ngModel)]="selectedSupplier" [filter]="true" filterBy="label"></p-dropdown>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 bord">Name : {{selectedSupplier.Name}}</div>
+        <div class="col-lg-6 bord">Email : {{selectedSupplier.Email}}</div>
 
+        <div class="col-lg-6 bord">Permanent Address : {{selectedSupplier.PermanentAddress}}</div>
+        <div class="col-lg-6 bord">Present Address : {{selectedSupplier.PresentAddress}}</div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2"><label class="bord-bott color-blue">Name</label></div>
+        <div class="col-lg-2"><label class="bord-bott color-blue">Category</label></div>
+        <div class="col-lg-2"><label class="bord-bott color-blue">Quantity</label></div>
+        <div class="col-lg-2"><label class="bord-bott color-blue">UnitPrice</label></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <p-dropdown [options]="ddModelVmsPageSpecific.ItemVMs" [(ngModel)]="selectedItem"
+                (onChange)="ItemSelected($event)" [filter]="true" filterBy="label"></p-dropdown>
+        </div>
+        <div class="col-lg-2">
+            <p-dropdown [options]="ddModelVmsPageSpecific.ItemCategoryVMs" [(ngModel)]="selectedItemCategory"
+                (onChange)="ItemCategorySelected($event)" [filter]="true" filterBy="label"></p-dropdown>
+        </div>
+        <div class="col-lg-2">
+            <input type="text" placeholder="Quantity" [(ngModel)]="quantity" pInputText />
+        </div>
+        <div class="col-lg-6">
+            <input type="text" placeholder="UnitPrice" [(ngModel)]="unitPrice" pInputText />
+
+
+            <button pButton type="button" label="Add Item"
+                (click)="Add($event,selectedItem,selectedItemCategory,quantity,unitPrice)"></button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2 bord"><label>Name</label></div>
+        <div class="col-lg-2 bord"><label>ItemCategory</label></div>
+        <div class="col-lg-2 bord"><label>Quantity</label></div>
+        <div class="col-lg-2 bord"><label>UnitPrice</label></div>
+        <div class="col-lg-2 bord"><label>Total</label></div>
+        <div class="col-lg-1 bord"><label>Action</label></div>
+    </div>
+    <div class="row" *ngFor="let temp of purchaseVm.ItemList">
+            <div class="col-lg-2 bord"><label>{{temp.Item.Name}}</label></div>
+            <div class="col-lg-2 bord"><label>{{temp.ItemCategory.Name}}</label></div>
+            <div class="col-lg-2 bord"><label>{{temp.Quantity}}</label></div>
+            <div class="col-lg-2 bord"><label>{{temp.UnitPrice}}</label></div>
+            <div class="col-lg-2 bord"><label>{{temp.UnitPrice * temp.Quantity}}</label></div>
+            <div class="col-lg-1 bord"><i (click)="Remove(temp)" class="fa fa-remove"></i></div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2">
+            <label>Paid Amount</label>
+            <input type="text" placeholder="UnitPrice" (input)="Changed('PaidAmount')"
+                [(ngModel)]="purchaseVm.PaidAmount" pInputText />
+        </div>
+        <div class="col-lg-2">
+            <label>Due Amount</label>
+            <input type="text" placeholder="UnitPrice" [(ngModel)]="purchaseVm.DueAmount" pInputText />
+        </div>
+
+        <div class="col-lg-2">
+            <label>Discount Amount</label>
+            <input type="text" placeholder="UnitPrice" (input)="Changed('DiscountAmount')"
+                [(ngModel)]="purchaseVm.DiscountAmount" pInputText />
+        </div>
+        <div class="col-lg-2">
+            <label>Total Amount</label>
+            <input type="text" placeholder="UnitPrice" [(ngModel)]="purchaseVm.TotalAmount" pInputText />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <button pButton type="button" label="Add" (click)="AddPurchase()"></button>
+        </div>
+    </div>
+</div>

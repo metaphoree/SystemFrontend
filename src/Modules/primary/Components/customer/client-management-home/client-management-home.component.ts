@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ClientManagementComponent } from '../client-management/client-management.component';
+
 import { DialogService } from 'primeng/dynamicdialog';
 
 @Component({

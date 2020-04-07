@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerServiceService } from 'src/Services/customer-service/customer-service.service';
-import { GetDataListVM } from '../../domainModels/GetDataListVM';
+
 import { SessionService } from 'src/Services/session-service/session.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { EditCustomerComponent } from '../edit-customer/edit-customer.component';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { CustomerVM } from '../../domainModels/CustomerVM';
+
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
-import { WrapperListCustomerVM } from '../../domainModels/WrapperListCustomerVM';
+
 import { BaseServiceService } from 'src/Services/base-service/base-service.service';
 import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
 import { ApiUrl } from 'src/Services/RestUrls/api-url';
+import { WrapperListCustomerVM } from 'src/Modules/primary/domainModels/WrapperListCustomerVM';
+import { GetDataListVM } from 'src/Modules/primary/domainModels/GetDataListVM';
 
 @Component({
   selector: 'app-client-management',
