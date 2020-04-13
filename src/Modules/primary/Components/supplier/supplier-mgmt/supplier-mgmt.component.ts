@@ -8,6 +8,7 @@ import { ApiUrl } from 'src/Services/RestUrls/api-url';
 import { AddSupplierComponent } from '../add-supplier/add-supplier.component';
 import { EditSupplierComponent } from '../edit-supplier/edit-supplier.component';
 import { WrapperSupplierListVM } from 'src/Modules/primary/domainModels/supplier/WrapperSupplierListVM';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-supplier-mgmt',
@@ -29,7 +30,8 @@ export class SupplierMgmtComponent implements OnInit {
   constructor(private dialogService: DialogService,
     private baseService: BaseServiceService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService,
+    private router  : Router) {
     this.wrapperItemList = new WrapperSupplierListVM();
     this.getDataListVM = new GetDataListVM();
   }
@@ -97,6 +99,8 @@ export class SupplierMgmtComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+     
+     
       }
       );
   }
@@ -184,23 +188,12 @@ export class SupplierMgmtComponent implements OnInit {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  goto(event, option): void {
+    if (option == 'payment') {
+      this.router.navigateByUrl('/supplier-mgmt-home/payment')
+    }
+    else if (option == 'history') {
+      this.router.navigateByUrl('/supplier-mgmt-home/history');
+    }
+  }
 }

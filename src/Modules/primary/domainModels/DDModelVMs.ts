@@ -33,6 +33,8 @@ export class DDModelVMs_ {
     IncomeTypeVMs: DDModelVAOB[];
     InvoiceTypeVMs: DDModelVAOB[];
     ItemStatusVMs: DDModelVAOB[];
+    StaffVMs: DDModelVAOB[];
+    EquipmentVMs: DDModelVAOB[];
     constructor() {
         this.ItemCategoryVMs = [];
         this.ItemVMs = [];
@@ -42,5 +44,7 @@ export class DDModelVMs_ {
         this.IncomeTypeVMs = [];
         this.InvoiceTypeVMs = [];
         this.ItemStatusVMs = [];
+        this.StaffVMs = [];
+        this.EquipmentVMs = [];
     }
 }

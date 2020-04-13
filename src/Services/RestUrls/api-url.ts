@@ -79,5 +79,30 @@ export class ApiUrl {
     static GetSalesInitData = 'api/business/sales/getInitData';
     static AddSales = 'api/business/sales/add';
 
+
+
+    static PaymentInitialData = 'api/business/pay/init_data';
+
+
+    static RecieveCashFromCustomer =  'api/business/customer/cash';
+    static GiveSupplierPayment =  'api/business/supplier/pay';
+    static GiveStaffPayment =  'api/business/staff/pay';
+
+
+
+    static SetProduction = 'api/Production/add';
+    static GetProduction = 'api/Production/getAll';
+    static GetProductionById = 'api/Production/getById';
+    static UpdateProduction = 'api/Production/update';
+    static DeleteProduction = 'api/Production/delete';
+
+
+
+
+
+    static GetProductionInitData =  'api/business/production/getInitData';
+
+
+
 }
 

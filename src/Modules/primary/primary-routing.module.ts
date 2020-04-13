@@ -18,6 +18,12 @@ import { PurchaseHomeComponent } from './Components/purchase/purchase-home/purch
 import { PurchaseProductComponent } from './Components/purchase/purchase-product/purchase-product.component';
 import { SaleProductComponent } from './Components/sales/sale-product/sale-product.component';
 import { CustomerPaymentComponent } from './Components/customer/customer-payment/customer-payment.component';
+import { CustomerHistoryComponent } from './Components/customer/customer-history/customer-history.component';
+import { StaffHistoryComponent } from './Components/staff/staff-history/staff-history.component';
+import { StaffPaymentComponent } from './Components/staff/staff-payment/staff-payment.component';
+import { SupplierHistoryComponent } from './Components/supplier/supplier-history/supplier-history.component';
+import { SupplierPaymentComponent } from './Components/supplier/supplier-payment/supplier-payment.component';
+import { StaffProductionComponent } from './Components/staff/staff-production/staff-production.component';
 
 
 const routes: Routes = [
@@ -30,12 +36,17 @@ const routes: Routes = [
         component: ClientManagementComponent,
         children: [
           {
+            path: 'history',
+            component: CustomerHistoryComponent
+          },
+          {
             path: 'payment',
             component: CustomerPaymentComponent
           },
           {
             path: '',
-            redirectTo:'payment'
+            redirectTo:'payment',
+            pathMatch: 'full'
           }
         ]
       },
@@ -56,11 +67,45 @@ const routes: Routes = [
   },
   {
     path: 'staff-mgmt-home',
-    component: StaffMgmtComponent
+    component: StaffMgmtComponent,
+    children: [
+      {
+        path: 'history',
+        component: StaffHistoryComponent
+      },
+      {
+        path: 'payment',
+        component: StaffPaymentComponent
+      },
+      {
+        path: 'production',
+        component: StaffProductionComponent
+      },
+      {
+        path: '',
+        redirectTo:'payment',
+        pathMatch: 'full'
+      }
+    ]
   },
   {
     path: 'supplier-mgmt-home',
-    component: SupplierMgmtComponent
+    component: SupplierMgmtComponent,
+    children: [
+      {
+        path: 'history',
+        component: SupplierHistoryComponent
+      },
+      {
+        path: 'payment',
+        component: SupplierPaymentComponent
+      },
+      {
+        path: '',
+        redirectTo:'payment',
+        pathMatch: 'full'
+      }
+    ]
   },
   {
     path: 'stock-mgmt-home',

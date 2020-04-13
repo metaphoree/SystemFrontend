@@ -17,8 +17,6 @@ export class PaymentVM {
         this.Amount = 0;
         // IncomeType or ExpenseType
         this.TypeId = '';
-
-
     }
 
 }

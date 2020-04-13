@@ -8,6 +8,7 @@ import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
 import { ApiUrl } from 'src/Services/RestUrls/api-url';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
 import { EditStaffComponent } from '../edit-staff/edit-staff.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-staff-mgmt',
@@ -30,7 +31,8 @@ export class StaffMgmtComponent implements OnInit {
  constructor(private dialogService: DialogService,
    private baseService: BaseServiceService,
    private messageService: MessageService,
-   private confirmationService: ConfirmationService) {
+   private confirmationService: ConfirmationService,
+   private router : Router) {
    this.wrapperItemList = new WrapperStaffListVM();
    this.getDataListVM = new GetDataListVM();
  }
@@ -191,7 +193,17 @@ export class StaffMgmtComponent implements OnInit {
  }
 
 
-
+ goto(event, option): void {
+  if (option == 'payment') {
+    this.router.navigateByUrl('/staff-mgmt-home/payment')
+  }
+  else if (option == 'history') {
+    this.router.navigateByUrl('/staff-mgmt-home/history');
+  }
+  else if (option == 'production') {
+    this.router.navigateByUrl('/staff-mgmt-home/production');
+  }
+}
 
 
 

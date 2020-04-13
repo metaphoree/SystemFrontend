@@ -56,6 +56,11 @@ import {ClientManagementHomeComponent} from  './Components/customer/client-manag
 import { CustomerPaymentComponent } from './Components/customer/customer-payment/customer-payment.component';
 import { SupplierPaymentComponent } from './Components/supplier/supplier-payment/supplier-payment.component';
 import { StaffPaymentComponent } from './Components/staff/staff-payment/staff-payment.component';
+import { CustomerHistoryComponent } from './Components/customer/customer-history/customer-history.component';
+import { SupplierHistoryComponent } from './Components/supplier/supplier-history/supplier-history.component';
+import { StaffHistoryComponent } from './Components/staff/staff-history/staff-history.component';
+import { StaffProductionComponent } from './Components/staff/staff-production/staff-production.component';
+import { StaffProductionHomeComponent } from './Components/staff/staff-production-home/staff-production-home.component';
 
 @NgModule({
   declarations: [ ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent,
@@ -67,7 +72,7 @@ import { StaffPaymentComponent } from './Components/staff/staff-payment/staff-pa
       InvoiceTypeMgmtComponent, ExpenseTypeMgmtComponent, AddExpenseTypeComponent, EditExpenseTypeComponent, EditDepartmentComponent, 
       AddDepartmentComponent, AddIncomeTypeComponent, EditIncomeTypeComponent, EditInvoiceTypeComponent, AddInvoiceTypeComponent, 
       AddEquipmentComponent, EditEquipmentComponent, EditEquipmentCategoryComponent, AddEquipmentCategoryComponent,
-    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent],
+    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent, CustomerHistoryComponent, SupplierHistoryComponent, StaffHistoryComponent, StaffProductionComponent, StaffProductionHomeComponent],
   imports: [
     CommonModule,
     BrowserModule,

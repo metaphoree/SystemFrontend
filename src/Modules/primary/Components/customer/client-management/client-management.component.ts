@@ -13,6 +13,7 @@ import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
 import { ApiUrl } from 'src/Services/RestUrls/api-url';
 import { WrapperListCustomerVM } from 'src/Modules/primary/domainModels/WrapperListCustomerVM';
 import { GetDataListVM } from 'src/Modules/primary/domainModels/GetDataListVM';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-management',
@@ -35,12 +36,13 @@ export class ClientManagementComponent implements OnInit {
   constructor(private dialogService: DialogService,
     private baseService: BaseServiceService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService,
+    private router: Router) {
     this.wrapperItemList = new WrapperListCustomerVM();
     this.getDataListVM = new GetDataListVM();
   }
 
-// INIT
+  // INIT
   ngOnInit(): void {
     this.columnList = [
       { field: 'Action', header: 'Action' },
@@ -50,7 +52,7 @@ export class ClientManagementComponent implements OnInit {
       { field: 'PresentAddress', header: 'Present Address' },
       { field: 'CellNo', header: 'CellNo' },
       { field: 'AlternateCellNo', header: 'Alternate CellNo' }
-     
+
     ];
     this.getDataListVM.PageNumber = 1;
     this.getDataListVM.PageSize = 10;
@@ -85,7 +87,7 @@ export class ClientManagementComponent implements OnInit {
 
 
 
-// DB OPERATION FUNCTION
+  // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
     let URL: string = '';
     switch (operationType) {
@@ -125,7 +127,7 @@ export class ClientManagementComponent implements OnInit {
       width: '70%',
       height: '90%',
       footer: "This is footer",
-      dismissableMask : true
+      dismissableMask: true
     });
     ref.onClose.subscribe((item: any) => {
       if (item) {
@@ -142,7 +144,7 @@ export class ClientManagementComponent implements OnInit {
       width: '70%',
       height: '90%',
       footer: "This is footer",
-      dismissableMask : true
+      dismissableMask: true
     });
     ref.onClose.subscribe((item: any) => {
       if (item) {
@@ -200,6 +202,15 @@ export class ClientManagementComponent implements OnInit {
   }
 
 
+  goto(event, option): void {
+    if (option == 'payment') {
+      this.router.navigateByUrl('/client-mgmt-home/client-mgmt/payment')
+    }
+    else if (option == 'history') {
+      this.router.navigateByUrl('/client-mgmt-home/client-mgmt/history');
+    }
+
+  }
 
 
 
@@ -215,7 +226,6 @@ export class ClientManagementComponent implements OnInit {
 
 
 
-  
 
 
 }

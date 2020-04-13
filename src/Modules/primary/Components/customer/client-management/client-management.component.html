@@ -50,12 +50,19 @@
     </div>
 
 
-    <router-oulet>
-        
-    </router-oulet>
 </div>
 
-
+<div class="row">
+    <div class="tab col-lg-12">
+        <button class="tablinks" (click)="goto($event, 'payment')">Payment</button>
+        <button class="tablinks" (click)="goto($event, 'history')">History</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <router-outlet></router-outlet>
+    </div>
+</div>
 
 
 

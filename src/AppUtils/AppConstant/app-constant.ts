@@ -11,18 +11,18 @@ export enum DB_OPERATION {
 
 
 export enum ExpenseType {
-   CREATE,
-   UPDATE,
-   DELETE,
-   READ
+  Purchase,
+  StaffPayment,
+  SupplierPayment
 }
 export enum IncomeType {
-   CREATE,
-   UPDATE,
-   DELETE,
-   READ
+  Sales,
+  ClientPaymentRecieved
 }
 export enum InvoiceType {
   Sales,
-  Purchase
+  Purchase,
+  ClientPayment,
+  SupplierPayment,
+  StaffPayment
 }
