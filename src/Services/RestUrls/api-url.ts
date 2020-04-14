@@ -84,10 +84,24 @@ export class ApiUrl {
     static PaymentInitialData = 'api/business/pay/init_data';
 
 
-    static RecieveCashFromCustomer =  'api/business/customer/cash';
-    static GiveSupplierPayment =  'api/business/supplier/pay';
-    static GiveStaffPayment =  'api/business/staff/pay';
+    static RecieveCashFromCustomer = 'api/business/customer/payment';
+    static CustomerPaymentList = 'api/business/customer/payment/list';
+    static DeleteCustomerPayment = 'api/business/customer/payment/delete';
 
+
+
+    static GiveSupplierPayment = 'api/business/supplier/payment';
+    static SupplierPaymentList = 'api/business/supplier/payment/list';
+    static DeleteSupplierPayment = 'api/business/supplier/payment/delete';
+
+
+
+
+
+
+    static GiveStaffPayment = 'api/business/staff/payment';
+    static StaffPaymentList = 'api/business/staff/payment/list';
+    static DeleteStaffPayment = 'api/business/staff/payment/delete';
 
 
     static SetProduction = 'api/Production/add';
@@ -97,10 +111,13 @@ export class ApiUrl {
     static DeleteProduction = 'api/Production/delete';
 
 
+    static GetCustomerHistory = 'api/business/customer/history';
+    static GetStaffHistory = 'api/business/staff/history';
+    static GetSupplierHistory = 'api/business/supplier/history';
 
 
 
-    static GetProductionInitData =  'api/business/production/getInitData';
+    static GetProductionInitData = 'api/business/production/getInitData';
 
 
 

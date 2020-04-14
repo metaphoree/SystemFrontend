@@ -61,6 +61,9 @@ import { SupplierHistoryComponent } from './Components/supplier/supplier-history
 import { StaffHistoryComponent } from './Components/staff/staff-history/staff-history.component';
 import { StaffProductionComponent } from './Components/staff/staff-production/staff-production.component';
 import { StaffProductionHomeComponent } from './Components/staff/staff-production-home/staff-production-home.component';
+import { CustomerPaymentHomeComponent } from './Components/customer/customer-payment-home/customer-payment-home.component';
+import { StaffPaymentHomeComponent } from './Components/staff/staff-payment-home/staff-payment-home.component';
+import { SupplierPaymentHomeComponent } from './Components/supplier/supplier-payment-home/supplier-payment-home.component';
 
 @NgModule({
   declarations: [ ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent,
@@ -72,7 +75,7 @@ import { StaffProductionHomeComponent } from './Components/staff/staff-productio
       InvoiceTypeMgmtComponent, ExpenseTypeMgmtComponent, AddExpenseTypeComponent, EditExpenseTypeComponent, EditDepartmentComponent, 
       AddDepartmentComponent, AddIncomeTypeComponent, EditIncomeTypeComponent, EditInvoiceTypeComponent, AddInvoiceTypeComponent, 
       AddEquipmentComponent, EditEquipmentComponent, EditEquipmentCategoryComponent, AddEquipmentCategoryComponent,
-    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent, CustomerHistoryComponent, SupplierHistoryComponent, StaffHistoryComponent, StaffProductionComponent, StaffProductionHomeComponent],
+    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent, CustomerHistoryComponent, SupplierHistoryComponent, StaffHistoryComponent, StaffProductionComponent, StaffProductionHomeComponent, CustomerPaymentHomeComponent, StaffPaymentHomeComponent, SupplierPaymentHomeComponent],
   imports: [
     CommonModule,
     BrowserModule,

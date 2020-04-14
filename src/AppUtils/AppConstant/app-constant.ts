@@ -26,3 +26,9 @@ export enum InvoiceType {
   SupplierPayment,
   StaffPayment
 }
+export enum StatusItem
+{
+    GOOD,
+    BAD,
+    DEFECTED
+}

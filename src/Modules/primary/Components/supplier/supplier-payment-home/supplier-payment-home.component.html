@@ -1,18 +1,23 @@
 <div class="row">
+ 
     <div class="col-sm-2">
         <button class="btn btn-primary btn-md" type="button" label="Add" (click)="AddEvent($event)">Add</button>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-4 form-group">
+        <p-dropdown [options]="ddModelVmsPageSpecific.SupplierVMs" [(ngModel)]="selectedSupplier" [filter]="true"
+            filterBy="label" (onChange)="SelectedSupplier($event)"></p-dropdown>
+    </div>
+    <!-- <div class="col-sm-3">
         <input type="text" placeholder="Search Data" [(ngModel)]="this.getDataListVM.GlobalFilter" pInputText />
     </div>
     <div class="col-sm-1">
         <button class="btn btn-primary btn-md" type="button" label="Search"
             (click)="SearchEvent($event)">Search</button>
-    </div>
-    <div class="col-sm-1">
+    </div> -->
+    <!-- <div class="col-sm-1">
         <button class="btn btn-primary btn-md" type="button" label="Reset" (click)="Reset()">Reset</button>
-    </div>
- 
+    </div> -->
+
 </div>
 <div class="row">
     <div class="col-sm-6 custom-table-n">
@@ -35,7 +40,8 @@
                         </span>
                         <span *ngIf="col.field != 'Action'">
                             <span *ngIf="col.fieldType == 'date'">
-                                {{dataRow[col.field] |  date:"dd-MMM-yyyy"}}
+                                <!-- {{dataRow[col.field] |  date:"dd-MMM-yyyy"}} -->
+                                {{dataRow[col.field] |  date:'medium'}}
                             </span>
                             <span *ngIf="col.fieldType != 'date'">
                                 {{dataRow[col.field]}}
@@ -62,5 +68,10 @@
         <span (click)="GoToPage('-')" class="space-around paging-icons"><i class="pi pi-fast-backward"></i></span>
         <span class="space-around page-no">{{this.CurrentPageNo}}</span>
         <span (click)="GoToPage('+')" class="space-around paging-icons"><i class="pi pi-fast-forward"></i></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <router-outlet></router-outlet>
     </div>
 </div>

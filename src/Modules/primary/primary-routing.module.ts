@@ -24,6 +24,10 @@ import { StaffPaymentComponent } from './Components/staff/staff-payment/staff-pa
 import { SupplierHistoryComponent } from './Components/supplier/supplier-history/supplier-history.component';
 import { SupplierPaymentComponent } from './Components/supplier/supplier-payment/supplier-payment.component';
 import { StaffProductionComponent } from './Components/staff/staff-production/staff-production.component';
+import { StaffProductionHomeComponent } from './Components/staff/staff-production-home/staff-production-home.component';
+import { CustomerPaymentHomeComponent } from './Components/customer/customer-payment-home/customer-payment-home.component';
+import { StaffPaymentHomeComponent } from './Components/staff/staff-payment-home/staff-payment-home.component';
+import { SupplierPaymentHomeComponent } from './Components/supplier/supplier-payment-home/supplier-payment-home.component';
 
 
 const routes: Routes = [
@@ -41,11 +45,11 @@ const routes: Routes = [
           },
           {
             path: 'payment',
-            component: CustomerPaymentComponent
+            component: CustomerPaymentHomeComponent
           },
           {
             path: '',
-            redirectTo:'payment',
+            redirectTo: 'payment',
             pathMatch: 'full'
           }
         ]
@@ -75,15 +79,15 @@ const routes: Routes = [
       },
       {
         path: 'payment',
-        component: StaffPaymentComponent
+        component: StaffPaymentHomeComponent
       },
       {
         path: 'production',
-        component: StaffProductionComponent
+        component: StaffProductionHomeComponent
       },
       {
         path: '',
-        redirectTo:'payment',
+        redirectTo: 'payment',
         pathMatch: 'full'
       }
     ]
@@ -98,11 +102,11 @@ const routes: Routes = [
       },
       {
         path: 'payment',
-        component: SupplierPaymentComponent
+        component: SupplierPaymentHomeComponent
       },
       {
         path: '',
-        redirectTo:'payment',
+        redirectTo: 'payment',
         pathMatch: 'full'
       }
     ]

@@ -17,17 +17,20 @@ import { MessageModule } from 'primeng/message';
 import {DropdownModule} from 'primeng/dropdown';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CalendarModule} from 'primeng/calendar';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 @NgModule({
   declarations: [],
   imports: [
     CommonModule, FormsModule, SidebarModule, BrowserModule,
     BrowserAnimationsModule, PanelMenuModule,
     InputTextModule, ButtonModule, InputTextareaModule, DynamicDialogModule, 
-    TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule,ConfirmDialogModule,CalendarModule
+    TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule,
+    ConfirmDialogModule,CalendarModule,ProgressSpinnerModule
   ],
   exports: [SidebarModule, BrowserModule, BrowserAnimationsModule, PanelMenuModule, InputTextModule, ButtonModule,
     InputTextareaModule, DynamicDialogModule, FormsModule,
-     TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule,ConfirmDialogModule,CalendarModule
+     TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule,ConfirmDialogModule,CalendarModule,
+     ProgressSpinnerModule
   ]
 })
 

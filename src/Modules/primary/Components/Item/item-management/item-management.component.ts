@@ -91,12 +91,6 @@ export class ItemManagementComponent implements OnInit {
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
   }
 
-
-
-
-
-
-
 // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
     let URL: string = '';
@@ -208,4 +202,7 @@ export class ItemManagementComponent implements OnInit {
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
 
   }
+
+
+  
 }

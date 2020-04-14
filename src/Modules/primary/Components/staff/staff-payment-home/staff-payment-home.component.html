@@ -1,8 +1,13 @@
 <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-1">
         <button class="btn btn-primary btn-md" type="button" label="Add" (click)="AddEvent($event)">Add</button>
     </div>
-    <div class="col-sm-3">
+
+    <div class="col-sm-4 form-group">
+        <p-dropdown [options]="ddModelVmsPageSpecific.StaffVMs" [(ngModel)]="selectedStaff" [filter]="true"
+            filterBy="label" (onChange)="SelectedStaff($event)"></p-dropdown>
+    </div>
+    <!-- <div class="col-sm-3">
         <input type="text" placeholder="Search Data" [(ngModel)]="this.getDataListVM.GlobalFilter" pInputText />
     </div>
     <div class="col-sm-1">
@@ -12,7 +17,8 @@
     <div class="col-sm-1">
         <button class="btn btn-primary btn-md" type="button" label="Reset" (click)="Reset()">Reset</button>
     </div>
- 
+    <div class="col-sm-4 form-group">
+    </div> -->
 </div>
 <div class="row">
     <div class="col-sm-6 custom-table-n">
@@ -62,5 +68,10 @@
         <span (click)="GoToPage('-')" class="space-around paging-icons"><i class="pi pi-fast-backward"></i></span>
         <span class="space-around page-no">{{this.CurrentPageNo}}</span>
         <span (click)="GoToPage('+')" class="space-around paging-icons"><i class="pi pi-fast-forward"></i></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <router-outlet></router-outlet>
     </div>
 </div>

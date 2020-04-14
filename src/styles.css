@@ -5,11 +5,13 @@
     height:350px;
     overflow: auto;
     padding: 0px;
+    width: 1600px;
 }
 .custom-table-n table tbody tr td{
 padding: 0px;
 border-left: 2px solid black;
 text-align: center;
+
 }
 .custom-table-n table thead tr th{
     padding: 0px;
@@ -49,6 +51,9 @@ text-align: center;
 .btn { 
     margin-bottom:10px; 
 }
+
+
+
 
 .bord-bott{
 

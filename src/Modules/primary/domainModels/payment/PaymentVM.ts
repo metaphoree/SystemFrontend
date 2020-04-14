@@ -6,7 +6,8 @@ export class PaymentVM {
     ClientId: string;
     Amount: number;
     TypeId: string;
-
+    PaymentDate : Date;
+    ClientName : string;
     constructor() {
 
         this.InvoiceId = '';
@@ -17,6 +18,8 @@ export class PaymentVM {
         this.Amount = 0;
         // IncomeType or ExpenseType
         this.TypeId = '';
+        this.PaymentDate = new Date();
+        this.ClientName = '';
     }
 
 }
