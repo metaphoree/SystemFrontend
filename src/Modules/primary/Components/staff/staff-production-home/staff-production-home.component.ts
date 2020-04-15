@@ -27,7 +27,6 @@ export class StaffProductionHomeComponent implements OnInit {
 
   // VARIABLES
   columnList: any;
-  productionList: AddProductionVM[];
   wrapperItemList: WrapperProductionListVM;
   getDataListVM: GetDataListVM;
   CurrentPageNo: number = 1;
@@ -63,14 +62,14 @@ export class StaffProductionHomeComponent implements OnInit {
     this.GetInitialData_DD();
     this.columnList = [
       { field: 'Action', header: 'Action', fieldType: 'icon' },
-      { field: 'StaffName', header: 'Staff Name', fieldType: 'string' },
-      { field: 'ItemName', header: 'ItemName', fieldType: 'string' },
-      { field: 'ItemCategoryName', header: 'Item  Category  Name', fieldType: 'string' },
-      { field: 'EquipmentName', header: 'Equipment Name', fieldType: 'string' },
-      { field: 'UnitPrice', header: 'Unit  Price', fieldType: 'number' },
+      { field: 'StaffName', header: 'Staff', fieldType: 'string' },
+      { field: 'ItemName', header: 'Item', fieldType: 'string' },
+      { field: 'ItemCategoryName', header: 'Category', fieldType: 'string' },
+      { field: 'EquipmentName', header: 'Equipment', fieldType: 'string' },
+      { field: 'UnitPrice', header: 'Rate', fieldType: 'number' },
       { field: 'Quantity', header: 'Quantity', fieldType: 'number' },
-      { field: 'EntryDate', header: 'Entry  Date', fieldType: 'date' },
-      { field: 'TotalAmount', header: 'Total  Amount', fieldType: 'number' }
+      { field: 'EntryDate', header: 'Entry', fieldType: 'date' },
+      { field: 'TotalAmount', header: 'Total', fieldType: 'number' }
     ];
     this.getDataListVM = new GetDataListVM();
     this.getDataListVM.PageNumber = 1;
@@ -88,8 +87,9 @@ export class StaffProductionHomeComponent implements OnInit {
 
     this.baseService.set<WrapperProductionListVM>(ApiUrl.GetProduction, this.getDataListVM)
       .subscribe((data) => {
-        this.productionList = data.ListOfData;
-        console.log(this.productionList);
+        this.wrapperItemList.ListOfData = data.ListOfData;
+        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+        console.log( this.wrapperItemList.ListOfData);
       });
   }
   // GETTING LIST CATEGORIES FOR DROP DOWN
@@ -321,6 +321,4 @@ export class StaffProductionHomeComponent implements OnInit {
     this.getDataListVM.PageSize = this.CurrentPageSize;
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
   }
-
-
 }

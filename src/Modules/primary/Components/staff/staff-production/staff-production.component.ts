@@ -68,6 +68,7 @@ export class StaffProductionComponent implements OnInit {
     this.ddModelVmsPageSpecific.ItemCategoryVMs = this.ddModelVms.ItemCategoryVMs.slice();
     this.ddModelVmsPageSpecific.ItemVMs = this.ddModelVms.ItemVMs.slice();
     this.ddModelVmsPageSpecific.StaffVMs = this.ddModelVms.StaffVMs.slice();
+    this.ddModelVmsPageSpecific.InvoiceTypeVMs = this.ddModelVms.InvoiceTypeVMs.slice();
   }
 
   ngOnInit(): void {
@@ -132,6 +133,12 @@ export class StaffProductionComponent implements OnInit {
     this.viewModel.ItemStatusId = this.initLoadDataVM.ItemStatusVMs.filter((value, i, arr) => {
       return arr[i].Name == StatusItem[StatusItem.GOOD];
      })[0].Id;
+
+     this.viewModel.InvoiceTypeId = this.initLoadDataVM.InvoiceTypeVMs.filter((value, i, arr) => {
+      return arr[i].Name == InvoiceType[InvoiceType.StaffProduction];
+     })[0].Id;
+
+
     // console.log(InvoiceType[InvoiceType.ClientPayment]);
 
     // this.viewModel.InvoiceTypeId = this.initLoadDataVM.InvoiceTypeVMs.filter((val, index, arr) => {

@@ -3,6 +3,7 @@ export class AddProductionVM {
     FactoryId: string;
     StaffId: string;
     StaffName: string;
+    InvoiceTypeId: string;
     ItemId: string;
     ItemStatusId: string;
     ItemName: string;
