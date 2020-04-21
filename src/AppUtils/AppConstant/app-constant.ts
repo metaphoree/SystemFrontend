@@ -25,7 +25,9 @@ export enum InvoiceType {
   ClientPayment,
   SupplierPayment,
   StaffPayment,
-  StaffProduction
+  StaffProduction,
+  SalesReturn,
+  PurchaseReturn
 }
 export enum StatusItem
 {

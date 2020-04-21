@@ -14,8 +14,9 @@ export class StaffHistory {
     RecievableAmount: number;
     OccurranceDate: Date;
     Type: string;
-
+    InvoiceTotalAfterDiscount : number;
     constructor() {
+    this.InvoiceTotalAfterDiscount = 0;
     this.StaffId = '';
     this.StaffName = '';
     this.InvoiceId = '';

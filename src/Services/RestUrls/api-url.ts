@@ -120,6 +120,9 @@ export class ApiUrl {
     static GetProductionInitData = 'api/business/production/getInitData';
 
 
+    static GetAllPurchaseInvoice = 'api/business/purchase/getAll';
+    static GetAllSalesInvoice = 'api/business/sales/getAll';
+
 
 }
 

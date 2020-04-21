@@ -8,8 +8,6 @@ export class PurchaseVM {
 
     InvoiceType: InvoiceTypeVM;
     ExpenseType: ExpenseTypeVM;
-
-
     OcurranceDate: Date;
     TotalAmount: number;
     PaidAmount: number;
@@ -20,6 +18,16 @@ export class PurchaseVM {
     EmployeeId: string;
     FactoryId: string;
     InvoiceId: string;
+SupplierName : string;
+
+  
+
+
+
+
+
+
+
 
     constructor() {
         this.SupplierVM = new SupplierVM();
@@ -34,5 +42,6 @@ export class PurchaseVM {
         this.EmployeeId  = '';
         this.FactoryId  = '';
         this.InvoiceId  = '';
+        this.SupplierName = '';
     }
 }

@@ -13,6 +13,8 @@ import { CustomerVM } from 'src/Modules/primary/domainModels/CustomerVM';
 import { ApiUrl } from 'src/Services/RestUrls/api-url';
 import { SalesItemVM } from 'src/Modules/primary/domainModels/sales/SalesItemVM';
 import { SessionService } from 'src/Services/session-service/session.service';
+import { WrapperSalesListVM } from 'src/Modules/primary/domainModels/sales/WrapperSalesListVM';
+import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
 
 @Component({
   selector: 'app-sale-product',
@@ -32,6 +34,22 @@ export class SaleProductComponent implements OnInit {
   selectedItem: ItemVM = new ItemVM();
   selectedItemCategory: ItemCategoryVM = new ItemCategoryVM();
 
+
+
+
+
+
+  columnList: any;
+  childColumnList: any;
+  CurrentPageNo: number = 1;
+  CurrentPageSize: number = 10;
+  wrapperItemList: WrapperSalesListVM;
+
+
+
+
+
+
   // CONSTRUCTOR
   constructor(private dialogService: DialogService,
     private baseService: BaseServiceService,
@@ -39,7 +57,25 @@ export class SaleProductComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private util: UtilService,
     private session: SessionService) {
-
+    this.columnList = [
+      { field: 'Action', header: 'Action', fieldType: 'icon' },
+      { field: 'CustomerName', header: 'CustomerName', fieldType: 'string' },
+      { field: 'OcurranceDate', header: 'Occurence', fieldType: 'date' },
+      { field: 'TotalAmount', header: 'Total', fieldType: 'number' },
+      { field: 'PaidAmount', header: 'Paid', fieldType: 'number' },
+      { field: 'DueAmount', header: 'Due', fieldType: 'number' },
+      { field: 'DiscountAmount', header: 'Discount', fieldType: 'number' }
+    ];
+    this.childColumnList = [
+      { field: 'Action', header: 'Action', fieldType: 'icon' },
+      { field: 'ItemName', header: 'ItemName', fieldType: 'string' },
+      { field: 'ItemCategoryName', header: 'ItemCategoryName', fieldType: 'string' },
+      { field: 'Status', header: 'Status', fieldType: 'string' },
+      { field: 'Quantity', header: 'Quantity', fieldType: 'number' },
+      { field: 'UnitPrice', header: 'UnitPrice', fieldType: 'number' },
+      { field: 'Month', header: 'Month', fieldType: 'string' }
+    ];
+    this.wrapperItemList= new WrapperSalesListVM();
   }
   ngOnInit(): void {
     this.getDataListVM = new GetDataListVM();
@@ -48,7 +84,26 @@ export class SaleProductComponent implements OnInit {
     this.initLoadDataVM = new InitialLoadDataVM();
     this.GetInitialData();
     this.salesVm = new SalesVM();
+    this.GetInitData();
   }
+
+
+
+
+
+  GetInitData(): void {
+    this.getDataListVM.PageNumber = 1;
+    this.getDataListVM.PageSize = 10;
+    this.getDataListVM.FactoryId = this.session.getFactoryId();
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+    // this.baseService.set<WrapperPurchaseListVM>(ApiUrl.GetAllPurchaseInvoice, this.getDataListVM)
+    //   .subscribe((data) => {
+    //     this.getPurchaseVMList = data.ListOfData;
+    //   })
+  }
+
+
+
 
   // GETTING LIST CATEGORIES FOR DROP DOWN
   GetInitialData(): void {
@@ -185,15 +240,119 @@ export class SaleProductComponent implements OnInit {
       arr[i].EmployeeId = this.session.getCurrentUserId();
       arr[i].FactoryId = this.session.getFactoryId();
       arr[i].ItemStatus = this.initLoadDataVM.ItemStatusVMs.filter((value, i, arr) => {
-       return arr[i].Name == 'GOOD'
+        return arr[i].Name == 'GOOD'
       })[0];
     });
     console.log(this.salesVm);
-    this.baseService.setNo(ApiUrl.AddSales, this.salesVm)
+    this.baseService.set<WrapperSalesListVM>(ApiUrl.AddSales, this.salesVm)
       .subscribe((data) => {
-        console.log(data);
+        this.wrapperItemList.ListOfData = data.ListOfData;
+        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+        this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+ 
 
       });
   }
+
+
+
+
+  // DB OPERATION FUNCTION
+  DoDBOperation(operationType: DB_OPERATION, item: any): void {
+    let URL: string = '';
+    switch (operationType) {
+      case DB_OPERATION.CREATE:
+        URL = ApiUrl.GetAllSalesInvoice;
+        break;
+      case DB_OPERATION.READ:
+        URL = ApiUrl.GetAllSalesInvoice;
+        break;
+      case DB_OPERATION.UPDATE:
+        URL = ApiUrl.UpdateItem + '/' + item.Id;
+        break;
+      case DB_OPERATION.DELETE:
+        URL = ApiUrl.DeleteItem;
+        break;
+      default:
+        break;
+    }
+    console.log(URL);
+    this.baseService.set<WrapperSalesListVM>(URL, item)
+      .subscribe((data) => {
+        this.wrapperItemList.ListOfData = data.ListOfData;
+        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+        this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+      }
+      );
+  }
+
+  // PAGING FUNCTION
+  GoToPage(op: any): void {
+    switch (op) {
+      case '+':
+        this.CurrentPageNo++;
+        // this.getDataListVM = new GetDataListVM();
+        this.getDataListVM.PageNumber = this.CurrentPageNo;
+        this.getDataListVM.PageSize = this.CurrentPageSize;
+        this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+        break;
+      case '-':
+        if (this.CurrentPageNo > 1) {
+          this.CurrentPageNo--
+          // this.getDataListVM = new GetDataListVM();
+          this.getDataListVM.PageNumber = this.CurrentPageNo;
+          this.getDataListVM.PageSize = this.CurrentPageSize;
+          this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+        }
+        break;
+    }
+  }
+
+  // RESET DATA TABLE
+  Reset(): void {
+    this.CurrentPageNo = 1;
+    this.getDataListVM.GlobalFilter = "";
+    this.getDataListVM.PageNumber = this.CurrentPageNo;
+    this.getDataListVM.PageSize = this.CurrentPageSize;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+
+  }
+  ModifyEvent(event, operationType, entity): void {
+    console.log(operationType);
+    console.log(entity);
+    console.log(event);
+    // if (operationType == 'Edit') {
+    //   this.openModalUpdate(entity);
+    // }
+    // if (operationType == 'Delete') {
+    //   this.confirm(entity);
+    // }
+    if (operationType == 'Details') {
+      //this.confirm(entity);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

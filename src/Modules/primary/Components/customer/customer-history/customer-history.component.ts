@@ -36,7 +36,7 @@ export class CustomerHistoryComponent implements OnInit {
     private util: UtilService) {
 
     this.columnList = [
-      { field: 'Action', header: 'Action', fieldType: 'icon' },
+      // { field: 'Action', header: 'Action', fieldType: 'icon' },
       { field: 'ItemName', header: 'ItemName', fieldType: 'string' },
       { field: 'CategoryName', header: 'CategoryName', fieldType: 'string' },
       { field: 'UnitPrice', header: 'UnitPrice', fieldType: 'number' },
@@ -192,19 +192,6 @@ export class CustomerHistoryComponent implements OnInit {
     this.getDataListVM.ClientId = customer.CustomerId;
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {

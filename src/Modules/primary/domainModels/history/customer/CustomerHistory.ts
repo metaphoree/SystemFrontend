@@ -13,6 +13,7 @@ export class CustomerHistory {
     RecievableAmount: number;
     OccurranceDate: Date;
     Type: string;
+    InvoiceTotalAfterDiscount : number;
 
 
 
@@ -22,6 +23,7 @@ export class CustomerHistory {
 
     
     constructor() {
+        this.InvoiceTotalAfterDiscount = 0;
         this.CustomerId = '';
         this.InvoiceId = '';
         this.ItemId = '';

@@ -13,8 +13,9 @@ export class SupplierHistory {
     RecievableAmount: number;
     OccurranceDate: Date;
     Type: string;
-
+    InvoiceTotalAfterDiscount : number;
     constructor() {
+        this.InvoiceTotalAfterDiscount = 0;
         this.CustomerId = '';
         this.InvoiceId = '';
         this.ItemId = '';

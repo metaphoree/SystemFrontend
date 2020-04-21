@@ -3,8 +3,7 @@ import { ItemCategoryVM } from '../ItemCategory/ItemCategoryVM';
 import { ItemStatusVM } from '../item-status/ItemStatusVM';
 import { SupplierVM } from '../supplier/SupplierVM';
 
-export class PurchaseItemVM
-{
+export class PurchaseItemVM {
     Item: ItemVM;
     ItemCategory: ItemCategoryVM;
     Quantity: number;
@@ -17,19 +16,12 @@ export class PurchaseItemVM
     SupplierVM: SupplierVM;
     EmployeeId: string;
     InvoiceId: string;
-  
- constructor(){
-    this.Item = new ItemVM();
-    this.ItemCategory  = new ItemCategoryVM();
-    this.Quantity  = 0;
-    this.UnitPrice = 0;
 
-     this.ItemStatus = new ItemStatusVM();
-     this.FactoryId = '';
-     this.ExpiryDate = new Date();
-     this.SupplierVM = new SupplierVM();
-     this.EmployeeId = '';
-     this.InvoiceId = '';
+
+    ItemName: string;
+    ItemCategoryName: string;
+    Status: string;
+    Month: string;
 
 
 
@@ -39,5 +31,29 @@ export class PurchaseItemVM
 
 
 
- }
+
+    constructor() {
+        this.Item = new ItemVM();
+        this.ItemCategory = new ItemCategoryVM();
+        this.Quantity = 0;
+        this.UnitPrice = 0;
+
+        this.ItemStatus = new ItemStatusVM();
+        this.FactoryId = '';
+        this.ExpiryDate = new Date();
+        this.SupplierVM = new SupplierVM();
+        this.EmployeeId = '';
+        this.InvoiceId = '';
+
+
+        this.ItemName = '';
+        this.Status = '';
+        this.ItemCategoryName = '';
+        this.Month = '';
+
+
+
+
+
+    }
 }
