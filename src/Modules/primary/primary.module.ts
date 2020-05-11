@@ -64,6 +64,22 @@ import { StaffProductionHomeComponent } from './Components/staff/staff-productio
 import { CustomerPaymentHomeComponent } from './Components/customer/customer-payment-home/customer-payment-home.component';
 import { StaffPaymentHomeComponent } from './Components/staff/staff-payment-home/staff-payment-home.component';
 import { SupplierPaymentHomeComponent } from './Components/supplier/supplier-payment-home/supplier-payment-home.component';
+import { StockHomeComponent } from './Components/stock/stock-home/stock-home.component';
+import { PurchaseReturnComponent } from './Components/stock/purchase-return/purchase-return.component';
+import { SalesReturnComponent } from './Components/stock/sales-return/sales-return.component';
+import { AddPurchaseReturnComponent } from './Components/stock/add-purchase-return/add-purchase-return.component';
+import { AddSalesReturnComponent } from './Components/stock/add-sales-return/add-sales-return.component';
+import { ItemStatusChangeComponent } from './Components/stock/item-status-change/item-status-change.component';
+import { ExpenseReportHomeComponent } from './Components/monthly-report/expense/expense-report-home/expense-report-home.component';
+import { ExpenseReportComponent } from './Components/monthly-report/expense/expense-report/expense-report.component';
+import { IncomeReportComponent } from './Components/monthly-report/income/income-report/income-report.component';
+import { IncomeReportHomeComponent } from './Components/monthly-report/income/income-report-home/income-report-home.component';
+import { PayableReportHomeComponent } from './Components/monthly-report/payable/payable-report-home/payable-report-home.component';
+import { PayableReportComponent } from './Components/monthly-report/payable/payable-report/payable-report.component';
+import { RecievableReportComponent } from './Components/monthly-report/recievable/recievable-report/recievable-report.component';
+import { RecievableReportHomeComponent } from './Components/monthly-report/recievable/recievable-report-home/recievable-report-home.component';
+import { ProductionReportHomeComponent } from './Components/monthly-report/production/production-report-home/production-report-home.component';
+import { ProductionReportComponent } from './Components/monthly-report/production/production-report/production-report.component';
 
 @NgModule({
   declarations: [ ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent,
@@ -75,7 +91,7 @@ import { SupplierPaymentHomeComponent } from './Components/supplier/supplier-pay
       InvoiceTypeMgmtComponent, ExpenseTypeMgmtComponent, AddExpenseTypeComponent, EditExpenseTypeComponent, EditDepartmentComponent, 
       AddDepartmentComponent, AddIncomeTypeComponent, EditIncomeTypeComponent, EditInvoiceTypeComponent, AddInvoiceTypeComponent, 
       AddEquipmentComponent, EditEquipmentComponent, EditEquipmentCategoryComponent, AddEquipmentCategoryComponent,
-    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent, CustomerHistoryComponent, SupplierHistoryComponent, StaffHistoryComponent, StaffProductionComponent, StaffProductionHomeComponent, CustomerPaymentHomeComponent, StaffPaymentHomeComponent, SupplierPaymentHomeComponent],
+    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent, CustomerHistoryComponent, SupplierHistoryComponent, StaffHistoryComponent, StaffProductionComponent, StaffProductionHomeComponent, CustomerPaymentHomeComponent, StaffPaymentHomeComponent, SupplierPaymentHomeComponent, StockHomeComponent, PurchaseReturnComponent, SalesReturnComponent, AddPurchaseReturnComponent, AddSalesReturnComponent, ItemStatusChangeComponent, ExpenseReportHomeComponent, ExpenseReportComponent, IncomeReportComponent, IncomeReportHomeComponent, PayableReportHomeComponent, PayableReportComponent, RecievableReportComponent, RecievableReportHomeComponent, ProductionReportHomeComponent, ProductionReportComponent],
   imports: [
     CommonModule,
     BrowserModule,

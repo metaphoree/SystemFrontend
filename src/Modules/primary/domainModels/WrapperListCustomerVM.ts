@@ -1,10 +1,10 @@
 import { CustomerVM } from './CustomerVM';
 
 export class WrapperListCustomerVM {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: CustomerVM[];
     constructor() {
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
         this.ListOfData = [];
     }
 }

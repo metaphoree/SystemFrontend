@@ -1,10 +1,10 @@
 import { SupplierVM } from './SupplierVM';
 
 export class WrapperSupplierListVM {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: SupplierVM[];
     constructor() {
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
         this.ListOfData = [];
     }
 }

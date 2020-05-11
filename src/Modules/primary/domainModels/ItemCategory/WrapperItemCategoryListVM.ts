@@ -1,10 +1,10 @@
 import { ItemCategoryVM } from './ItemCategoryVM';
 export class WrapperItemCategoryListVM {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: ItemCategoryVM[];
 
     constructor() {
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
         this.ListOfData = [];
     }
 }

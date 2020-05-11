@@ -274,7 +274,7 @@ export class StaffPaymentHomeComponent implements OnInit {
     this.baseService.set<WrapperPaymentListVM>(URL, item)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
-        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+        this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
       }
       );

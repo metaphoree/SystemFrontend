@@ -114,7 +114,7 @@ export class ItemManagementComponent implements OnInit {
     this.baseService.set<WrapperItemListVM>(URL, item)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
-        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+        this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
       }
       );

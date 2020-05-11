@@ -110,7 +110,7 @@ export class ClientManagementComponent implements OnInit {
     this.baseService.set<WrapperListCustomerVM>(URL, item)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
-        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+        this.wrapperItemList.TotalRecords = data.TotalRecords;
         console.log(this.wrapperItemList);
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
       }

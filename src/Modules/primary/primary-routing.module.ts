@@ -28,6 +28,8 @@ import { StaffProductionHomeComponent } from './Components/staff/staff-productio
 import { CustomerPaymentHomeComponent } from './Components/customer/customer-payment-home/customer-payment-home.component';
 import { StaffPaymentHomeComponent } from './Components/staff/staff-payment-home/staff-payment-home.component';
 import { SupplierPaymentHomeComponent } from './Components/supplier/supplier-payment-home/supplier-payment-home.component';
+import { PurchaseReturnComponent } from './Components/stock/purchase-return/purchase-return.component';
+import { SalesReturnComponent } from './Components/stock/sales-return/sales-return.component';
 
 
 const routes: Routes = [
@@ -113,7 +115,22 @@ const routes: Routes = [
   },
   {
     path: 'stock-mgmt-home',
-    component: StockMgmtComponent
+    component: StockMgmtComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'purchaseReturn',
+        pathMatch: 'full'
+      },
+      {
+        path: 'purchaseReturn',
+        component: PurchaseReturnComponent
+
+      }, {
+        path: 'salesReturn',
+        component: SalesReturnComponent
+      }
+    ]
   },
   {
     path: 'department-mgmt-home',

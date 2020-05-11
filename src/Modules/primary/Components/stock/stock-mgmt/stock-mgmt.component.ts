@@ -12,6 +12,13 @@ import { ItemStatusVM } from 'src/Modules/primary/domainModels/item-status/ItemS
 import { ItemVM } from 'src/Modules/primary/domainModels/item/ItemVM';
 import { WrapperItemListVM } from 'src/Modules/primary/domainModels/item/WrapperItemListVM';
 import { WrapperItemStatusListVM } from 'src/Modules/primary/domainModels/item-status/WrapperItemStatusListVM';
+import { Router } from '@angular/router';
+import { PageData } from 'src/Modules/primary/domainModels/PageData';
+import { UtilService } from 'src/Services/util-service/util.service';
+import { ItemStatusChangeComponent } from '../item-status-change/item-status-change.component';
+import { AddPurchaseReturnComponent } from '../add-purchase-return/add-purchase-return.component';
+import { StockVM } from 'src/Modules/primary/domainModels/stock/StockVM';
+import { PurchaseReturnVM } from 'src/Modules/primary/domainModels/stock/PurchaseReturnVM';
 
 @Component({
   selector: 'app-stock-mgmt',
@@ -30,27 +37,40 @@ export class StockMgmtComponent implements OnInit {
   // initial data holder
   itemStatusList: ItemStatusVM[];
   itemList: ItemVM[];
-
-
+  pageData: PageData;
 
   // CONSTRUCTOR
-  constructor(private dialogService: DialogService,
+  constructor(
+    private dialogService: DialogService,
     private baseService: BaseServiceService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService) {
+    private confirmationService: ConfirmationService,
+    private router: Router,
+    private util: UtilService
+  ) {
     this.wrapperItemList = new WrapperStockListVM();
     this.getDataListVM = new GetDataListVM();
+    this.pageData = new PageData();
   }
   // INIT
   ngOnInit(): void {
-    this.getInitialData();
+    //this.getInitialData();
     this.columnList = [
-      { field: 'Action', header: 'Action',fieldType : 'icon' },
-      { field: 'ItemName', header: 'Item Name',fieldType : 'string' },
-      { field: 'ItemStatus', header: 'Item Status' ,fieldType : 'string'},
-      { field: 'Quantity', header: 'Quantity',fieldType : 'number' },
-      { field: 'ExpiryDate', header: 'Expiry Date',fieldType : 'date' }
+      { field: 'Action', header: 'Action', fieldType: 'icon' },
+      { field: 'ItemName', header: 'Item Name', fieldType: 'string' },
+      { field: 'ItemStatus', header: 'Item Status', fieldType: 'string' },
+      { field: 'Quantity', header: 'Quantity', fieldType: 'number' },
+      { field: 'ExpiryDate', header: 'Expiry Date', fieldType: 'date' }
     ];
+
+    this.util.initDD_Data.subscribe(
+      (data: PageData) => {
+        this.pageData = data;
+        console.log(data);
+        this.itemList = this.pageData.initLoadDataVM.ItemVMs;
+        this.itemStatusList = this.pageData.initLoadDataVM.ItemStatusVMs;
+      }
+    );
     this.getDataListVM.PageNumber = 1;
     this.getDataListVM.PageSize = 10;
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
@@ -74,10 +94,6 @@ export class StockMgmtComponent implements OnInit {
       }
       );
   }
-
-
-
-
   // EVENTS
   AddEvent(event): void {
     this.openModalAdd();
@@ -91,6 +107,12 @@ export class StockMgmtComponent implements OnInit {
     }
     if (operationType == 'Delete') {
       this.confirm(entity);
+    }
+    if (operationType == 'ChangeStatus') {
+      this.openModalItemStatusChange(entity);
+    }
+    if (operationType == 'Return') {
+      this.openModalPurchasereturnAdd(entity);
     }
   }
   SearchEvent(event): void {
@@ -116,17 +138,39 @@ export class StockMgmtComponent implements OnInit {
       case DB_OPERATION.DELETE:
         URL = ApiUrl.DeleteStock;
         break;
+      case DB_OPERATION.OTHER:
+        URL = ApiUrl.ChangeItemStatus;
+        break;
+      case DB_OPERATION.PURCHASE_RETURN:
+        URL = ApiUrl.SetPurchaseReturn;
+        break;
       default:
         break;
     }
     console.log(URL);
-    this.baseService.set<WrapperStockListVM>(URL, item)
-      .subscribe((data) => {
-        this.wrapperItemList.ListOfData = data.ListOfData;
-        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
-        this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
-      }
-      );
+
+    if (operationType == DB_OPERATION.PURCHASE_RETURN) {
+      this.baseService.set<WrapperStockListVM>(URL, item)
+        .subscribe((data) => {
+
+          this.CurrentPageNo = 1;
+          this.getDataListVM.PageNumber = this.CurrentPageNo;
+          this.getDataListVM.PageSize = this.CurrentPageSize;
+          this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+
+        }
+        );
+    }
+    else {
+
+      this.baseService.set<WrapperStockListVM>(URL, item)
+        .subscribe((data) => {
+          this.wrapperItemList.ListOfData = data.ListOfData;
+          this.wrapperItemList.TotalRecords = data.TotalRecords;
+          this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        }
+        );
+    }
   }
 
   // MODAL FUNCTION
@@ -166,7 +210,53 @@ export class StockMgmtComponent implements OnInit {
       }
     });
   }
+  openModalItemStatusChange(item: any) {
+    const ref = this.dialogService.open(ItemStatusChangeComponent, {
+      data: {
+        modelData: item,
+        pageData: this.pageData
+      },
+      header: 'Give necessary  info',
+      width: '70%',
+      height: '90%',
+      footer: "This is footer"
+    });
+    ref.onClose.subscribe((item: any) => {
+      if (item) {
+        this.DoDBOperation(DB_OPERATION.OTHER, item);
+      }
+    });
+  }
 
+
+
+  // MODAL FUNCTION
+  openModalPurchasereturnAdd(val: StockVM) {
+    console.log(val);
+    let viewModelTemp: PurchaseReturnVM;
+    viewModelTemp = new PurchaseReturnVM();
+    viewModelTemp.ItemId = val.ItemId;
+    viewModelTemp.ItemStatusId = val.ItemStatusId;
+    viewModelTemp.Quantity = val.Quantity;
+
+
+    const ref = this.dialogService.open(AddPurchaseReturnComponent, {
+      data: {
+        pageData: this.pageData,
+        modelProvided: true,
+        viewModel: viewModelTemp
+      },
+      header: 'Give necessary  info',
+      width: '70%',
+      height: '90%',
+      footer: "This is footer"
+    });
+    ref.onClose.subscribe((item: any) => {
+      if (item) {
+        this.DoDBOperation(DB_OPERATION.PURCHASE_RETURN, item);
+      }
+    });
+  }
 
   // DELETION CONFIRMATION
   confirm(entity: any) {
@@ -217,7 +307,15 @@ export class StockMgmtComponent implements OnInit {
 
 
 
+  goto(event, option): void {
+    if (option == 'PurchaseReturn') {
+      this.router.navigateByUrl('/stock-mgmt-home/purchaseReturn')
+    }
+    else if (option == 'SalesReturn') {
+      this.router.navigateByUrl('/stock-mgmt-home/salesReturn');
+    }
 
+  }
 
 
 

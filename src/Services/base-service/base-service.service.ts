@@ -16,7 +16,9 @@ export class BaseServiceService {
       // 'Authorization': 'my-auth-token'
     })
   };
-  constructor(private http: HttpClient, private sessionService: SessionService, private messageService : MessageService) {
+  constructor(private http: HttpClient, 
+    private sessionService: SessionService,
+     private messageService : MessageService) {
     this.httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'

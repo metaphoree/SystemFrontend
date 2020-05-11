@@ -1,11 +1,11 @@
 import { ItemVM } from './ItemVM';
 
 export class WrapperItemListVM {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: ItemVM[];
 
     constructor() {
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
         this.ListOfData = [];
     }
 }

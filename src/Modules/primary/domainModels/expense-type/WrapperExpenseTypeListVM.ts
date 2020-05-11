@@ -1,11 +1,11 @@
 import { ExpenseTypeVM } from './ExpenseTypeVM';
 
 export class WrapperExpenseTypeListVM {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: ExpenseTypeVM[];
 
     constructor() {
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
         this.ListOfData = [];
     }
 }

@@ -124,5 +124,24 @@ export class ApiUrl {
     static GetAllSalesInvoice = 'api/business/sales/getAll';
 
 
+
+    static SetPurchaseReturn = 'api/business/purchase/return/add';
+    static GetPurchaseReturn = 'api/business/purchase/return/getAll';
+    static DeletePurchaseReturn = 'api/business/purchase/return/delete';
+
+
+    static SetSalesReturn = 'api/business/sales/return/add';
+    static GetSalesReturn = 'api/business/sales/return/getAll';
+    static DeleteSalesReturn = 'api/business/sales/return/delete';
+
+    static MonthlyProduction = 'api/business/report/monthly/production';
+    static MonthlyIncome = 'api/business/report/monthly/income';
+    static MonthlyExpense = 'api/business/report/monthly/expense';
+    static MonthlyPayable = 'api/business/report/monthly/payable';
+    static MonthlyRecievable = 'api/business/report/monthly/recievable';
+
+    static ChangeItemStatus = 'api/business/item/status/change';
+
+
 }
 

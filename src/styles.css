@@ -112,8 +112,15 @@ border-bottom: 1px solid black;
 /*Tab Bar*/
 
 
+.bold {
+font-weight: bolder;
 
+}
 
+.center {
+align-items: center;
+
+}
 
 
 

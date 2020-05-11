@@ -1,10 +1,10 @@
 import { StaffVM } from './StaffVM';
 
 export class WrapperStaffListVM {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: StaffVM[];
     constructor() {
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
         this.ListOfData = [];
     }
 }

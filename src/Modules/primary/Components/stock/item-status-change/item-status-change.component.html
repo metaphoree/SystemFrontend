@@ -1,0 +1,33 @@
+<div class="row">
+    <div class="col-lg-12">
+        <label>Change Item Status</label>
+    </div>
+    <div class="col-lg-12">
+        Item : {{viewModel.ItemName}}
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <p-dropdown [options]="pageData.ddModelVmsPageSpecific.ItemStatusVMs"
+            [(ngModel)]="selectedItemStatus" [filter]="true" filterBy="label" (onChange)="ItemStatusSelected($event)">
+        </p-dropdown>
+    </div>
+    <!-- <div class="col-lg-12 form-control">
+        Item Status : {{viewModel.ItemStatus}}
+    </div> -->
+    <div class="col-lg-12 ">
+        Current Item Quantity : {{Quantity}}
+    </div>
+    <!-- <div class="col-lg-12 form-control">
+         Expiry Date : {{viewModel.ExpiryDate | date:"dd-MMM-yyyy"}}
+    </div> -->
+    <div class="col-lg-6 ">
+        <label>Quantity to Change Status</label>
+        <input type="text" placeholder="Quantity to Add" [(ngModel)]="viewModel.Quantity" pInputText />
+    </div>
+    <!-- <div class="col-lg-6 form-control">
+        <label>Removed Quantity</label>
+        <input type="text" placeholder="Quantity to Remove" [(ngModel)]="RemovedQuantity" pInputText />
+    </div> -->
+    <div class="col-lg-12">
+        <button pButton type="button" label="Edit" (click)="Edit($event)"></button>
+    </div>
+</div>

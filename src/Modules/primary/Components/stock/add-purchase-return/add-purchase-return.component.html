@@ -1,0 +1,85 @@
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Select Supplier </label>
+    </div>
+    <div class="col-lg-3">
+        <p-dropdown [options]="pageData.ddModelVmsPageSpecific.SupplierVMs" (onChange)="SupplierSelected($event)"
+            [(ngModel)]="selectedSupplier" [filter]="true" filterBy="label"></p-dropdown>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Select Item </label>
+    </div>
+    <div class="col-lg-3">
+        <p-dropdown [options]="pageData.ddModelVmsPageSpecific.ItemVMs" (onChange)="ItemSelected($event)"
+            [(ngModel)]="selectedItem" [filter]="true" filterBy="label"></p-dropdown>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Select Item Category</label>
+    </div>
+    <div class="col-lg-3">
+        <p-dropdown [options]="pageData.ddModelVmsPageSpecific.ItemCategoryVMs"
+            (onChange)="ItemCategorySelected($event)" [(ngModel)]="selectedItemCategory" [filter]="true"
+            filterBy="label">
+        </p-dropdown>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Select Item Status</label>
+    </div>
+    <div class="col-lg-3">
+        <p-dropdown [options]="pageData.ddModelVmsPageSpecific.ItemStatusVMs" (onChange)="ItemStatusSelected($event)"
+            [(ngModel)]="selectedItemStatus" [filter]="true" filterBy="label"></p-dropdown>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Quantity</label>
+    </div>
+    <div class="col-lg-3">
+        <input type="text" placeholder="Quantity" [(ngModel)]="viewModel.Quantity" (input)="QuantityChanged()" pInputText />
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Unitprice</label>
+    </div>
+    <div class="col-lg-3">
+        <input type="text" placeholder="Unitprice" [(ngModel)]="viewModel.UnitPrice" pInputText />
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Total Amount</label>
+    </div>
+    <div class="col-lg-3">
+        <input type="text" placeholder="Unitprice" [(ngModel)]="viewModel.TotalAmount" pInputText />
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Amount Recieved</label>
+    </div>
+    <div class="col-lg-3">
+        <input type="text" placeholder="AmountRecieved" [(ngModel)]="viewModel.AmountRecieved" pInputText />
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Is Fully Paid</label>
+    </div>
+    <div class="col-lg-3 center">
+        <p-checkbox [(ngModel)]="viewModel.IsFullyPaid" [binary]="true"></p-checkbox>
+    </div>
+
+
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <button pButton type="button" label="Add " (click)="Add($event)"></button>
+    </div>
+</div>

@@ -18,6 +18,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {CalendarModule} from 'primeng/calendar';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {CheckboxModule} from 'primeng/checkbox';
 @NgModule({
   declarations: [],
   imports: [
@@ -25,12 +26,12 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
     BrowserAnimationsModule, PanelMenuModule,
     InputTextModule, ButtonModule, InputTextareaModule, DynamicDialogModule, 
     TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule,
-    ConfirmDialogModule,CalendarModule,ProgressSpinnerModule
+    ConfirmDialogModule,CalendarModule,ProgressSpinnerModule,CheckboxModule
   ],
   exports: [SidebarModule, BrowserModule, BrowserAnimationsModule, PanelMenuModule, InputTextModule, ButtonModule,
     InputTextareaModule, DynamicDialogModule, FormsModule,
      TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule,ConfirmDialogModule,CalendarModule,
-     ProgressSpinnerModule
+     ProgressSpinnerModule,CheckboxModule
   ]
 })
 

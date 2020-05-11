@@ -3,9 +3,9 @@ import { PaymentVM } from './PaymentVM';
 export class WrapperPaymentListVM
 {
     ListOfData: PaymentVM[];
-    TotalRecoreds : number;
+    TotalRecords : number;
     constructor(){
         this.ListOfData = [];
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
     }
 }

@@ -2,7 +2,7 @@ import { StaffHistory } from './StaffHistory';
 
 export class WrapperStaffHistory
 {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: StaffHistory[];
 
     constructor(){

@@ -1,10 +1,10 @@
 import { StockVM } from './StockVM';
 
 export class WrapperStockListVM {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: StockVM[];
     constructor() {
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
         this.ListOfData = [];
     }
 }

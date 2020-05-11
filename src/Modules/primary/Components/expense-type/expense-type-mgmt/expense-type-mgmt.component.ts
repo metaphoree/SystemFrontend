@@ -94,7 +94,7 @@ DoDBOperation(operationType: DB_OPERATION, item: any): void {
   this.baseService.set<WrapperExpenseTypeListVM>(URL, item)
     .subscribe((data) => {
       this.wrapperItemList.ListOfData = data.ListOfData;
-      this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+      this.wrapperItemList.TotalRecords = data.TotalRecords;
       this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
     }
     );

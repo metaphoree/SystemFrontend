@@ -1,11 +1,11 @@
 import { InvoiceTypeVM } from './InvoiceTypeVM';
 
 export class WrapperInvoiceTypeListVM {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: InvoiceTypeVM[];
 
     constructor() {
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
         this.ListOfData = [];
     }
 }

@@ -88,7 +88,7 @@ export class StaffProductionHomeComponent implements OnInit {
     this.baseService.set<WrapperProductionListVM>(ApiUrl.GetProduction, this.getDataListVM)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
-        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+        this.wrapperItemList.TotalRecords = data.TotalRecords;
         console.log( this.wrapperItemList.ListOfData);
       });
   }
@@ -216,7 +216,7 @@ export class StaffProductionHomeComponent implements OnInit {
     this.baseService.set<WrapperProductionListVM>(URL, item)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
-        this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
+        this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
       }
       );

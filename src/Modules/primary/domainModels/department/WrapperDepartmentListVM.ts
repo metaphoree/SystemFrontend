@@ -1,11 +1,11 @@
 import { DepartmentVM } from './DepartmentVM';
 
 export class WrapperDepartmentListVM {
-    TotalRecoreds: number;
+    TotalRecords: number;
     ListOfData: DepartmentVM[];
 
     constructor() {
-        this.TotalRecoreds = 0;
+        this.TotalRecords = 0;
         this.ListOfData = [];
     }
 }
