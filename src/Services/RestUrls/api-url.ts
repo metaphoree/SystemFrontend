@@ -139,7 +139,7 @@ export class ApiUrl {
     static MonthlyExpense = 'api/business/report/monthly/expense';
     static MonthlyPayable = 'api/business/report/monthly/payable';
     static MonthlyRecievable = 'api/business/report/monthly/recievable';
-    static MonthlyTransaction = 'api/business/qreport/monthly/transaction'
+    static MonthlyTransaction = 'api/business/report/monthly/transaction'
 
     static ChangeItemStatus = 'api/business/item/status/change';
 
