@@ -253,10 +253,6 @@ export class SaleProductComponent implements OnInit {
 
       });
   }
-
-
-
-
   // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
     let URL: string = '';
@@ -285,7 +281,6 @@ export class SaleProductComponent implements OnInit {
       }
       );
   }
-
   // PAGING FUNCTION
   GoToPage(op: any): void {
     switch (op) {
@@ -307,7 +302,6 @@ export class SaleProductComponent implements OnInit {
         break;
     }
   }
-
   // RESET DATA TABLE
   Reset(): void {
     this.CurrentPageNo = 1;

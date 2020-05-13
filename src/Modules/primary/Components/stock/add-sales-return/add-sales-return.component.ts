@@ -54,6 +54,7 @@ export class AddSalesReturnComponent implements OnInit {
 
   CustomerSelected(event): void {
     this.viewModel.CustomerId = event.value.CustomerId;
+    this.viewModel.CustomerName = event.value.Name;
     console.log(event.value);
     console.log(event);
   }

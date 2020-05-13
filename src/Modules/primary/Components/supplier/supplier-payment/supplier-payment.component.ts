@@ -66,6 +66,7 @@ export class SupplierPaymentComponent implements OnInit {
   Selected(event): void {
     let cust = event.value;
     this.viewModel.ClientId = cust.Id;
+    this.viewModel.ClientName = cust.Name;
     console.log(event.value);
     console.log(event);
   }

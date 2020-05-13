@@ -78,6 +78,7 @@ export class StaffProductionComponent implements OnInit {
   SelectedStaff(event): void {
     let cust = event.value;
     this.viewModel.StaffId = cust.Id;
+    this.viewModel.StaffName = cust.Name;
     console.log(event.value);
     console.log(event);
   }

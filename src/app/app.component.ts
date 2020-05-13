@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
           { label: 'Quit', icon: 'pi pi-fw pi-times' }
           ]
       },
-      
+
       {
         label: 'Edit',
         icon: 'pi pi-fw pi-pencil',
@@ -52,30 +52,38 @@ export class AppComponent implements OnInit {
         ]
       },
       {
-        label: 'Help',
+        label: 'Monthly Report',
         icon: 'pi pi-fw pi-question',
         items: [
           {
-            label: 'Contents',
-            icon: 'pi pi-pi pi-bars'
+            label: 'Expense Report',
+            icon: 'pi pi-pi pi-search',
+            routerLink: 'expense-report-home'
           },
           {
-            label: 'Search',
+            label: 'Production Report',
             icon: 'pi pi-pi pi-search',
-            items: [
-              {
-                label: 'Text',
-                items: [
-                  {
-                    label: 'Workspace'
-                  }
-                ]
-              },
-              {
-                label: 'User',
-                icon: 'pi pi-fw pi-file',
-              }
-            ]
+            routerLink: 'production-report-home'
+          },
+          {
+            label: 'Income Report',
+            icon: 'pi pi-pi pi-search',
+            routerLink: 'income-report-home'
+          },
+          {
+            label: 'Payable Report',
+            icon: 'pi pi-pi pi-search',
+            routerLink: 'payable-report-home'
+          },
+          {
+            label: 'Recievable Report',
+            icon: 'pi pi-pi pi-search',
+            routerLink: 'recievable-report-home'
+          },
+          {
+            label: 'Account Report',
+            icon: 'pi pi-pi pi-search',
+            routerLink: 'transaction-report-home'
           }
         ]
       },

@@ -40,8 +40,6 @@
         </div>
         <div class="col-lg-6">
             <input type="text" placeholder="UnitPrice" [(ngModel)]="unitPrice" pInputText />
-
-
             <button pButton type="button" label="Add Item"
                 (click)="Add($event,selectedItem,selectedItemCategory,quantity,unitPrice)"></button>
         </div>
@@ -88,6 +86,9 @@
     <div class="row">
         <div class="col-lg-2">
             <button pButton type="button" label="Add" (click)="AddPurchase()"></button>
+        </div>
+        <div class="col-lg-4">
+            <button pButton type="button" label="Refresh" (click)="Refresh()"></button>
         </div>
     </div>
 </div>

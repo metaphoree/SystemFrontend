@@ -30,6 +30,18 @@ import { StaffPaymentHomeComponent } from './Components/staff/staff-payment-home
 import { SupplierPaymentHomeComponent } from './Components/supplier/supplier-payment-home/supplier-payment-home.component';
 import { PurchaseReturnComponent } from './Components/stock/purchase-return/purchase-return.component';
 import { SalesReturnComponent } from './Components/stock/sales-return/sales-return.component';
+import { ExpenseReportHomeComponent } from './Components/monthly-report/expense/expense-report-home/expense-report-home.component';
+import { ExpenseReportComponent } from './Components/monthly-report/expense/expense-report/expense-report.component';
+import { PayableReportComponent } from './Components/monthly-report/payable/payable-report/payable-report.component';
+import { PayableReportHomeComponent } from './Components/monthly-report/payable/payable-report-home/payable-report-home.component';
+import { RecievableReportHomeComponent } from './Components/monthly-report/recievable/recievable-report-home/recievable-report-home.component';
+import { RecievableReportComponent } from './Components/monthly-report/recievable/recievable-report/recievable-report.component';
+import { TransactionReportComponent } from './Components/monthly-report/transaction/transaction-report/transaction-report.component';
+import { TransactionReportHomeComponent } from './Components/monthly-report/transaction/transaction-report-home/transaction-report-home.component';
+import { ProductionReportHomeComponent } from './Components/monthly-report/production/production-report-home/production-report-home.component';
+import { ProductionReportComponent } from './Components/monthly-report/production/production-report/production-report.component';
+import { IncomeReportHomeComponent } from './Components/monthly-report/income/income-report-home/income-report-home.component';
+import { IncomeReportComponent } from './Components/monthly-report/income/income-report/income-report.component';
 
 
 const routes: Routes = [
@@ -183,7 +195,91 @@ const routes: Routes = [
         component: SaleProductComponent
       }
     ]
-  }
+  },
+  {
+    path: 'expense-report-home',
+    component: ExpenseReportHomeComponent,
+    children: [
+      {
+        path: '',
+        component: ExpenseReportComponent
+      },
+      {
+        path: 'expense-report',
+        component: ExpenseReportComponent
+      }
+    ]
+    },
+    {
+      path: 'payable-report-home',
+      component: PayableReportHomeComponent,
+      children: [
+        {
+          path: '',
+          component: PayableReportComponent
+        },
+        {
+          path: 'payable-report',
+          component: PayableReportComponent
+        }
+      ]
+    },
+    {
+      path: 'recievable-report-home',
+      component: RecievableReportHomeComponent,
+      children: [
+        {
+          path: '',
+          component: RecievableReportComponent
+        },
+        {
+          path: 'recievable-report',
+          component: RecievableReportComponent
+        }
+      ]
+    },
+    {
+      path: 'transaction-report-home',
+      component: TransactionReportHomeComponent,
+      children: [
+        {
+          path: '',
+          component: TransactionReportComponent
+        },
+        {
+          path: 'transaction-report',
+          component: TransactionReportComponent
+        }
+      ]
+    },
+    {
+      path: 'production-report-home',
+      component: ProductionReportHomeComponent,
+      children: [
+        {
+          path: '',
+          component: ProductionReportComponent
+        },
+        {
+          path: 'production-report',
+          component: ProductionReportComponent
+        }
+      ]
+    },
+    {
+      path: 'income-report-home',
+      component: IncomeReportHomeComponent,
+      children: [
+        {
+          path: '',
+          component: IncomeReportComponent
+        },
+        {
+          path: 'income-report',
+          component: IncomeReportComponent
+        }
+      ]
+    }
 ];
 
 @NgModule({

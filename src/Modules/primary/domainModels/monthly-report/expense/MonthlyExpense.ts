@@ -8,6 +8,8 @@ export class MonthlyExpense {
     Amount: number;
     Purpose: string;
 
+
+
     constructor() {
         this.CreatedDateTime = new Date();
         this.FactoryId= '';

@@ -1,3 +1,5 @@
+
+
 <div class="row">
     <div class="col-sm-2">
         <p-dropdown [options]="MonthList" (onChange)="MonthSelected($event)" [(ngModel)]="selectedMonth" [filter]="true"
@@ -16,32 +18,40 @@
     <div class="col-sm-4 form-group">
     </div>
 </div>
-
-
 <p-panel >
     <p-header>
-        Income Summury
+        Account Summury
     </p-header>
     <div class="row" style="font-size: medium;">
-        <div class="col-lg-6">
+        <div class="col-lg-12">
             <label>
-               Monthly Total : 
+                Monthly Total Credit: 
             </label>
-            <label>{{wrapperItemList.Total_Monthly}}</label>
+            <label>{{wrapperItemList.TotalMonthly_Credit}}</label>
         </div>
-        <div class="col-lg-6">
-            <label>Total Till Now</label>
-            <label>{{wrapperItemList.Total_TillNow}}</label>
+        <div class="col-lg-12">
+            <label>
+                Monthly Total Debit: 
+            </label>
+            <label>{{wrapperItemList.TotalMonthly_Debit}}</label>
+        </div>
+        <div class="col-lg-12">
+            <label>
+                Total Till Now Credit
+            </label>
+            <label>{{wrapperItemList.TotalTillNow_Credit}}</label>
+        </div>
+        <div class="col-lg-12">
+            <label>
+                Total Till Now Debit
+            </label>
+            <label>{{wrapperItemList.TotalTillNow_Debit}}</label>
         </div>
     </div>
     <!-- <p-footer>
         Footer content here
     </p-footer> -->
 </p-panel>
-
-
-
-
 
 
 
@@ -87,7 +97,6 @@
         </table>
 
     </div>
-
     <!-- <div class="col-sm-6" style="text-align: center;"></div> -->
     <div class="col-sm-12 paging">
         <span (click)="GoToPage('-')" class="space-around paging-icons"><i class="pi pi-fast-backward"></i></span>

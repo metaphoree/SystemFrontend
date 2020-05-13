@@ -26,7 +26,7 @@ export class SalesReturnVM {
     InvoiceId: string;
     InvoiceTypeId: string;
     InvoiceTypeName: string;
-    OccurranceDate: Date | string; //--
+    OccurranceDate: Date; //--
 
     IsFullyPaid: boolean;
     ExpenseTypeId: string;

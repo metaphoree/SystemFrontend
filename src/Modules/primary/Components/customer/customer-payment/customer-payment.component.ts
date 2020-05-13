@@ -129,6 +129,7 @@ export class CustomerPaymentComponent implements OnInit {
   Selected(event): void {
     let cust = event.value;
     this.viewModel.ClientId = cust.CustomerId;
+    this.viewModel.ClientName = cust.Name;
     console.log(event.value);
     console.log(event);
   }

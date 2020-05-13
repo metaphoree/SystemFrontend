@@ -13,6 +13,7 @@ import { PageData } from 'src/Modules/primary/domainModels/PageData';
   providedIn: 'root'
 })
 export class UtilService {
+   CurrntMonth: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ];  
 
   getDataListVM: GetDataListVM;
   initLoadDataVM: InitialLoadDataVM;
@@ -140,18 +141,18 @@ export class UtilService {
 
   public getMonthList(): any {
     let monthList = [
-      { label: 'JAN', value: 'JAN' },
-      { label: 'FEB', value: 'FEB' },
-      { label: 'MAR', value: 'MAR' },
-      { label: 'APR', value: 'APR' },
-      { label: 'MAY', value: 'MAY' },
-      { label: 'JUN', value: 'JUN' },
-      { label: 'JUL', value: 'JUL' },
-      { label: 'AUG', value: 'AUG' },
-      { label: 'SEP', value: 'SEP' },
-      { label: 'OCT', value: 'OCT' },
-      { label: 'NOV', value: 'NOV' },
-      { label: 'DEC', value: 'DEC' }
+      { label: this.CurrntMonth[0], value: this.CurrntMonth[0] },
+      { label: this.CurrntMonth[1], value: this.CurrntMonth[1] },
+      { label: this.CurrntMonth[2], value: this.CurrntMonth[2] },
+      { label: this.CurrntMonth[3], value: this.CurrntMonth[3] },
+      { label: this.CurrntMonth[4], value: this.CurrntMonth[4] },
+      { label: this.CurrntMonth[5], value: this.CurrntMonth[5] },
+      { label: this.CurrntMonth[6], value: this.CurrntMonth[6] },
+      { label: this.CurrntMonth[7], value: this.CurrntMonth[7] },
+      { label: this.CurrntMonth[8], value: this.CurrntMonth[8] },
+      { label: this.CurrntMonth[9], value: this.CurrntMonth[9] },
+      { label: this.CurrntMonth[10], value: this.CurrntMonth[10] },
+      { label: this.CurrntMonth[11], value: this.CurrntMonth[11] }
     ];
     return monthList;
   }
@@ -159,7 +160,17 @@ export class UtilService {
 
 
 
-
+  getCurrentMonth() : string {  
+    var CurrntMonth: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ];  
+   //var CurrntMonth: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC", ];  
+   var month = new Date();  
+    var CrrntMonth = CurrntMonth[month.getMonth()]; 
+    return CrrntMonth; 
+   // var span = document.createElement("span");  
+   // span.style.color = "Blue";  
+   // span.innerText = "getMonth Method \n Current Month is-> " + CrrntMonth + "\n";  
+   // document.body.appendChild(span);  
+   }
 
 
 

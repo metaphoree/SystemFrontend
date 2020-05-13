@@ -67,6 +67,7 @@ export class AddPurchaseReturnComponent implements OnInit {
 
   SupplierSelected(event): void {
     this.viewModel.SupplierId = event.value.Id;
+    this.viewModel.SupplierName = event.value.Name;
     console.log(event.value);
     console.log(event);
   }

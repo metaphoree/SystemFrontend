@@ -71,16 +71,6 @@ export class PurchaseProductComponent implements OnInit {
       { field: 'UnitPrice', header: 'UnitPrice', fieldType: 'number' },
       { field: 'Month', header: 'Month', fieldType: 'string' }
     ];
-
-
-
-
-
-
-
-
-
-
   }
   ngOnInit(): void {
     this.getDataListVM = new GetDataListVM();
@@ -229,7 +219,9 @@ export class PurchaseProductComponent implements OnInit {
     this.purchaseVm.ItemList.splice(indexOfDeletingItem, 1);
     this.CalculateTotal(this.purchaseVm);
   }
-
+  Refresh(): void {
+    this.GetInitData();
+  }
   AddPurchase(): void {
     this.purchaseVm.ItemList.forEach((value, i, arr) => {
       arr[i].SupplierVM = this.purchaseVm.SupplierVM;

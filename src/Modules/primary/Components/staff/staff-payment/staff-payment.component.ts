@@ -65,6 +65,7 @@ export class StaffPaymentComponent implements OnInit {
     let cust = event.value;
     this.selectedStaff = cust;
     this.viewModel.ClientId = cust.Id;
+    this.viewModel.ClientName = cust.Name;
     console.log(event.value);
     console.log(event);
   }
