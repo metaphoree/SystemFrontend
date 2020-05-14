@@ -156,6 +156,14 @@ export class UtilService {
     ];
     return monthList;
   }
+  public getClientType() : any {
+    let clientTypeList = [
+      { label: 'Customer', value: 'Customer' },
+      { label: 'Staff', value: 'Staff' },
+      { label: 'Supplier', value: 'Supplier' }
+    ];
+    return clientTypeList;
+  }
 
 
 

@@ -1,34 +1,33 @@
 import { Component, OnInit } from '@angular/core';
-import { UtilService } from 'src/Services/util-service/util.service';
-import { PageData } from 'src/Modules/primary/domainModels/PageData';
-import { Observable } from 'rxjs';
-import { PurchaseReturnVM } from 'src/Modules/primary/domainModels/stock/PurchaseReturnVM';
-import { ItemVM } from 'src/Modules/primary/domainModels/item/ItemVM';
-import { ItemCategoryVM } from 'src/Modules/primary/domainModels/ItemCategory/ItemCategoryVM';
-import { ItemStatusVM } from 'src/Modules/primary/domainModels/item-status/ItemStatusVM';
+import { IncomeVM } from 'src/Modules/primary/domainModels/income/IncomeVM';
+import { IncomeTypeVM } from 'src/Modules/primary/domainModels/income-type/IncomeTypeVM';
+import { CustomerVM } from 'src/Modules/primary/domainModels/CustomerVM';
 import { SupplierVM } from 'src/Modules/primary/domainModels/supplier/SupplierVM';
-import { SalesReturnComponent } from '../sales-return/sales-return.component';
-import { SalesReturnVM } from 'src/Modules/primary/domainModels/stock/SalesReturnVM';
-import { SessionService } from 'src/Services/session-service/session.service';
-import { InvoiceType, DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
-import { BaseServiceService } from 'src/Services/base-service/base-service.service';
-import { WrapperPurchaseReturnVM } from 'src/Modules/primary/domainModels/stock/WrapperPurchaseReturnVM';
-import { DialogService } from 'primeng/dynamicdialog';
-import { AddPurchaseReturnComponent } from '../add-purchase-return/add-purchase-return.component';
+import { WrapperExpenseListVM } from 'src/Modules/primary/domainModels/expense/WrapperExpenseListVM';
 import { GetDataListVM } from 'src/Modules/primary/domainModels/GetDataListVM';
-import { ApiUrl } from 'src/Services/RestUrls/api-url';
+import { StaffVM } from 'src/Modules/primary/domainModels/staff/StaffVM';
+import { ExpenseVM } from 'src/Modules/primary/domainModels/expense/ExpenseVM';
+import { PageData } from 'src/Modules/primary/domainModels/PageData';
+import { AddExpenseComponent } from '../add-expense/add-expense.component';
+import { UtilService } from 'src/Services/util-service/util.service';
+import { SessionService } from 'src/Services/session-service/session.service';
+import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { DialogService } from 'primeng/dynamicdialog';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { DB_OPERATION, IncomeType } from 'src/AppUtils/AppConstant/app-constant';
+import { ApiUrl } from 'src/Services/RestUrls/api-url';
+import { ExpenseTypeVM } from 'src/Modules/primary/domainModels/expense-type/ExpenseTypeVM';
 
 @Component({
-  selector: 'app-purchase-return',
-  templateUrl: './purchase-return.component.html',
-  styleUrls: ['./purchase-return.component.css']
+  selector: 'app-expense-mgmt',
+  templateUrl: './expense-mgmt.component.html',
+  styleUrls: ['./expense-mgmt.component.css']
 })
-export class PurchaseReturnComponent implements OnInit {
+export class ExpenseMgmtComponent implements OnInit {
 
   // VARIABLES
   columnList: any;
-  wrapperItemList: WrapperPurchaseReturnVM;
+  wrapperItemList: WrapperExpenseListVM;
   getDataListVM: GetDataListVM;
   CurrentPageNo: number = 1;
   CurrentPageSize: number = 10;
@@ -36,13 +35,16 @@ export class PurchaseReturnComponent implements OnInit {
 
 
   // 
-  selectedItem: ItemVM;
-  selectedItemCategory: ItemCategoryVM;
-  selectedItemStatus: ItemStatusVM;
-  selectedSupplier: SupplierVM;
+  //selectedItem: ItemVM;
+  //selectedItemCategory: ItemCategoryVM;
+  //selectedItemStatus: ItemStatusVM;
+  
+
+
+
 
   pageData: PageData;
-  viewModel: PurchaseReturnVM;
+  viewModel: ExpenseVM;
   constructor(private util: UtilService,
     private session: SessionService,
     private baseService: BaseServiceService,
@@ -50,30 +52,29 @@ export class PurchaseReturnComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService) {
     this.pageData = new PageData();
-    this.wrapperItemList = new WrapperPurchaseReturnVM();
+    this.wrapperItemList = new WrapperExpenseListVM();
     this.getDataListVM = new GetDataListVM();
 
-    this.selectedItem = new ItemVM();
-    this.selectedItemCategory = new ItemCategoryVM();
-    this.selectedItemStatus = new ItemStatusVM();
-    this.selectedSupplier = new SupplierVM();
+ 
+    // this.selectedSupplier = new SupplierVM();
+    // this.selectedStaff = new StaffVM();
+    // this.selectedCustomer = new CustomerVM();
+    // this.selectedExpenseType = new ExpenseTypeVM();
 
     this.columnList = [
       { field: 'Action', header: 'Action', fieldType: 'icon' },
-      { field: 'SupplierName', header: 'Supplier', fieldType: 'string' },
-      { field: 'ItemName', header: 'Item', fieldType: 'string' },
-      { field: 'ItemCategoryName', header: 'ItemCategory', fieldType: 'string' },
-      { field: 'Quantity', header: 'Quantity', fieldType: 'number' },
-      { field: 'UnitPrice', header: 'Rate', fieldType: 'number' },
-      { field: 'AmountRecieved', header: 'Recieved', fieldType: 'number' },
-      { field: 'AmountRecievable', header: 'Recievable', fieldType: 'number' },
-      { field: 'TotalAmount', header: 'Total', fieldType: 'number' },
-      { field: 'OccurranceDate', header: 'Occurrance', fieldType: 'date' }
+      { field: 'ExpenseTypeName', header: 'ExpenseTypeName', fieldType: 'string' },
+      { field: 'ClientName', header: 'ClientName', fieldType: 'string' },
+      { field: 'Month', header: 'Month', fieldType: 'string' },
+      { field: 'Amount', header: 'Amount', fieldType: 'number' },
+      { field: 'Description', header: 'Description', fieldType: 'string' },
+      { field: 'Purpose', header: 'Purpose', fieldType: 'string' },
+      { field: 'OccurranceDate', header: 'OccurranceDate', fieldType: 'date' }
     ];
   }
 
   ngOnInit(): void {
-    this.viewModel = new PurchaseReturnVM();
+    this.viewModel = new ExpenseVM();
     this.util.initDD_Data.subscribe(
       (data: PageData) => {
         this.pageData = data;
@@ -107,7 +108,7 @@ export class PurchaseReturnComponent implements OnInit {
 
   // MODAL FUNCTION
   openModalAdd() {
-    const ref = this.dialogService.open(AddPurchaseReturnComponent, {
+    const ref = this.dialogService.open(AddExpenseComponent, {
       data: {
         pageData: this.pageData,
         modelProvided : false
@@ -135,22 +136,22 @@ export class PurchaseReturnComponent implements OnInit {
     let URL: string = '';
     switch (operationType) {
       case DB_OPERATION.CREATE:
-        URL = ApiUrl.SetPurchaseReturn;
+        URL = ApiUrl.SetExpense;
         break;
       case DB_OPERATION.READ:
-        URL = ApiUrl.GetPurchaseReturn;
+        URL = ApiUrl.GetExpense;
         break;
       case DB_OPERATION.UPDATE:
         URL = ApiUrl.UpdateIncomeType + '/' + item.Id;
         break;
       case DB_OPERATION.DELETE:
-        URL = ApiUrl.DeletePurchaseReturn;
+        URL = ApiUrl.DeleteExpense;
         break;
       default:
         break;
     }
     console.log(URL);
-    this.baseService.set<WrapperPurchaseReturnVM>(URL, item)
+    this.baseService.set<WrapperExpenseListVM>(URL, item)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;

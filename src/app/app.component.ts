@@ -45,8 +45,8 @@ export class AppComponent implements OnInit {
         label: 'Edit',
         icon: 'pi pi-fw pi-pencil',
         items: [
-          { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-          { label: 'Refresh', icon: 'pi pi-fw pi-refresh' },
+          { label: 'Income Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'income-mgmt' },
+          { label: 'Expense Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'expense-mgmt' },
           { label: 'Purchase Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'purchase-mgmt' },
           { label: 'Sales Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'sales-mgmt' }
         ]

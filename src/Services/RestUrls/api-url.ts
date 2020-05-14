@@ -144,5 +144,19 @@ export class ApiUrl {
     static ChangeItemStatus = 'api/business/item/status/change';
 
 
+
+    static SetIncome = 'api/Income/add';
+    static GetIncome = 'api/Income/getAll';
+    static GetIncomeById = 'api/Income/getById';
+    static UpdateIncome = 'api/Income/update';
+    static DeleteIncome = 'api/Income/delete';
+
+
+    static SetExpense = 'api/Expense/add';
+    static GetExpense = 'api/Expense/getAll';
+    static GetExpenseById = 'api/Expense/getById';
+    static UpdateExpense = 'api/Expense/update';
+    static DeleteExpense = 'api/Expense/delete';
+
 }
 

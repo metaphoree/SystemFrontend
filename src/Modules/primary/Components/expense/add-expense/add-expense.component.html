@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Select Client Type </label>
+    </div>
+    <div class="col-lg-3">
+        <p-dropdown [options]="clientTypeList" (onChange)="ClientTypeSelected($event)"
+            [(ngModel)]="selectedClientType" [filter]="true" filterBy="label"></p-dropdown>
+    </div>
+</div>
+<div class="row"  ngShow="showSupplier">
+    <div class="col-lg-3 bold">
+        <label>Select Supplier </label>
+    </div>
+    <div class="col-lg-3">
+        <p-dropdown [options]="pageData.ddModelVmsPageSpecific.SupplierVMs" (onChange)="SupplierSelected($event)"
+            [(ngModel)]="selectedSupplier" [filter]="true" filterBy="label"
+           ></p-dropdown>
+    </div>
+</div>
+<div class="row"  ngShow="showStaff">
+    <div class="col-lg-3 bold">
+        <label>Select Staff </label>
+    </div>
+    <div class="col-lg-3">
+        <p-dropdown [options]="pageData.ddModelVmsPageSpecific.StaffVMs" (onChange)="StaffSelected($event)"
+            [(ngModel)]="selectedStaff" [filter]="true" filterBy="label"></p-dropdown>
+    </div>
+</div>
+<div class="row" ngShow="showCustomer">
+    <div class="col-lg-3 bold">
+        <label>Select Customer</label>
+    </div>
+    <div class="col-lg-3">
+        <p-dropdown [options]="pageData.ddModelVmsPageSpecific.CustomerVMs"  (onChange)="CustomerSelected($event)" 
+        [(ngModel)]="selectedCustomer" [filter]="true"  filterBy="label" >  </p-dropdown>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Select Expense Type</label>
+    </div>
+    <div class="col-lg-3">
+        <p-dropdown [options]="pageData.ddModelVmsPageSpecific.ExpenseTypeVMs"  (onChange)="ExpenseTypeSelected($event)" 
+        [(ngModel)]="selectedExpenseType" [filter]="true"  filterBy="label">  </p-dropdown>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Amount</label>
+    </div>
+    <div class="col-lg-3">
+        <input type="text" placeholder="Amount" [(ngModel)]="viewModel.Amount" (input)="AmountChanged($event)" pInputText />
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Description</label>
+    </div>
+    <div class="col-lg-3">
+        <input type="text" placeholder="Description" [(ngModel)]="viewModel.Description" pInputText />
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-3 bold">
+        <label>Purpose</label>
+    </div>
+    <div class="col-lg-3">
+        <input type="text" placeholder="Purpose" [(ngModel)]="viewModel.Purpose" pInputText />
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <button pButton type="button" label="Add " (click)="Add($event)"></button>
+    </div>
+</div>

@@ -82,6 +82,10 @@ import { ProductionReportHomeComponent } from './Components/monthly-report/produ
 import { ProductionReportComponent } from './Components/monthly-report/production/production-report/production-report.component';
 import { TransactionReportHomeComponent } from './Components/monthly-report/transaction/transaction-report-home/transaction-report-home.component';
 import { TransactionReportComponent } from './Components/monthly-report/transaction/transaction-report/transaction-report.component';
+import { AddExpenseComponent } from './Components/expense/add-expense/add-expense.component';
+import { ExpenseMgmtComponent } from './Components/expense/expense-mgmt/expense-mgmt.component';
+import { IncomeMgmtComponent } from './Components/income/income-mgmt/income-mgmt.component';
+import { AddIncomeComponent } from './Components/income/add-income/add-income.component';
 
 @NgModule({
   declarations: [ ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent,
@@ -93,7 +97,7 @@ import { TransactionReportComponent } from './Components/monthly-report/transact
       InvoiceTypeMgmtComponent, ExpenseTypeMgmtComponent, AddExpenseTypeComponent, EditExpenseTypeComponent, EditDepartmentComponent, 
       AddDepartmentComponent, AddIncomeTypeComponent, EditIncomeTypeComponent, EditInvoiceTypeComponent, AddInvoiceTypeComponent, 
       AddEquipmentComponent, EditEquipmentComponent, EditEquipmentCategoryComponent, AddEquipmentCategoryComponent,
-    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent, CustomerHistoryComponent, SupplierHistoryComponent, StaffHistoryComponent, StaffProductionComponent, StaffProductionHomeComponent, CustomerPaymentHomeComponent, StaffPaymentHomeComponent, SupplierPaymentHomeComponent, StockHomeComponent, PurchaseReturnComponent, SalesReturnComponent, AddPurchaseReturnComponent, AddSalesReturnComponent, ItemStatusChangeComponent, ExpenseReportHomeComponent, ExpenseReportComponent, IncomeReportComponent, IncomeReportHomeComponent, PayableReportHomeComponent, PayableReportComponent, RecievableReportComponent, RecievableReportHomeComponent, ProductionReportHomeComponent, ProductionReportComponent, TransactionReportHomeComponent, TransactionReportComponent],
+    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent, CustomerHistoryComponent, SupplierHistoryComponent, StaffHistoryComponent, StaffProductionComponent, StaffProductionHomeComponent, CustomerPaymentHomeComponent, StaffPaymentHomeComponent, SupplierPaymentHomeComponent, StockHomeComponent, PurchaseReturnComponent, SalesReturnComponent, AddPurchaseReturnComponent, AddSalesReturnComponent, ItemStatusChangeComponent, ExpenseReportHomeComponent, ExpenseReportComponent, IncomeReportComponent, IncomeReportHomeComponent, PayableReportHomeComponent, PayableReportComponent, RecievableReportComponent, RecievableReportHomeComponent, ProductionReportHomeComponent, ProductionReportComponent, TransactionReportHomeComponent, TransactionReportComponent, AddExpenseComponent, ExpenseMgmtComponent, IncomeMgmtComponent, AddIncomeComponent],
   imports: [
     CommonModule,
     BrowserModule,

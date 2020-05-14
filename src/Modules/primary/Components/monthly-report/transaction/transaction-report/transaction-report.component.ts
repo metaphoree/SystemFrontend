@@ -39,6 +39,7 @@ export class TransactionReportComponent implements OnInit {
       // { field: 'Action', header: 'Action', fieldType: 'icon' },
       // { field: 'ClientName', header: 'ClientName', fieldType: 'string' },
       { field: 'Month', header: 'Month', fieldType: 'string' },
+      { field: 'Description', header: 'Description', fieldType: 'string' },
       { field: 'Purpose', header: 'Purpose', fieldType: 'string' },
       { field: 'Amount', header: 'Amount', fieldType: 'number' },
       { field: 'CreatedDateTime', header: 'CreatedDateTime', fieldType: 'date' }

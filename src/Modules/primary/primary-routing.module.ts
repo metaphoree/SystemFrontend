@@ -42,6 +42,8 @@ import { ProductionReportHomeComponent } from './Components/monthly-report/produ
 import { ProductionReportComponent } from './Components/monthly-report/production/production-report/production-report.component';
 import { IncomeReportHomeComponent } from './Components/monthly-report/income/income-report-home/income-report-home.component';
 import { IncomeReportComponent } from './Components/monthly-report/income/income-report/income-report.component';
+import { IncomeMgmtComponent } from './Components/income/income-mgmt/income-mgmt.component';
+import { ExpenseMgmtComponent } from './Components/expense/expense-mgmt/expense-mgmt.component';
 
 
 const routes: Routes = [
@@ -279,6 +281,14 @@ const routes: Routes = [
           component: IncomeReportComponent
         }
       ]
+    },
+    {
+      path: 'income-mgmt',
+      component: IncomeMgmtComponent
+    },
+    {
+      path: 'expense-mgmt',
+      component: ExpenseMgmtComponent
     }
 ];
 
