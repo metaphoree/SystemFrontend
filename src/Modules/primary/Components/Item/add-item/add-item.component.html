@@ -9,7 +9,8 @@
         <input type="text" placeholder="Name" [(ngModel)]="viewModel.Name" pInputText />
     </div>
     <div class="col-lg-6">
-        <textarea pInputTextarea placeholder="Unit Price" [(ngModel)]="viewModel.UnitPrice"></textarea>
+        <label>Unit Price : </label>
+        <input type="text" placeholder="Unit Price" [(ngModel)]="viewModel.UnitPrice" pInputText />
     </div>
     <div>
         <button pButton type="button" label="Add Client" (click)="Add($event)"></button>

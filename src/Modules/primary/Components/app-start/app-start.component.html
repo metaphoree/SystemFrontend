@@ -1,0 +1,19 @@
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast></p-toast>
+<!-- <p-blockUI [blocked]="showLoader" [target]="needbolcked"></p-blockUI> -->
+<!-- <div class="wrapper d-flex align-items-stretch"> -->
+  <div>
+  <!-- previous side menu --1 <app-side-menu></app-side-menu> -->
+  <app-side-menu-horizontal></app-side-menu-horizontal>
+  <!-- Page Content  -->
+  <div id="content" #needbolcked class="p-4 p-md-5 pt-5">
+    <!-- <h2 class="mb-4">Sidebar #02</h2> -->
+    <p-progressSpinner *ngIf="showLoader" [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration="1s" id="busy"></p-progressSpinner>
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+
+<!-- 
+https://fireship.io/lessons/sharing-data-between-angular-components-four-methods/ -->

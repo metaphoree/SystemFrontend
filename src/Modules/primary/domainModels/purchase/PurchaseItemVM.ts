@@ -22,7 +22,7 @@ export class PurchaseItemVM {
     ItemCategoryName: string;
     Status: string;
     Month: string;
-
+stringVersion : string;
 
 
 

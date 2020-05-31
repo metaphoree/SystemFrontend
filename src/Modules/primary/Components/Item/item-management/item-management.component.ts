@@ -37,9 +37,6 @@ export class ItemManagementComponent implements OnInit {
     this.wrapperItemList = new WrapperItemListVM();
     this.getDataListVM = new GetDataListVM();
   }
-
-
-
    // INIT
   ngOnInit(): void {
     this.columnList = [
@@ -57,6 +54,7 @@ export class ItemManagementComponent implements OnInit {
 
   // GETTING LIST CATEGORIES FOR DROP DOWN
   GetInitialData() : void{
+    this.baseService.LoaderOn();
     this.getDataListVM = new GetDataListVM();
     this.getDataListVM.PageNumber = 1;
     this.getDataListVM.PageSize = 100;
@@ -65,6 +63,7 @@ export class ItemManagementComponent implements OnInit {
       .subscribe((data) => {
         this.categories = data.ListOfData;
         console.log(this.categories);
+       this.baseService.LoaderOff();
       });
   }
   
@@ -93,6 +92,7 @@ export class ItemManagementComponent implements OnInit {
 
 // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
+    this.baseService.LoaderOn();
     let URL: string = '';
     switch (operationType) {
       case DB_OPERATION.CREATE:
@@ -116,6 +116,7 @@ export class ItemManagementComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        this.baseService.LoaderOff();
       }
       );
   }
@@ -202,7 +203,4 @@ export class ItemManagementComponent implements OnInit {
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
 
   }
-
-
-  
 }

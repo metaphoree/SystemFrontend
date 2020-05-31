@@ -9,12 +9,13 @@ import { Observable } from 'rxjs';
 import { DDModelVMs_ } from 'src/Modules/primary/domainModels/DDModelVMs';
 import { PageData } from 'src/Modules/primary/domainModels/PageData';
 
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class UtilService {
-   CurrntMonth: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ];  
-
+  CurrntMonth: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",];
   getDataListVM: GetDataListVM;
   initLoadDataVM: InitialLoadDataVM;
   ddModelVms: DDModelVMs_;
@@ -61,6 +62,38 @@ export class UtilService {
     // console.log(now_utc);
     return new Date(now_utc);
   }
+
+
+  public initStaff_Data = new Observable((observer) => {
+    let pageDataTemp  = new PageData(); 
+    let ddModelVmsTemp = new DDModelVMs_();
+    let ddModelVmsPageSpecificTemp = new DDModelVMs_();
+    let bn = new InitialLoadDataVM();
+    this.getDataListVM.PageNumber = 1;
+    this.getDataListVM.PageSize = 1000;
+    this.baseService.set<InitialLoadDataVM>(ApiUrl.StaffInitData, this.getDataListVM)
+      .subscribe((data) => {
+        bn.RoleVMs = data.RoleVMs;
+        ddModelVmsTemp.RoleVMs =
+        this.convertToDDM_ValueAsObject(bn.RoleVMs, ['Name', 'Id'], 'Select Role Profile');
+         ddModelVmsPageSpecificTemp.RoleVMs = ddModelVmsTemp.RoleVMs.slice();
+         pageDataTemp.ddModelVms =     ddModelVmsTemp;
+         pageDataTemp.ddModelVmsPageSpecific = ddModelVmsPageSpecificTemp;
+         pageDataTemp.initLoadDataVM = bn;
+        
+         observer.next(pageDataTemp);
+         observer.complete();
+      });
+  });
+
+
+
+
+
+
+
+
+
 
   public initDD_Data = new Observable((observer) => {
     this.getDataListVM.PageNumber = 1;
@@ -156,8 +189,9 @@ export class UtilService {
     ];
     return monthList;
   }
-  public getClientType() : any {
+  public getClientType(): any {
     let clientTypeList = [
+      { label: 'Select Client Type', value: '' },
       { label: 'Customer', value: 'Customer' },
       { label: 'Staff', value: 'Staff' },
       { label: 'Supplier', value: 'Supplier' }
@@ -168,17 +202,51 @@ export class UtilService {
 
 
 
-  getCurrentMonth() : string {  
-    var CurrntMonth: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", ];  
-   //var CurrntMonth: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC", ];  
-   var month = new Date();  
-    var CrrntMonth = CurrntMonth[month.getMonth()]; 
-    return CrrntMonth; 
-   // var span = document.createElement("span");  
-   // span.style.color = "Blue";  
-   // span.innerText = "getMonth Method \n Current Month is-> " + CrrntMonth + "\n";  
-   // document.body.appendChild(span);  
-   }
+  getCurrentMonth(): string {
+    var CurrntMonth: string[] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December",];
+    //var CurrntMonth: string[] = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC", ];  
+    var month = new Date();
+    var CrrntMonth = CurrntMonth[month.getMonth()];
+    return CrrntMonth;
+    // var span = document.createElement("span");  
+    // span.style.color = "Blue";  
+    // span.innerText = "getMonth Method \n Current Month is-> " + CrrntMonth + "\n";  
+    // document.body.appendChild(span);  
+  }
+
+
+  //  var datestring = ("0" + d.getDate()).slice(-2) + "-" + ("0"+(d.getMonth()+1)).slice(-2) + "-" +
+  //  d.getFullYear() + " " + ("0" + d.getHours()).slice(-2) + ":" + ("0" + d.getMinutes()).slice(-2);
+
+
+
+
+
+
+
+
+
+  public pad(padChar: string, strToPad: string, padLeftOrRight: boolean, lenOfPadding): string {
+    let st = Array(lenOfPadding).join(padChar);
+    return this.padd(st, strToPad, padLeftOrRight);
+
+  }
+  public padd(pad: string, str: string, padLeft: boolean): string {
+    if (typeof str === 'undefined')
+      return pad;
+    if (padLeft) {
+      return (pad + str).slice(-pad.length);
+    } else {
+      return (str + pad).substring(0, pad.length);
+    }
+  }
+
+
+
+
+
+
+
 
 
 
@@ -187,3 +255,5 @@ export class UtilService {
 
 
 }
+
+

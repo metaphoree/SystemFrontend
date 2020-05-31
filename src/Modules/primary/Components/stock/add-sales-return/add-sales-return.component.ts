@@ -10,6 +10,8 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { InvoiceType, ExpenseType } from 'src/AppUtils/AppConstant/app-constant';
 import { CustomerVM } from 'src/Modules/primary/domainModels/CustomerVM';
 import { SalesReturnVM } from 'src/Modules/primary/domainModels/stock/SalesReturnVM';
+import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-sales-return',
@@ -26,10 +28,12 @@ export class AddSalesReturnComponent implements OnInit {
 
   pageData: PageData;
   viewModel: SalesReturnVM;
-
+  message : string;
   constructor(private session: SessionService,
     private dynamicDialogRef: DynamicDialogRef,
-    private dynamicDialogConfig: DynamicDialogConfig) {
+    private dynamicDialogConfig: DynamicDialogConfig,
+    private baseService : BaseServiceService,
+    private messageService : MessageService) {
 
     this.pageData = this.dynamicDialogConfig.data.pageData;
     console.log(this.pageData);
@@ -107,8 +111,31 @@ export class AddSalesReturnComponent implements OnInit {
         return val.Name == ExpenseType[ExpenseType.SalesReturn];
       })[0].Id;
 
-
+      if (!this.IsValidSalesReturnVM(this.viewModel)) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+        return;
+      }
     this.dynamicDialogRef.close(this.viewModel);
   }
+  IsValidSalesReturnVM(vm: SalesReturnVM): boolean {
+    if (!this.baseService.isValidString(vm.CustomerId)) {
+      this.message = " Customer ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.ItemId)) {
+      this.message = " Item ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.ItemCategoryId)) {
+      this.message = " Item Category ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.ItemStatusId)) {
+      this.message = " Item Status ";
+      return false;
+    }
+    return true;;
+  }
+
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ItemCategoryVM } from 'src/Modules/primary/domainModels/ItemCategory/ItemCategoryVM';
+import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-item-category',
@@ -9,16 +11,32 @@ import { ItemCategoryVM } from 'src/Modules/primary/domainModels/ItemCategory/It
 })
 export class EditItemCategoryComponent implements OnInit {
 
-  viewModel : ItemCategoryVM;
-  constructor(private dynamicDialogRef : DynamicDialogRef,private  dynamicDialogConfig : DynamicDialogConfig) { 
-    this.viewModel =  this.dynamicDialogConfig.data.modelData;
+  viewModel: ItemCategoryVM;
+  message: string;
+  constructor(private dynamicDialogRef: DynamicDialogRef,
+    private dynamicDialogConfig: DynamicDialogConfig,
+    private baseService: BaseServiceService,
+    private messageService: MessageService) {
+    this.viewModel = this.dynamicDialogConfig.data.modelData;
   }
 
   ngOnInit(): void {
   }
 
-  Edit(event) : void{
+  Edit(event): void {
+    if (!this.IsValidItemCategoryVM(this.viewModel)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+      return;
+    }
     this.dynamicDialogRef.close(this.viewModel);
+  }
+
+  IsValidItemCategoryVM(vm: ItemCategoryVM): boolean {
+    if (!this.baseService.isValidString(vm.Name)) {
+      this.message = " Category Name ";
+      return false;
+    }
+    return true;;
   }
 
 }

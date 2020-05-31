@@ -37,7 +37,7 @@ export class ProductionReportComponent implements OnInit {
     this.GetInitialData();
     this.columnList = [
       // { field: 'Action', header: 'Action', fieldType: 'icon' },
-      // { field: 'ClientName', header: 'ClientName', fieldType: 'string' },
+       { field: 'ClientName', header: 'ClientName', fieldType: 'string' },
       { field: 'Month', header: 'Month', fieldType: 'string' },
       { field: 'StaffName', header: 'StaffName', fieldType: 'string' },
       { field: 'ItemName', header: 'ItemName', fieldType: 'string' },
@@ -105,6 +105,7 @@ export class ProductionReportComponent implements OnInit {
      
         this.wrapperItemList.Total_TillNow = data.Total_TillNow;
         this.wrapperItemList.Total_Monthly = data.Total_Monthly;
+        this.baseService.LoaderOff();
       }
       );
   }

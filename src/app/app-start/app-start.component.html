@@ -1,0 +1,44 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+
+
+
+
+<!-- <p-sidebar [(visible)]="display">
+  Content
+</p-sidebar>
+<button type="text" (click)="display = true" pButton icon="pi pi-plus" label="Show">Click Me!!</button> -->
+
+<!--Previous Side Bar-->
+<!-- <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast></p-toast>
+<div>
+  <div class="row">
+    <div class="col-lg-2 col-sm -2 col-md-2">
+      <app-side-menu></app-side-menu>
+       <p-panelMenu [multiple]="false" [model]="items"></p-panelMenu> 
+    </div>
+    <div class="col-lg-10 col-sm-10 col-md-10">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div> -->
+<!--Previous Side Bar-->
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-toast></p-toast>
+<!-- <p-blockUI [blocked]="blockTheUI" [target]="needbolcked"></p-blockUI> -->
+<div class="wrapper d-flex align-items-stretch">
+  <app-side-menu></app-side-menu>
+  <!-- Page Content  -->
+  <div id="content" #needbolcked class="p-4 p-md-5 pt-5">
+    <!-- <h2 class="mb-4">Sidebar #02</h2> -->
+    <p-progressSpinner *ngIf="true" [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s" id="busy"></p-progressSpinner>
+    <router-outlet></router-outlet>
+  </div>
+</div>

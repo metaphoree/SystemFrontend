@@ -1,0 +1,62 @@
+<div class="login-form"  style="background-image: url('src\assets\back1.jpg');">
+    <div id="gorm">
+        <!-- <h2 class="text-center">Sign In</h2> -->
+        <div class="p-grid ui-fluid" style="padding: 10px;"  *ngIf="!this.loginResponse.Leader">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="pi pi-user" style="line-height: 1.25;"></i></span>
+                <input type="text" [(ngModel)]="userName" style="font-size: 20px;" pInputText placeholder="Username">
+            </div>
+        </div>
+        <div class="p-grid ui-fluid" style="padding: 10px;"  *ngIf="!this.loginResponse.Leader">
+            <div class="ui-inputgroup">
+                <span class="ui-inputgroup-addon"><i class="pi pi-lock" style="line-height: 1.25;"></i></span>
+                <input type="password" [(ngModel)]="password" style="font-size: 20px;" pInputText
+                    placeholder="Password">
+            </div>
+        </div>
+
+        <div class="p-grid ui-fluid" style="padding: 10px;" *ngIf="this.loginResponse.Leader">
+            <div class="ui-inputgroup">
+                <p-dropdown [options]="this.ddModel.FactoryVMs" style="padding: 14px 204px 13px 9px;" [(ngModel)]="selectedFactory"
+                    (onChange)="FactorySelected($event)" [filter]="true" filterBy="label"></p-dropdown>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                <input type="text" [(ngModel)]="userName" class="form-control" placeholder="Username"
+                    required="required">
+            </div>
+        </div> -->
+        <!-- <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                <input type="password" [(ngModel)]="password" class="form-control" placeholder="Password"
+                    required="required">
+            </div>
+        </div> -->
+        <!-- <div class="p-grid ui-fluid" style="padding: 10px;">
+            <div class="ui-inputgroup row"> -->
+        <div class="p-grid ui-fluid" style="padding: 10px;" *ngIf="!this.loginResponse.Leader">
+            <div class="ui-inputgroup">
+                <!-- <button pButton type="button" style="padding: 0.31em 10.3em;" (click)="Login()" label="Log in " class="ui-button-rounded">
+                    </button> -->
+                <button class="blue button large" style="padding: 16px 148px;font-size: 20px;" type="button"
+                    label="Login" (click)="Login()">Login</button>
+            </div>
+        </div>
+        <!-- </div>
+        </div> -->
+        <!-- <div class="form-group">
+            <button type="submit" (click)="Login()" class="btn btn-primary btn-block">Log in</button>
+        </div> -->
+        <!-- <div class="clearfix">
+            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+            <a href="#" class="pull-right">Forgot Password?</a>
+        </div> -->
+    </div>
+    <!-- <p class="text-center small">Don't have an account! <a href="#">Sign up here</a>.</p> -->
+</div>
+
+
+<app-root *ngIf="SuccessFull_login"></app-root>

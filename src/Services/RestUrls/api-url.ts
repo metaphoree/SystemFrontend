@@ -30,6 +30,9 @@ export class ApiUrl {
     static DeleteItem = 'api/Item/delete';
 
     static GetItemStatus = 'api/Item/status/getAll';
+    static SetItemStatus = 'api/Item/status/add';
+    static DeleteItemStatus = 'api/Item/status/delete';
+    static UpdateItemStatus = 'api/Item/status/update';
 
     static SetItemCategory = 'api/ItemCategory/add';
     static GetItemCategory = 'api/ItemCategory/getAll';
@@ -73,36 +76,24 @@ export class ApiUrl {
     static UpdateDepartment = 'api/Department/update';
     static DeleteDepartment = 'api/Department/delete';
 
-
     static GetPurchaseInitData = 'api/business/purchase/getInitData';
     static AddPurchase = 'api/business/purchase/add';
     static GetSalesInitData = 'api/business/sales/getInitData';
     static AddSales = 'api/business/sales/add';
 
-
-
     static PaymentInitialData = 'api/business/pay/init_data';
-
 
     static RecieveCashFromCustomer = 'api/business/customer/payment';
     static CustomerPaymentList = 'api/business/customer/payment/list';
     static DeleteCustomerPayment = 'api/business/customer/payment/delete';
 
-
-
     static GiveSupplierPayment = 'api/business/supplier/payment';
     static SupplierPaymentList = 'api/business/supplier/payment/list';
     static DeleteSupplierPayment = 'api/business/supplier/payment/delete';
 
-
-
-
-
-
     static GiveStaffPayment = 'api/business/staff/payment';
     static StaffPaymentList = 'api/business/staff/payment/list';
     static DeleteStaffPayment = 'api/business/staff/payment/delete';
-
 
     static SetProduction = 'api/Production/add';
     static GetProduction = 'api/Production/getAll';
@@ -110,25 +101,18 @@ export class ApiUrl {
     static UpdateProduction = 'api/Production/update';
     static DeleteProduction = 'api/Production/delete';
 
-
     static GetCustomerHistory = 'api/business/customer/history';
     static GetStaffHistory = 'api/business/staff/history';
     static GetSupplierHistory = 'api/business/supplier/history';
 
-
-
     static GetProductionInitData = 'api/business/production/getInitData';
-
 
     static GetAllPurchaseInvoice = 'api/business/purchase/getAll';
     static GetAllSalesInvoice = 'api/business/sales/getAll';
 
-
-
     static SetPurchaseReturn = 'api/business/purchase/return/add';
     static GetPurchaseReturn = 'api/business/purchase/return/getAll';
     static DeletePurchaseReturn = 'api/business/purchase/return/delete';
-
 
     static SetSalesReturn = 'api/business/sales/return/add';
     static GetSalesReturn = 'api/business/sales/return/getAll';
@@ -143,14 +127,11 @@ export class ApiUrl {
 
     static ChangeItemStatus = 'api/business/item/status/change';
 
-
-
     static SetIncome = 'api/Income/add';
     static GetIncome = 'api/Income/getAll';
     static GetIncomeById = 'api/Income/getById';
     static UpdateIncome = 'api/Income/update';
     static DeleteIncome = 'api/Income/delete';
-
 
     static SetExpense = 'api/Expense/add';
     static GetExpense = 'api/Expense/getAll';
@@ -158,5 +139,30 @@ export class ApiUrl {
     static UpdateExpense = 'api/Expense/update';
     static DeleteExpense = 'api/Expense/delete';
 
+    static GetPaymentStatus = 'api/payment/status/getAll';
+    static SetPaymentStatus = 'api/payment/status/add';
+    static DeletePaymentStatus = 'api/payment/status/delete';
+    static UpdatePaymentStatus = 'api/payment/status/update';
+
+    static GetFactory = 'api/factory/getAll';
+    static SetFactory = 'api/factory/add';
+    static DeleteFactory = 'api/factory/delete';
+    static UpdateFactory = 'api/factory/update';
+
+    static GetRole = 'api/auth/Role/getAll';
+    static SetRole = 'api/auth/Role/add';
+    static DeleteRole = 'api/auth/Role/delete';
+    static UpdateRole = 'api/auth/Role/update';
+
+    static GetUserAuthInfo = 'api/auth/UserAuthInfo/getAll';
+    static SetUserAuthInfo = 'api/auth/UserAuthInfo/add';
+    static DeleteUserAuthInfo = 'api/auth/UserAuthInfo/delete';
+    static UpdateUserAuthInfo = 'api/auth/UserAuthInfo/update';
+
+    static Login = 'api/auth/login';
+    static UserNameExist = 'api/auth/userNameExist';
+    static StaffInitData = 'api/business/staff/getInitData';
+
+    static GetRoleByUserId = 'api/auth/Role/getByUserId'
 }
 

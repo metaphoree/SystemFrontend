@@ -8,6 +8,7 @@ import { InvoiceTypeVM } from './invoice-type/InvoiceTypeVM';
 import { ItemStatusVM } from './item-status/ItemStatusVM';
 import { StaffVM } from './staff/StaffVM';
 import { EquipmentVM } from './equipment/EquipmentVM';
+import { RoleVM } from './role/RoleVM';
 
 
 export class InitialLoadDataVM {
@@ -21,6 +22,7 @@ export class InitialLoadDataVM {
     ItemStatusVMs: ItemStatusVM[];
     StaffVMs: StaffVM[];
     EquipmentVMs : EquipmentVM[];
+    RoleVMs : RoleVM[];
     constructor() {
         this.ItemCategoryVMs = [];
         this.ItemVMs = [];
@@ -32,5 +34,6 @@ export class InitialLoadDataVM {
         this.ItemStatusVMs = [];
         this.StaffVMs = [];
         this.EquipmentVMs = [];
+        this.RoleVMs = [];
     }
 }

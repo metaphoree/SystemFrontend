@@ -17,6 +17,9 @@ import { SessionService } from 'src/Services/session-service/session.service';
 import { NgSwitchDefault } from '@angular/common';
 import { WrapperPurchaseListVM } from 'src/Modules/primary/domainModels/purchase/WrapperPurchaseListVM';
 import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
+import { utils } from 'protractor';
+import { PurchaseDetailsComponent } from '../purchase-details/purchase-details.component';
+import { ItemStatusVM } from 'src/Modules/primary/domainModels/item-status/ItemStatusVM';
 
 @Component({
   selector: 'app-purchase-product',
@@ -35,14 +38,18 @@ export class PurchaseProductComponent implements OnInit {
   selectedSupplier: SupplierVM = new SupplierVM();
   selectedItem: ItemVM = new ItemVM();
   selectedItemCategory: ItemCategoryVM = new ItemCategoryVM();
+  selectedItemStatus: ItemStatusVM = new ItemStatusVM();
 
 
-
+  message : string;
   columnList: any;
   childColumnList: any;
   CurrentPageNo: number = 1;
   CurrentPageSize: number = 10;
   wrapperItemList: WrapperPurchaseListVM;
+
+
+  headerTable: string = '';
 
   // CONSTRUCTOR
   constructor(private dialogService: DialogService,
@@ -88,10 +95,6 @@ export class PurchaseProductComponent implements OnInit {
     this.getDataListVM.PageSize = 10;
     this.getDataListVM.FactoryId = this.session.getFactoryId();
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
-    // this.baseService.set<WrapperPurchaseListVM>(ApiUrl.GetAllPurchaseInvoice, this.getDataListVM)
-    //   .subscribe((data) => {
-    //     this.getPurchaseVMList = data.ListOfData;
-    //   })
   }
 
 
@@ -154,23 +157,19 @@ export class PurchaseProductComponent implements OnInit {
 
 
         console.log(this.ddModelVms);
+        this.baseService.LoaderOff();
       });
   }
   ItemSelected(event): void {
     console.log(event.value);
-    // this.ddModelVmsPageSpecific.ItemCategoryVMs = [];
-    // this.ddModelVmsPageSpecific.ItemCategoryVMs = this.ddModelVms.ItemCategoryVMs.filter((val, i, arr) => {
-    //   return val.value.Id == event.value.CategoryId
-    // });
     this.selectedItemCategory = this.ddModelVms.ItemCategoryVMs.find(x => x.value.Id == event.value.CategoryId).value;
 
   }
   ItemCategorySelected(event): void {
-    // console.log(event.value);
     this.ddModelVmsPageSpecific.ItemVMs = [];
     if (event.value.value == 'TitleVal') {
       console.log(event);
-      //  alert('MyValue');
+
       this.ddModelVmsPageSpecific.ItemVMs = this.ddModelVms.ItemVMs.slice();
     }
     else if (event.value != null) {
@@ -178,11 +177,13 @@ export class PurchaseProductComponent implements OnInit {
         return event.value.Id == value.value.CategoryId
       });
     }
-    // else {
-    //   this.ddModelVmsPageSpecific.ItemVMs = this.ddModelVms.ItemVMs.slice();
-    // }
+  }
+  ItemStatusSelected(event): void {
+
+
 
   }
+
   CustomerSelected(event): void {
     this.purchaseVm.SupplierVM = event.value;
     console.log(event.value);
@@ -195,6 +196,7 @@ export class PurchaseProductComponent implements OnInit {
     item.ItemCategory = this.selectedItemCategory;
     item.Quantity = quantity;
     item.UnitPrice = unitPrice;
+    item.ItemStatus = this.selectedItemStatus;
     this.purchaseVm.ItemList.push(item);
     this.CalculateTotal(this.purchaseVm);
   }
@@ -227,19 +229,42 @@ export class PurchaseProductComponent implements OnInit {
       arr[i].SupplierVM = this.purchaseVm.SupplierVM;
       arr[i].EmployeeId = this.session.getCurrentUserId();
       arr[i].FactoryId = this.session.getFactoryId();
-      arr[i].ItemStatus = this.initLoadDataVM.ItemStatusVMs.filter((value, i, arr) => {
-        return arr[i].Name == 'GOOD'
-      })[0];
+      // arr[i].ItemStatus = this.initLoadDataVM.ItemStatusVMs.filter((value, i, arr) => {
+      //   return arr[i].Name == 'GOOD'
+      // })[0];
     });
+    if (!this.IsValidPurchaseVM(this.purchaseVm)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+      return;
+    }
+
     console.log(this.purchaseVm);
     this.baseService.set<WrapperPurchaseListVM>(ApiUrl.AddPurchase, this.purchaseVm)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        this.baseService.LoaderOff();
       });
-  }
 
+  }
+  IsValidPurchaseVM(vm: PurchaseVM): boolean {
+    console.log("Before Validation");
+    console.log(vm);
+    if(vm.SupplierVM == null || vm.SupplierVM == undefined ){
+      this.message = " Supplier ";
+      return false;
+    }
+    if(!this.baseService.isValidString(vm.SupplierVM.Id)){
+      this.message = " Supplier ";
+      return false;
+    }
+    if(vm.ItemList.length <= 0){
+      this.message = " atleast one item ";
+      return false;
+    }
+    return true;;
+  }
 
 
 
@@ -268,6 +293,65 @@ export class PurchaseProductComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+
+
+        // let SupplierNameLen = -1;
+        // let TotalAmountLen = -1;
+        // let PaidAmountLen = -1;
+        // let DueAmountLen = -1;
+        // let DiscountAmountLen = -1;
+        // let OcurranceDateLen = -1;
+        // let characterToPadd = '_';
+        // let extraCh = '_______________';
+        // this.wrapperItemList.ListOfData.forEach((val, i, arr) => {
+        //   if (val.SupplierName.length > SupplierNameLen) {
+        //     SupplierNameLen = val.SupplierName.length;
+        //   }
+        //   if (val.TotalAmount.toString().length > TotalAmountLen) {
+        //     TotalAmountLen = val.TotalAmount.toString().length;
+        //   }
+        //   if (val.PaidAmount.toString().length > PaidAmountLen) {
+        //     PaidAmountLen = val.PaidAmount.toString().length;
+        //   }
+        //   if (val.DueAmount.toString().length > DueAmountLen) {
+        //     DueAmountLen = val.DueAmount.toString().length;
+        //   }
+        //   if (val.DiscountAmount.toString().length > DiscountAmountLen) {
+        //     DiscountAmountLen = val.DiscountAmount.toString().length;
+        //   }
+        //   // if (val.OcurranceDate.toUTCString().length > OcurranceDateLen) {
+        //   //   OcurranceDateLen = val.OcurranceDate.toUTCString().length;
+        //   // }
+
+        //   //arr[i].stringVersion = val.SupplierName + "  -----------  " + val.TotalAmount + "-----------    " + val.PaidAmount + " -----------   " + val.DueAmount + " -----------   " + val.DiscountAmount + "    "
+        //   //  + val.OcurranceDate
+        // });
+        // this.wrapperItemList.ListOfData.forEach((val, i, arr) => {
+
+
+        //   arr[i].stringVersion =
+        //     this.util.pad(characterToPadd, val.SupplierName, false, SupplierNameLen)
+        //     + extraCh +  this.util.pad(characterToPadd, val.TotalAmount.toString(), false, TotalAmountLen*2)
+        //     + extraCh + this.util.pad(characterToPadd, val.PaidAmount.toString(), false, PaidAmountLen*2)
+        //     + extraCh +   this.util.pad(characterToPadd, val.DueAmount.toString(), false, DueAmountLen*2)
+        //     + extraCh +   this.util.pad(characterToPadd, val.DiscountAmount.toString(), false, DiscountAmountLen*2)
+        //     + extraCh +   val.OcurranceDate.toString()
+        //     //+ this.util.pad('-', val.OcurranceDate.toUTCString(), false, OcurranceDateLen)
+        // });
+        // this.headerTable = 
+        //     this.util.pad(characterToPadd, 'Supplier', false, SupplierNameLen )
+        //   + extraCh +   this.util.pad(characterToPadd, 'Total', false, TotalAmountLen )
+        //   + extraCh +   this.util.pad(characterToPadd, 'Paid', false, PaidAmountLen )
+        //   + extraCh +   this.util.pad(characterToPadd, 'Due', false, DueAmountLen )
+        //   + extraCh+   this.util.pad(characterToPadd, 'Discount', false, DiscountAmountLen )
+        //   + extraCh+  this.util.pad(characterToPadd, 'Occurance', false, 0 + 12);
+        //   this.wrapperItemList.ListOfData.forEach((val, i, arr) => {
+        //   val.ItemList.forEach((val, i, arr) => {
+        //     val.stringVersion = val.ItemName + " -----------   " + val.ItemCategoryName + "-----------   " + val.Status + " -----------   " + val.Quantity + "  -----------  " + val.Quantity + "  -----------  " + val.UnitPrice;
+        //   });
+        // });
+
+        this.baseService.LoaderOff();
       }
       );
   }
@@ -315,18 +399,31 @@ export class PurchaseProductComponent implements OnInit {
     // }
     if (operationType == 'Details') {
       //this.confirm(entity);
+      this.showPurchaseDetails(entity.ItemList);
     }
   }
 
+  showPurchaseDetails(list: ItemVM[]): void {
+    this.openModalPurchaseDetails(list);
 
+  }
 
-
-
-
-
-
-
-
-
-
+  // MODAL FUNCTION
+  openModalPurchaseDetails(list: ItemVM[]) {
+    const ref = this.dialogService.open(PurchaseDetailsComponent, {
+      data: {
+        //pageData: this.pageData,
+        model: list
+      },
+      header: 'Give necessary  info',
+      width: '70%',
+      height: '90%',
+      footer: "This is footer"
+    });
+    ref.onClose.subscribe((item: any) => {
+      if (item) {
+        //this.DoDBOperation(DB_OPERATION.CREATE, item);
+      }
+    });
+  }
 }

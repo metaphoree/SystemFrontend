@@ -64,8 +64,9 @@ export class ItemCategoryManagementComponent implements OnInit {
     this.getDataListVM.PageSize = this.CurrentPageSize;
     this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
   }
-// DB OPERATION FUNCTION
+  // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
+    this.baseService.LoaderOn();
     let URL: string = '';
     switch (operationType) {
       case DB_OPERATION.CREATE:
@@ -89,6 +90,7 @@ export class ItemCategoryManagementComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        this.baseService.LoaderOff();
       }
       );
   }

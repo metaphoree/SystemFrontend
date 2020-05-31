@@ -27,6 +27,7 @@ export class CustomerPaymentComponent implements OnInit {
   public ddModelVms: DDModelVMs_;
   public ddModelVmsPageSpecific: DDModelVMs_;
   public selectedCustomer: CustomerVM;
+  public message : string;
   constructor(private baseService: BaseServiceService,
     private util: UtilService,
     private session: SessionService,
@@ -148,18 +149,24 @@ export class CustomerPaymentComponent implements OnInit {
       return arr[index].Name == IncomeType[IncomeType.ClientPaymentRecieved];
     })[0].Id;
 
-    this.dynamicDialogRef.close(this.viewModel);
-    // this.baseService.set<CommonResponse>(ApiUrl.RecieveCashFromCustomer, this.viewModel)
-    //   .subscribe((data) => {
-    //     if (data.Success) {
-    //       this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
-    
-    //     }
-    //     else {
-    //       this.messageService.add({ severity: 'failed', summary: 'Something Wrong', detail: 'Operation failed' });
-    
-    //     }
-    //   });
 
+
+
+    // this.dynamicDialogRef.close(this.viewModel);
+    if(this.IsValidPaymentVM(this.viewModel)){
+      this.dynamicDialogRef.close(this.viewModel);
+    }
+    else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+    }
+  
+  
+  }
+  IsValidPaymentVM(vm: PaymentVM): boolean {
+    if (this.baseService.isValidString(vm.ClientId)) {
+      return true;
+    }
+    this.message = " Client Name ";
+    return false;
   }
 }

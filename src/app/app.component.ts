@@ -7,6 +7,8 @@ import { MenuItem } from 'primeng/api';
 })
 export class AppComponent implements OnInit {
   title = 'SyetemFrontend';
+  blockTheUI : boolean = false;
+  showLoadingSpinner : boolean = false;
   display = true;
   items: MenuItem[];
   ngOnInit() {
@@ -20,18 +22,19 @@ export class AppComponent implements OnInit {
             icon: 'pi pi-fw pi-plus',
             items:
               [
-                { label: 'Client Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'client-mgmt-home' },
-                { label: 'Item Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'item-mgmt-home' },
-                { label: 'Item Category Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'item-category-mgmt-home' },
-                { label: 'Staff  Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'staff-mgmt-home' },
-                { label: 'Supplier Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'supplier-mgmt-home' },
-                { label: 'Stock Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'stock-mgmt-home' },
-                { label: 'Department Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'department-mgmt-home' },
-                { label: 'Equipment Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'equipment-mgmt-home' },
-                { label: 'Equipment Category Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'equipment-category-mgmt-home' },
-                { label: 'Invoice Type Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'invoice-type-mgmt-home' },
-                { label: 'Income Type Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'income-type-mgmt-home' },
-                { label: 'Expense Type Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'expense-type-mgmt-home' },
+                { label: 'Login Demo', icon: 'pi pi-fw pi-user-plus', routerLink: 'login' },
+                { label: 'Client Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'client-mgmt-home' }, // Sales
+                { label: 'Item Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'item-mgmt-home' }, // Inventory // Production
+                { label: 'Item Category Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'item-category-mgmt-home' },// Inventory  // Production
+                { label: 'Staff  Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'staff-mgmt-home' }, // Production //  // Production
+                { label: 'Supplier Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'supplier-mgmt-home' },// Purchase
+                { label: 'Stock Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'stock-mgmt-home' }, // Inventory  // Production
+                { label: 'Department Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'department-mgmt-home' }, // Settings
+                { label: 'Equipment Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'equipment-mgmt-home' }, // Settings
+                { label: 'Equipment Category Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'equipment-category-mgmt-home' }, // Settings
+                { label: 'Invoice Type Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'invoice-type-mgmt-home' }, // Settings
+                { label: 'Income Type Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'income-type-mgmt-home' }, // Settings
+                { label: 'Expense Type Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'expense-type-mgmt-home' }, // Settings
                 { label: 'Filter', icon: 'pi pi-fw pi-filter' }
               ]
           },
@@ -45,10 +48,13 @@ export class AppComponent implements OnInit {
         label: 'Edit',
         icon: 'pi pi-fw pi-pencil',
         items: [
-          { label: 'Income Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'income-mgmt' },
-          { label: 'Expense Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'expense-mgmt' },
-          { label: 'Purchase Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'purchase-mgmt' },
-          { label: 'Sales Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'sales-mgmt' }
+          { label: 'Factory Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'factory-mgmt' },   // Super Admin // Separate Menu
+          { label: 'Payment Status Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'payment-status-mgmt' },  // Settings
+          { label: 'Item Status Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'item-status-mgmt' }, // Settings
+          { label: 'Income Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'income-mgmt' }, // Separate
+          { label: 'Expense Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'expense-mgmt' },// Separate
+          { label: 'Purchase Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'purchase-mgmt' }, // Purchase
+          { label: 'Sales Mgmt', icon: 'pi pi-fw pi-user-plus', routerLink: 'sales-mgmt' } // Sales
         ]
       },
       {
@@ -109,7 +115,5 @@ export class AppComponent implements OnInit {
         ]
       }
     ];
-
-
   }
 }

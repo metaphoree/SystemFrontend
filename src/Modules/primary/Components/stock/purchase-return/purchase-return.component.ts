@@ -110,7 +110,7 @@ export class PurchaseReturnComponent implements OnInit {
     const ref = this.dialogService.open(AddPurchaseReturnComponent, {
       data: {
         pageData: this.pageData,
-        modelProvided : false
+        modelProvided: false
       },
       header: 'Give necessary  info',
       width: '70%',
@@ -123,7 +123,7 @@ export class PurchaseReturnComponent implements OnInit {
       }
     });
   }
-  Refresh(event) : void {
+  Refresh(event): void {
     this.CurrentPageNo = 1;
     this.getDataListVM.PageNumber = this.CurrentPageNo;
     this.getDataListVM.PageSize = this.CurrentPageSize;
@@ -132,6 +132,7 @@ export class PurchaseReturnComponent implements OnInit {
   }
   // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
+    this.baseService.LoaderOn();
     let URL: string = '';
     switch (operationType) {
       case DB_OPERATION.CREATE:
@@ -155,6 +156,7 @@ export class PurchaseReturnComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        this.baseService.LoaderOff();
       }
       );
   }

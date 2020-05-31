@@ -37,7 +37,7 @@ export class TransactionReportComponent implements OnInit {
     this.GetInitialData();
     this.columnList = [
       // { field: 'Action', header: 'Action', fieldType: 'icon' },
-      // { field: 'ClientName', header: 'ClientName', fieldType: 'string' },
+      { field: 'ClientName', header: 'ClientName', fieldType: 'string' },
       { field: 'Month', header: 'Month', fieldType: 'string' },
       { field: 'Description', header: 'Description', fieldType: 'string' },
       { field: 'Purpose', header: 'Purpose', fieldType: 'string' },
@@ -96,9 +96,9 @@ export class TransactionReportComponent implements OnInit {
     this.baseService.set<WrapperMonthTransactionVM>(URL, item)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
-        this.wrapperItemList.ListOfData[this.wrapperItemList.ListOfData.length - 1].Purpose = "Total Amount : ";
-        this.totalAmount = this.wrapperItemList.ListOfData[this.wrapperItemList.ListOfData.length - 1].Amount;
-        this.wrapperItemList.ListOfData[this.wrapperItemList.ListOfData.length - 1].CreatedDateTime = new Date();
+       // this.wrapperItemList.ListOfData[this.wrapperItemList.ListOfData.length - 1].Purpose = "Total Amount : ";
+       // this.totalAmount = this.wrapperItemList.ListOfData[this.wrapperItemList.ListOfData.length - 1].Amount;
+       // this.wrapperItemList.ListOfData[this.wrapperItemList.ListOfData.length - 1].CreatedDateTime = new Date();
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
      
@@ -108,6 +108,7 @@ export class TransactionReportComponent implements OnInit {
 
         this.wrapperItemList.TotalMonthly_Credit = data.TotalMonthly_Credit;
         this.wrapperItemList.TotalMonthly_Debit = data.TotalMonthly_Debit;
+        this.baseService.LoaderOff();
       }
       );
   }

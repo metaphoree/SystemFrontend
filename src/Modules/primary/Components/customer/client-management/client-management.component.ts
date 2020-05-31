@@ -48,11 +48,14 @@ export class ClientManagementComponent implements OnInit {
       { field: 'Action', header: 'Action' },
       { field: 'Name', header: 'Name' },
       { field: 'Email', header: 'Email' },
-      { field: 'PermanentAddress', header: 'Permanent Address' },
+      //  { field: 'PermanentAddress', header: 'Permanent Address' },
       { field: 'PresentAddress', header: 'Present Address' },
       { field: 'CellNo', header: 'CellNo' },
-      { field: 'AlternateCellNo', header: 'Alternate CellNo' }
-
+      //  { field: 'AlternateCellNo', header: 'Alternate CellNo' },
+      { field: 'PaidAmount', header: 'Paid' },
+      { field: 'PayableAmount', header: 'Payable' },
+      { field: 'RecievedAmount', header: 'Recieved' },
+      { field: 'RecievableAmount', header: 'Recievable' }
     ];
     this.getDataListVM.PageNumber = 1;
     this.getDataListVM.PageSize = 10;
@@ -89,6 +92,7 @@ export class ClientManagementComponent implements OnInit {
 
   // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
+    this.baseService.LoaderOn();
     let URL: string = '';
     switch (operationType) {
       case DB_OPERATION.CREATE:
@@ -113,6 +117,7 @@ export class ClientManagementComponent implements OnInit {
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         console.log(this.wrapperItemList);
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        this.baseService.LoaderOff();
       }
       );
   }
@@ -204,10 +209,10 @@ export class ClientManagementComponent implements OnInit {
 
   goto(event, option): void {
     if (option == 'payment') {
-      this.router.navigateByUrl('/client-mgmt-home/client-mgmt/payment')
+      this.router.navigateByUrl('home/client-mgmt-home/client-mgmt/payment')
     }
     else if (option == 'history') {
-      this.router.navigateByUrl('/client-mgmt-home/client-mgmt/history');
+      this.router.navigateByUrl('home/client-mgmt-home/client-mgmt/history');
     }
 
   }

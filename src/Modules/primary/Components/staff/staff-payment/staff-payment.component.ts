@@ -26,24 +26,25 @@ export class StaffPaymentComponent implements OnInit {
   public ddModelVms: DDModelVMs_;
   public ddModelVmsPageSpecific: DDModelVMs_;
   public selectedStaff: StaffVM;
+  public message : string;
 
   constructor(private baseService: BaseServiceService,
     private util: UtilService,
     private session: SessionService,
-    private messageService : MessageService,
-    private dynamicDialogRef : DynamicDialogRef,
-    private dynamicDialogConfig : DynamicDialogConfig) {
-  
+    private messageService: MessageService,
+    private dynamicDialogRef: DynamicDialogRef,
+    private dynamicDialogConfig: DynamicDialogConfig) {
+
     this.viewModel = new PaymentVM();
     this.getDataListVM = new GetDataListVM();
     this.initLoadDataVM = new InitialLoadDataVM();
     this.ddModelVms = new DDModelVMs_();
     this.ddModelVmsPageSpecific = new DDModelVMs_();
     this.selectedStaff = new StaffVM();
-  
+
     this.ddModelVms = this.dynamicDialogConfig.data.ddModel;
     this.initLoadDataVM = this.dynamicDialogConfig.data.initLoadDataVM;
-    
+
     this.ddModelVmsPageSpecific.CustomerVMs = this.ddModelVms.CustomerVMs.slice();
     this.ddModelVmsPageSpecific.EquipmentVMs = this.ddModelVms.EquipmentVMs.slice();
     this.ddModelVmsPageSpecific.SupplierVMs = this.ddModelVms.SupplierVMs.slice();
@@ -54,7 +55,7 @@ export class StaffPaymentComponent implements OnInit {
     this.ddModelVmsPageSpecific.ItemVMs = this.ddModelVms.ItemVMs.slice();
     this.ddModelVmsPageSpecific.ItemCategoryVMs = this.ddModelVms.ItemCategoryVMs.slice();
     this.ddModelVmsPageSpecific.StaffVMs = this.ddModelVms.StaffVMs.slice();
-    
+
   }
 
 
@@ -73,10 +74,7 @@ export class StaffPaymentComponent implements OnInit {
   Add(event): void {
     this.viewModel.EmployeeId = this.session.getCurrentUserId();
     this.viewModel.FactoryId = this.session.getFactoryId();
-
     console.log(InvoiceType[InvoiceType.ClientPayment]);
-
-
     this.viewModel.InvoiceTypeId = this.initLoadDataVM.InvoiceTypeVMs.filter((val, index, arr) => {
       return arr[index].Name == InvoiceType[InvoiceType.StaffPayment];
     })[0].Id;
@@ -84,16 +82,24 @@ export class StaffPaymentComponent implements OnInit {
       return arr[index].Name == ExpenseType[ExpenseType.StaffPayment];
     })[0].Id;
 
-    this.dynamicDialogRef.close(this.viewModel);
-    // this.baseService.set<CommonResponse>(ApiUrl.GiveStaffPayment, this.viewModel)
-    //   .subscribe((data) => {
-    //     if (data.Success) {
-    //       this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+
+    if(this.IsValidPaymentVM(this.viewModel)){
+      this.dynamicDialogRef.close(this.viewModel);
+    }
+    else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+    }
     
-    //     }
-    //     else {
-    //       this.messageService.add({ severity: 'failed', summary: 'Something Wrong', detail: 'Operation failed' });
-    //     }
-    //   });
   }
+
+  IsValidPaymentVM(vm: PaymentVM): boolean {
+    if (this.baseService.isValidString(vm.ClientId)) {
+      return true;
+    }
+    this.message = " Client Name ";
+    return false;
+  }
+
+
+
 }

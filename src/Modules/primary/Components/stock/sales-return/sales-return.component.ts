@@ -40,8 +40,8 @@ export class SalesReturnComponent implements OnInit {
 
   viewModel: SalesReturnVM;
   pageData: PageData;
-  
-  
+
+
   constructor(private util: UtilService,
     private session: SessionService,
     private baseService: BaseServiceService,
@@ -109,6 +109,7 @@ export class SalesReturnComponent implements OnInit {
 
   // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
+    this.baseService.LoaderOn();
     let URL: string = '';
     switch (operationType) {
       case DB_OPERATION.CREATE:
@@ -132,12 +133,13 @@ export class SalesReturnComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        this.baseService.LoaderOff();
       }
       );
   }
 
 
-  Refresh(event) : void {
+  Refresh(event): void {
     this.CurrentPageNo = 1;
     this.getDataListVM.PageNumber = this.CurrentPageNo;
     this.getDataListVM.PageSize = this.CurrentPageSize;

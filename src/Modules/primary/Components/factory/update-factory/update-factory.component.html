@@ -1,0 +1,68 @@
+<div>
+    <div class="col-lg-12">
+        <label>Add New Factory</label>
+    </div>
+
+
+    <div class="row">
+        <div class="col-lg-2">
+            <label style="font: bold;"> Factory Name</label>
+        </div>
+        <div class="col-lg-6">
+            <input type="text" placeholder="Name" [(ngModel)]="viewModel.Name" pInputText />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-2">
+            <label  style="font: bold;"> Subscription Start</label>
+        </div>
+        <div class="col-lg-6">
+            <p-calendar [(ngModel)]="viewModel.SubscriptionStart" [showIcon]="true" [hideOnDateTimeSelect]="true"
+                view="date" showTime="true" hourFormat="12" dateFormat="dd/mm/yy" [monthNavigator]="true"
+                [yearNavigator]="true" yearRange="2000:2030">
+            </p-calendar>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <label  style="font: bold;"> Subscription End</label>
+        </div>
+        <div class="col-lg-6">
+            <p-calendar [(ngModel)]="viewModel.SubscriptionEnd" [showIcon]="true" [hideOnDateTimeSelect]="true"
+                view="date" showTime="true" hourFormat="12" dateFormat="dd/mm/yy" [monthNavigator]="true"
+                [yearNavigator]="true" yearRange="2000:2030">
+            </p-calendar>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <label  style="font: bold;"> License No</label>
+        </div>
+        <div class="col-lg-6">
+            <input type="text" placeholder="Name" [(ngModel)]="viewModel.LicenseNo" pInputText />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <label  style="font: bold;"> Reg No</label>
+        </div>
+        <div class="col-lg-6">
+            <input type="text" placeholder="Name" [(ngModel)]="viewModel.RegNo" pInputText />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-2">
+            <label  style="font: bold;">Vat Reg No</label>
+        </div>
+        <div class="col-lg-6">
+            <input type="text" placeholder="Name" [(ngModel)]="viewModel.VatRegNo" pInputText />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <button pButton type="button" label="Update" (click)="Edit($event)"></button>
+            <!-- (click)="handleClick($event)" -->
+        </div>
+    </div>
+</div>

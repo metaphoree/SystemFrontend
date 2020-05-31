@@ -17,6 +17,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { MessageService, ConfirmationService } from 'primeng/api';
 import { IncomeTypeVM } from 'src/Modules/primary/domainModels/income-type/IncomeTypeVM';
 import { AddExpenseComponent } from '../../expense/add-expense/add-expense.component';
+import { AddIncomeComponent } from '../add-income/add-income.component';
 
 @Component({
   selector: 'app-income-mgmt',
@@ -31,9 +32,6 @@ export class IncomeMgmtComponent implements OnInit {
   getDataListVM: GetDataListVM;
   CurrentPageNo: number = 1;
   CurrentPageSize: number = 10;
-
-
-
   // 
   //selectedItem: ItemVM;
   //selectedItemCategory: ItemCategoryVM;
@@ -111,7 +109,7 @@ export class IncomeMgmtComponent implements OnInit {
 
   // MODAL FUNCTION
   openModalAdd() {
-    const ref = this.dialogService.open(AddExpenseComponent, {
+    const ref = this.dialogService.open(AddIncomeComponent, {
       data: {
         pageData: this.pageData,
         modelProvided : false
@@ -159,6 +157,7 @@ export class IncomeMgmtComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        this.baseService.LoaderOff();
       }
       );
   }

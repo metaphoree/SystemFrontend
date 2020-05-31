@@ -9,6 +9,8 @@ import { UtilService } from 'src/Services/util-service/util.service';
 import { SessionService } from 'src/Services/session-service/session.service';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { InvoiceType } from 'src/AppUtils/AppConstant/app-constant';
+import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-expense',
@@ -31,23 +33,26 @@ export class AddExpenseComponent implements OnInit {
   pageData: PageData;
   viewModel: ExpenseVM;
   clientTypeList: any;
-
+  message: string;
+  clientTypeId: string;
 
   constructor(
     private util: UtilService,
-    private session: SessionService ,
+    private session: SessionService,
     private dynamicDialogRef: DynamicDialogRef,
-    private dynamicDialogConfig: DynamicDialogConfig) {
-      this.pageData = new PageData();
-      this.selectedSupplier = new SupplierVM();
-      this.selectedStaff = new StaffVM();
-      this.selectedCustomer = new CustomerVM();
-      this.selectedExpenseType = new ExpenseTypeVM();
-      this.viewModel = new ExpenseVM();
-      this.showCustomer = true;
-      this.showStaff = false;
-      this.showSupplier = false;
-      this.clientTypeList = [];
+    private dynamicDialogConfig: DynamicDialogConfig,
+    private baseService: BaseServiceService,
+    private messageService: MessageService) {
+    this.pageData = new PageData();
+    this.selectedSupplier = new SupplierVM();
+    this.selectedStaff = new StaffVM();
+    this.selectedCustomer = new CustomerVM();
+    this.selectedExpenseType = new ExpenseTypeVM();
+    this.viewModel = new ExpenseVM();
+    this.showCustomer = false;
+    this.showStaff = false;
+    this.showSupplier = false;
+    this.clientTypeList = [];
     this.clientTypeList = this.util.getClientType();
     console.log(this.clientTypeList);
     this.pageData = this.dynamicDialogConfig.data.pageData;
@@ -63,7 +68,7 @@ export class AddExpenseComponent implements OnInit {
     console.log(event);
   }
   CustomerSelected(event): void {
-    this.viewModel.ClientId = event.value.Id;
+    this.viewModel.ClientId = event.value.CustomerId;
     this.viewModel.ClientName = event.value.Name;
     console.log(event.value);
     console.log(event);
@@ -75,17 +80,18 @@ export class AddExpenseComponent implements OnInit {
     console.log(event);
   }
   ClientTypeSelected(event): void {
-    if (event.val == 'Customer') {
+    this.clientTypeId = event.value;
+    if (event.value == 'Customer') {
       this.showCustomer = true;
       this.showStaff = false;
       this.showSupplier = false;
     }
-    else if (event.val == 'Supplier') {
+    else if (event.value == 'Supplier') {
       this.showCustomer = false;
       this.showStaff = false;
       this.showSupplier = true;
     }
-    else if (event.val == 'Staff') {
+    else if (event.value == 'Staff') {
       this.showCustomer = false;
       this.showStaff = true;
       this.showSupplier = false;
@@ -119,17 +125,43 @@ export class AddExpenseComponent implements OnInit {
 
     console.log(InvoiceType[InvoiceType.Expense]);
     console.log(this.pageData.initLoadDataVM.InvoiceTypeVMs);
-    
+
     this.viewModel.InvoiceTypeId = this.pageData.initLoadDataVM
       .InvoiceTypeVMs.filter((val, i, arr) => {
         return val.Name == InvoiceType[InvoiceType.Expense];
       })[0].Id;
 
-
+    if (!this.IsValidExpenseVM(this.viewModel)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+      return;
+    }
     this.dynamicDialogRef.close(this.viewModel);
 
   }
 
+  IsValidExpenseVM(vm: ExpenseVM): boolean {
+    if (!this.baseService.isValidString(this.clientTypeId)) {
+      this.message = " Client Type  ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.ClientId)) {
+      this.message = " Client ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.Description)) {
+      this.message = " Description ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.Purpose)) {
+      this.message = " Purpose ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.ExpenseTypeId)) {
+      this.message = " Expense Type ";
+      return false;
+    }
+    return true;;
+  }
 
 
 

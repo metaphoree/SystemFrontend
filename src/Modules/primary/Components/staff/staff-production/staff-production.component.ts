@@ -24,21 +24,24 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 export class StaffProductionComponent implements OnInit {
 
   public viewModel: AddProductionVM;
+  public viewModelList: AddProductionVM[];
   public getDataListVM: GetDataListVM;
 
   // selected objects from the dropdown
   public selectedStaff: StaffVM;
   public selectedItem: ItemVM;
+  public selectedItemList: ItemVM[];
   public selectedItemCategory: ItemCategoryVM;
+  public selectedItemCategoryList: ItemCategoryVM[];
   public selectedEquipment: EquipmentVM;
-
-
+  public selctedQuantityList: number[];
+  public selctedUnitPriceList: number[];
   // drop down init data
   // drop down data list carrier
   public initLoadDataVM: InitialLoadDataVM;
   public ddModelVms: DDModelVMs_;
   public ddModelVmsPageSpecific: DDModelVMs_;
-
+  public message: string;
 
   constructor(private baseService: BaseServiceService,
     private util: UtilService,
@@ -49,12 +52,15 @@ export class StaffProductionComponent implements OnInit {
 
     this.viewModel = new AddProductionVM();
     this.getDataListVM = new GetDataListVM();
-
+    this.viewModelList = [];
+    this.selctedQuantityList = [];
     this.selectedStaff = new StaffVM();
     this.selectedItem = new ItemVM();
     this.selectedItemCategory = new ItemCategoryVM();
     this.selectedEquipment = new EquipmentVM();
-
+    this.selectedItemList = [];
+    this.selectedItemCategoryList = [];
+    this.selctedUnitPriceList = [];
     this.ddModelVms = new DDModelVMs_();
     this.ddModelVmsPageSpecific = new DDModelVMs_();
     this.initLoadDataVM = new InitialLoadDataVM();
@@ -63,7 +69,7 @@ export class StaffProductionComponent implements OnInit {
     this.ddModelVms = this.dynamicDialogConfig.data.ddModel;
     this.initLoadDataVM = this.dynamicDialogConfig.data.initLoadDataVM;
 
-    
+
     this.ddModelVmsPageSpecific.EquipmentVMs = this.ddModelVms.EquipmentVMs.slice();
     this.ddModelVmsPageSpecific.ItemCategoryVMs = this.ddModelVms.ItemCategoryVMs.slice();
     this.ddModelVmsPageSpecific.ItemVMs = this.ddModelVms.ItemVMs.slice();
@@ -87,8 +93,15 @@ export class StaffProductionComponent implements OnInit {
     this.viewModel.ItemId = cust.Id;
     this.selectedItemCategory = this.ddModelVms.ItemCategoryVMs.find(x => x.value.Id == event.value.CategoryId).value;
     this.viewModel.ItemCategoryId = this.selectedItemCategory.Id;
-    console.log(event.value);
-    console.log(event);
+    // console.log(event.value);
+    // console.log(event);
+    console.log(this.selectedItem);
+  }
+  AddSelectedItem(): void {
+    this.selectedItemList.push(this.selectedItem);
+    this.selectedItemCategoryList.push(this.selectedItemCategory);
+    this.selctedQuantityList.push(this.viewModel.Quantity);
+    this.selctedUnitPriceList.push(this.viewModel.UnitPrice);
   }
   SelectedItemCategory(event): void {
     let cust = event.value;
@@ -115,40 +128,47 @@ export class StaffProductionComponent implements OnInit {
     console.log(event);
   }
 
-
-
-
-
-
-  // Add(event) : void {
-  //   console.log('this.selectedItem');console.log(this.selectedItem);
-  //   this.viewModel.CategoryId = this.selectedItem;
-  //   this.dynamicDialogRef.close(this.viewModel);
-  // }
   Add(event): void {
-    // this.viewModel. = this.session.getCurrentUserId();
+
     this.viewModel.FactoryId = this.session.getFactoryId();
     this.viewModel.ExecutorId = this.session.getCurrentUserId();
-    console.log('---------------custom-----------------');
-    console.log(this.initLoadDataVM);
     this.viewModel.ItemStatusId = this.initLoadDataVM.ItemStatusVMs.filter((value, i, arr) => {
       return arr[i].Name == StatusItem[StatusItem.GOOD];
-     })[0].Id;
-
-     this.viewModel.InvoiceTypeId = this.initLoadDataVM.InvoiceTypeVMs.filter((value, i, arr) => {
+    })[0].Id;
+    this.viewModel.InvoiceTypeId = this.initLoadDataVM.InvoiceTypeVMs.filter((value, i, arr) => {
       return arr[i].Name == InvoiceType[InvoiceType.StaffProduction];
-     })[0].Id;
+    })[0].Id;
 
+    if (!this.IsValidStaffProductionVM(this.viewModel)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+      return;
+    }
+    for (let index = 0; index < this.selectedItemList.length; index++) {
+      let vm = { ...this.viewModel };
+      vm.ItemCategoryId = this.selectedItemCategoryList[index].Id;
+      vm.ItemId = this.selectedItemList[index].Id;
+      vm.ItemCategoryName = this.selectedItemCategoryList[index].Name;
+      vm.ItemName = this.selectedItemList[index].Name;
+      vm.Quantity = this.selctedQuantityList[index];
+      vm.UnitPrice = this.selctedUnitPriceList[index];
+      this.viewModelList.push(vm);
+    }
+     this.dynamicDialogRef.close(this.viewModelList);
 
-    // console.log(InvoiceType[InvoiceType.ClientPayment]);
-
-    // this.viewModel.InvoiceTypeId = this.initLoadDataVM.InvoiceTypeVMs.filter((val, index, arr) => {
-    //   return arr[index].Name == InvoiceType[InvoiceType.ClientPayment];
-    // })[0].Id;
-    // this.viewModel.TypeId = this.initLoadDataVM.IncomeTypeVMs.filter((val, index, arr) => {
-    //   return arr[index].Name == IncomeType[IncomeType.ClientPaymentRecieved];
-    // })[0].Id;
-    this.dynamicDialogRef.close(this.viewModel);
 
   }
+
+  IsValidStaffProductionVM(vm: AddProductionVM): boolean {
+    if (!this.baseService.isValidString(vm.StaffId)) {
+      this.message = " Staff Name "
+      return false;
+    }
+    if (this.selectedItemList.length <= 0) {
+      this.message = " atleast one item "
+      return false;
+    }
+    return true;
+  }
+
+
 }

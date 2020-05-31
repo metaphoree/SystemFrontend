@@ -9,6 +9,8 @@ import { SessionService } from 'src/Services/session-service/session.service';
 import { InvoiceType, IncomeType } from 'src/AppUtils/AppConstant/app-constant';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { isNumber } from 'util';
+import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-purchase-return',
@@ -29,9 +31,12 @@ export class AddPurchaseReturnComponent implements OnInit {
   viewModel: PurchaseReturnVM;
 
   modelGiven: boolean;
+  message : string;
   constructor(private session: SessionService,
     private dynamicDialogRef: DynamicDialogRef,
-    private dynamicDialogConfig: DynamicDialogConfig) {
+    private dynamicDialogConfig: DynamicDialogConfig,
+    private baseService : BaseServiceService,
+    private messageService : MessageService) {
 
     this.pageData = this.dynamicDialogConfig.data.pageData;
     this.modelGiven = this.dynamicDialogConfig.data.modelProvided;
@@ -123,7 +128,31 @@ export class AddPurchaseReturnComponent implements OnInit {
       })[0].Id;
 
 
+    if (!this.IsValidPurchaseReturnVM(this.viewModel)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+      return;
+    }
+
     this.dynamicDialogRef.close(this.viewModel);
 
+  }
+  IsValidPurchaseReturnVM(vm: PurchaseReturnVM): boolean {
+    if (!this.baseService.isValidString(vm.SupplierId)) {
+      this.message = " Supplier ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.ItemId)) {
+      this.message = " Item ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.ItemCategoryId)) {
+      this.message = " Item Category ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.ItemStatusId)) {
+      this.message = " Item Status ";
+      return false;
+    }
+    return true;;
   }
 }

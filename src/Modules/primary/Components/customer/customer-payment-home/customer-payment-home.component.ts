@@ -140,7 +140,7 @@ public selectedCustomer : CustomerVM;
  GetInitialData_DD(): void {
    this.getDataListVM.PageNumber = 1;
    this.getDataListVM.PageSize = 1000;
-
+   this.baseService.LoaderOn();
    this.baseService.set<InitialLoadDataVM>(ApiUrl.GetProductionInitData, this.getDataListVM)
      .subscribe((data) => {
        console.log(data);
@@ -212,6 +212,7 @@ public selectedCustomer : CustomerVM;
        // this.purchaseVm.FactoryId = this.session.getFactoryId();      
        //console.log(this.purchaseVm.InvoiceType);
        console.log(this.ddModelVms);
+       this.baseService.LoaderOff();
      });
  }
 
@@ -252,6 +253,7 @@ public selectedCustomer : CustomerVM;
  // DB OPERATION FUNCTION
  DoDBOperation(operationType: DB_OPERATION, item: any): void {
    let URL: string = '';
+   this.baseService.LoaderOn();
    switch (operationType) {
      case DB_OPERATION.CREATE:
        URL = ApiUrl.RecieveCashFromCustomer;
@@ -274,7 +276,8 @@ public selectedCustomer : CustomerVM;
        this.wrapperItemList.ListOfData = data.ListOfData;
        this.wrapperItemList.TotalRecords = data.TotalRecords;
        this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
-     }
+       this.baseService.LoaderOff();
+      }
      );
  }
 

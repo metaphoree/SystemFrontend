@@ -16,10 +16,14 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import {DropdownModule} from 'primeng/dropdown';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {CalendarModule} from 'primeng/calendar';
+ import {CalendarModule} from 'primeng/calendar';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {CheckboxModule} from 'primeng/checkbox';
 import {PanelModule} from 'primeng/panel';
+import {AccordionModule} from 'primeng/accordion';
+import {BlockUIModule} from 'primeng/blockui';
+import {ToolbarModule} from 'primeng/toolbar';
+import {SplitButtonModule} from 'primeng/splitbutton';
 @NgModule({
   declarations: [],
   imports: [
@@ -27,14 +31,18 @@ import {PanelModule} from 'primeng/panel';
     BrowserAnimationsModule, PanelMenuModule,
     InputTextModule, ButtonModule, InputTextareaModule, DynamicDialogModule, 
     TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule,
-    ConfirmDialogModule,CalendarModule,ProgressSpinnerModule,CheckboxModule,
-    PanelModule
+    ConfirmDialogModule,ProgressSpinnerModule,CheckboxModule,
+    PanelModule,AccordionModule,CalendarModule,BlockUIModule,ToolbarModule,
+    SplitButtonModule
 
   ],
-  exports: [SidebarModule, BrowserModule, BrowserAnimationsModule, PanelMenuModule, InputTextModule, ButtonModule,
+  exports: [SidebarModule, BrowserModule, BrowserAnimationsModule, PanelMenuModule,
+     InputTextModule, ButtonModule,
     InputTextareaModule, DynamicDialogModule, FormsModule,
-     TableModule, ToastModule, MessagesModule, MessageModule,DropdownModule,ConfirmDialogModule,CalendarModule,
-     ProgressSpinnerModule,CheckboxModule,PanelModule
+     TableModule, ToastModule, MessagesModule, MessageModule,
+     DropdownModule,ConfirmDialogModule,
+     ProgressSpinnerModule,CheckboxModule,
+     PanelModule,AccordionModule,CalendarModule,BlockUIModule,ToolbarModule,SplitButtonModule
   ]
 })
 

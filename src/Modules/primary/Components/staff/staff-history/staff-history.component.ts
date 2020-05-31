@@ -55,7 +55,7 @@ export class StaffHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.GetInitialData();
-   this.GetInitialData_DD();
+    this.GetInitialData_DD();
   }
 
 
@@ -72,6 +72,7 @@ export class StaffHistoryComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         // this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
         console.log(this.wrapperItemList.ListOfData);
+        this.baseService.LoaderOff();
       });
   }
 
@@ -116,7 +117,7 @@ export class StaffHistoryComponent implements OnInit {
         this.ddModelVmsPageSpecific.CustomerVMs = this.ddModelVms.CustomerVMs.slice();
         console.log(this.ddModelVmsPageSpecific.CustomerVMs);
 
-        
+
 
         this.ddModelVms.IncomeTypeVMs =
           this.util.convertToDDM_ValueAsObject(this.initLoadDataVM.IncomeTypeVMs, ['Name', 'Id'], 'Select IncomeType');
@@ -154,6 +155,7 @@ export class StaffHistoryComponent implements OnInit {
         // this.purchaseVm.FactoryId = this.session.getFactoryId();      
         //console.log(this.purchaseVm.InvoiceType);
         console.log(this.ddModelVms);
+        this.baseService.LoaderOff();
       });
   }
 
@@ -218,6 +220,7 @@ export class StaffHistoryComponent implements OnInit {
         //  this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
         console.log(this.wrapperItemList);
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        this.baseService.LoaderOff();
       }
       );
   }

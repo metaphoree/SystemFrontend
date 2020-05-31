@@ -11,9 +11,11 @@
             [filter]="true" filterBy="label"></p-dropdown>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6">
+        <label>Quantity : </label>
         <input class="form-control" type="text" placeholder="Quantity" [(ngModel)]="viewModel.Quantity" pInputText />
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6">
+        <label>Expiry Date : </label>
         <p-calendar 
         class="form-control" 
         [(ngModel)]="viewModel.ExpiryDate" 

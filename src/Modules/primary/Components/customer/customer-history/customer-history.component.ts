@@ -57,8 +57,8 @@ export class CustomerHistoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   // this.GetInitialData();
-   this.GetInitialData_DD();
+    // this.GetInitialData();
+    this.GetInitialData_DD();
   }
 
 
@@ -69,12 +69,13 @@ export class CustomerHistoryComponent implements OnInit {
     this.getDataListVM = new GetDataListHistory();
     this.getDataListVM.PageNumber = 1;
     this.getDataListVM.PageSize = 100;
-
+    this.baseService.LoaderOn();
     this.baseService.set<WrapperCustomerHistory>(ApiUrl.GetCustomerHistory, this.getDataListVM)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
         // this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
         console.log(this.wrapperItemList.ListOfData);
+        this.baseService.LoaderOff();
       });
   }
 
@@ -83,7 +84,7 @@ export class CustomerHistoryComponent implements OnInit {
   GetInitialData_DD(): void {
     this.getDataListVM.PageNumber = 1;
     this.getDataListVM.PageSize = 1000;
-
+    this.baseService.LoaderOn();
     this.baseService.set<InitialLoadDataVM>(ApiUrl.GetProductionInitData, this.getDataListVM)
       .subscribe((data) => {
         console.log(data);
@@ -155,6 +156,7 @@ export class CustomerHistoryComponent implements OnInit {
         // this.purchaseVm.FactoryId = this.session.getFactoryId();      
         //console.log(this.purchaseVm.InvoiceType);
         console.log(this.ddModelVms);
+        this.baseService.LoaderOff();
       });
   }
 
@@ -219,6 +221,7 @@ export class CustomerHistoryComponent implements OnInit {
         //  this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
         console.log(this.wrapperItemList);
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        this.baseService.LoaderOff();
       }
       );
   }

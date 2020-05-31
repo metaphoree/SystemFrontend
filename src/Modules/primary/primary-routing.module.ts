@@ -44,9 +44,18 @@ import { IncomeReportHomeComponent } from './Components/monthly-report/income/in
 import { IncomeReportComponent } from './Components/monthly-report/income/income-report/income-report.component';
 import { IncomeMgmtComponent } from './Components/income/income-mgmt/income-mgmt.component';
 import { ExpenseMgmtComponent } from './Components/expense/expense-mgmt/expense-mgmt.component';
+import { FactoryMgmtComponent } from './Components/factory/factory-mgmt/factory-mgmt.component';
+import { PaymentStatusMgmtComponent } from './Components/payment-status/payment-status-mgmt/payment-status-mgmt.component';
+import { ItemStatusMgmtComponent } from './Components/item-status/item-status-mgmt/item-status-mgmt.component';
+import { AppStartComponent } from './Components/app-start/app-start.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
 
 
 const routes: Routes = [
+  {
+  path : 'home',
+  component : AppStartComponent,
+  children : [
   {
     path: 'client-mgmt-home',
     component: ClientManagementHomeComponent,
@@ -211,85 +220,110 @@ const routes: Routes = [
         component: ExpenseReportComponent
       }
     ]
-    },
-    {
-      path: 'payable-report-home',
-      component: PayableReportHomeComponent,
-      children: [
-        {
-          path: '',
-          component: PayableReportComponent
-        },
-        {
-          path: 'payable-report',
-          component: PayableReportComponent
-        }
-      ]
-    },
-    {
-      path: 'recievable-report-home',
-      component: RecievableReportHomeComponent,
-      children: [
-        {
-          path: '',
-          component: RecievableReportComponent
-        },
-        {
-          path: 'recievable-report',
-          component: RecievableReportComponent
-        }
-      ]
-    },
-    {
-      path: 'transaction-report-home',
-      component: TransactionReportHomeComponent,
-      children: [
-        {
-          path: '',
-          component: TransactionReportComponent
-        },
-        {
-          path: 'transaction-report',
-          component: TransactionReportComponent
-        }
-      ]
-    },
-    {
-      path: 'production-report-home',
-      component: ProductionReportHomeComponent,
-      children: [
-        {
-          path: '',
-          component: ProductionReportComponent
-        },
-        {
-          path: 'production-report',
-          component: ProductionReportComponent
-        }
-      ]
-    },
-    {
-      path: 'income-report-home',
-      component: IncomeReportHomeComponent,
-      children: [
-        {
-          path: '',
-          component: IncomeReportComponent
-        },
-        {
-          path: 'income-report',
-          component: IncomeReportComponent
-        }
-      ]
-    },
-    {
-      path: 'income-mgmt',
-      component: IncomeMgmtComponent
-    },
-    {
-      path: 'expense-mgmt',
-      component: ExpenseMgmtComponent
+  },
+  {
+    path: 'payable-report-home',
+    component: PayableReportHomeComponent,
+    children: [
+      {
+        path: '',
+        component: PayableReportComponent
+      },
+      {
+        path: 'payable-report',
+        component: PayableReportComponent
+      }
+    ]
+  },
+  {
+    path: 'recievable-report-home',
+    component: RecievableReportHomeComponent,
+    children: [
+      {
+        path: '',
+        component: RecievableReportComponent
+      },
+      {
+        path: 'recievable-report',
+        component: RecievableReportComponent
+      }
+    ]
+  },
+  {
+    path: 'transaction-report-home',
+    component: TransactionReportHomeComponent,
+    children: [
+      {
+        path: '',
+        component: TransactionReportComponent
+      },
+      {
+        path: 'transaction-report',
+        component: TransactionReportComponent
+      }
+    ]
+  },
+  {
+    path: 'production-report-home',
+    component: ProductionReportHomeComponent,
+    children: [
+      {
+        path: '',
+        component: ProductionReportComponent
+      },
+      {
+        path: 'production-report',
+        component: ProductionReportComponent
+      }
+    ]
+  },
+  {
+    path: 'income-report-home',
+    component: IncomeReportHomeComponent,
+    children: [
+      {
+        path: '',
+        component: IncomeReportComponent
+      },
+      {
+        path: 'income-report',
+        component: IncomeReportComponent
+      }
+    ]
+  },
+  {
+    path: 'income-mgmt',
+    component: IncomeMgmtComponent
+  },
+  {
+    path: 'expense-mgmt',
+    component: ExpenseMgmtComponent
+  },
+  {
+    path: 'factory-mgmt',
+    component: FactoryMgmtComponent
+  },
+  {
+    path: 'payment-status-mgmt',
+    component: PaymentStatusMgmtComponent
+  },
+  {
+    path: 'item-status-mgmt',
+    component: ItemStatusMgmtComponent
+  },
+  {
+    path: 'register-staff',
+    component: StaffMgmtComponent,
+    data: {
+      isManager: true
     }
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent
+  }
+]
+  }
 ];
 
 @NgModule({

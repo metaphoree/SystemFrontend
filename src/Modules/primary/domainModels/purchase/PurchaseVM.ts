@@ -20,7 +20,7 @@ export class PurchaseVM {
     InvoiceId: string;
 SupplierName : string;
 
-  
+  stringVersion : string;
 
 
 
@@ -30,6 +30,7 @@ SupplierName : string;
 
 
     constructor() {
+        this.stringVersion = '';
         this.SupplierVM = new SupplierVM();
         this.OcurranceDate = new Date();
         this.TotalAmount = 0;

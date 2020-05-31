@@ -3,8 +3,23 @@
         <div class="col-lg-12">
             <label> Add New Client</label>
         </div>
-        <div class="col-lg-6">
-            <input type="text" placeholder="Name" [(ngModel)]="viewModel.Name" pInputText />
+        <div class="col-lg-12">
+            <input type="text" class="required" placeholder="Name" [(ngModel)]="viewModel.Name" pInputText />
+        </div>
+        <div class="col-lg-3" *ngIf="isManager">
+            <input type="text" placeholder="UserName" [(ngModel)]="viewModel.UserName" pInputText />
+            <button pButton type="button" label="Check UserName Validity" (click)="CheckUserName($event)"></button>
+        </div>
+        <div class="col-lg-3" *ngIf="isManager"> 
+            <label *ngIf="UserNameIsChecked && !UserNameIsValid" style="color: green;">UserName is Valid</label>
+            <label *ngIf="UserNameIsChecked && UserNameIsValid"  style="color: red;">UserName is Not Valid. Please Try another.</label>
+        </div>
+        <div class="col-lg-6" *ngIf="isManager">
+            <input type="text" placeholder="Password" [(ngModel)]="viewModel.Password" pInputText />
+        </div>
+        <div class="col-lg-6" *ngIf="isManager">
+            <p-dropdown [options]="pageData.ddModelVmsPageSpecific.RoleVMs" [(ngModel)]="selectedRole" [filter]="true"
+                filterBy="label"></p-dropdown>
         </div>
         <div class="col-lg-6">
             <input type="text" placeholder="Email Address" [(ngModel)]="viewModel.Email" pInputText />

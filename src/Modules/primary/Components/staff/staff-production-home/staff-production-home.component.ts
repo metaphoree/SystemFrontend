@@ -90,6 +90,7 @@ export class StaffProductionHomeComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         console.log( this.wrapperItemList.ListOfData);
+        this.baseService.LoaderOff();
       });
   }
   // GETTING LIST CATEGORIES FOR DROP DOWN
@@ -218,6 +219,7 @@ export class StaffProductionHomeComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+      this.baseService.LoaderOff();
       }
       );
   }

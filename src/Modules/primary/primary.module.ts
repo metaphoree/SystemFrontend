@@ -86,9 +86,26 @@ import { AddExpenseComponent } from './Components/expense/add-expense/add-expens
 import { ExpenseMgmtComponent } from './Components/expense/expense-mgmt/expense-mgmt.component';
 import { IncomeMgmtComponent } from './Components/income/income-mgmt/income-mgmt.component';
 import { AddIncomeComponent } from './Components/income/add-income/add-income.component';
+import { PurchaseDetailsComponent } from './Components/purchase/purchase-details/purchase-details.component';
+import { SalesDetailsComponent } from './Components/sales/sales-details/sales-details.component';
+import { FactoryMgmtComponent } from './Components/factory/factory-mgmt/factory-mgmt.component';
+import { AddFactoryComponent } from './Components/factory/add-factory/add-factory.component';
+import { UpdateFactoryComponent } from './Components/factory/update-factory/update-factory.component';
+import { PaymentStatusMgmtComponent } from './Components/payment-status/payment-status-mgmt/payment-status-mgmt.component';
+import { AddPaymentStatusComponent } from './Components/payment-status/add-payment-status/add-payment-status.component';
+import { UpdatePaymentStatusComponent } from './Components/payment-status/update-payment-status/update-payment-status.component';
+import { UpdateItemStatusComponent } from './Components/item-status/update-item-status/update-item-status.component';
+import { AddItemStatusComponent } from './Components/item-status/add-item-status/add-item-status.component';
+import { ItemStatusMgmtComponent } from './Components/item-status/item-status-mgmt/item-status-mgmt.component';
+import { AppStartComponent } from './Components/app-start/app-start.component';
+import { SideMenuComponent } from './Components/side-menu/side-menu.component';
+import { SideMenuHorizontalComponent } from './Components/side-menu-horizontal/side-menu-horizontal.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
+
 
 @NgModule({
-  declarations: [ ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, AddCustomerComponent,
+  declarations: [ ClientManagementComponent, ClientManagementHomeComponent, EditCustomerComponent, 
+    AddCustomerComponent,
      ItemManagementComponent, AddItemComponent, EditItemComponent, ItemCategoryManagementComponent, AddItemCategoryComponent,
       EditItemCategoryComponent, AddStaffComponent, EditStaffComponent, StaffMgmtComponent, AddStockComponent, EditStockComponent, 
       StockMgmtComponent, SupplierMgmtComponent, AddSupplierComponent, EditSupplierComponent, PurchaseHomeComponent, 
@@ -97,7 +114,20 @@ import { AddIncomeComponent } from './Components/income/add-income/add-income.co
       InvoiceTypeMgmtComponent, ExpenseTypeMgmtComponent, AddExpenseTypeComponent, EditExpenseTypeComponent, EditDepartmentComponent, 
       AddDepartmentComponent, AddIncomeTypeComponent, EditIncomeTypeComponent, EditInvoiceTypeComponent, AddInvoiceTypeComponent, 
       AddEquipmentComponent, EditEquipmentComponent, EditEquipmentCategoryComponent, AddEquipmentCategoryComponent,
-    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, StaffPaymentComponent, CustomerHistoryComponent, SupplierHistoryComponent, StaffHistoryComponent, StaffProductionComponent, StaffProductionHomeComponent, CustomerPaymentHomeComponent, StaffPaymentHomeComponent, SupplierPaymentHomeComponent, StockHomeComponent, PurchaseReturnComponent, SalesReturnComponent, AddPurchaseReturnComponent, AddSalesReturnComponent, ItemStatusChangeComponent, ExpenseReportHomeComponent, ExpenseReportComponent, IncomeReportComponent, IncomeReportHomeComponent, PayableReportHomeComponent, PayableReportComponent, RecievableReportComponent, RecievableReportHomeComponent, ProductionReportHomeComponent, ProductionReportComponent, TransactionReportHomeComponent, TransactionReportComponent, AddExpenseComponent, ExpenseMgmtComponent, IncomeMgmtComponent, AddIncomeComponent],
+    SalesHomeComponent,SaleProductComponent, CustomerPaymentComponent, SupplierPaymentComponent, 
+    StaffPaymentComponent, CustomerHistoryComponent, SupplierHistoryComponent, 
+    StaffHistoryComponent, StaffProductionComponent, StaffProductionHomeComponent, 
+    CustomerPaymentHomeComponent, StaffPaymentHomeComponent, SupplierPaymentHomeComponent, 
+    StockHomeComponent, PurchaseReturnComponent, SalesReturnComponent, AddPurchaseReturnComponent, 
+    AddSalesReturnComponent, ItemStatusChangeComponent, ExpenseReportHomeComponent, 
+    ExpenseReportComponent, IncomeReportComponent, IncomeReportHomeComponent, 
+    PayableReportHomeComponent, PayableReportComponent, RecievableReportComponent, 
+    RecievableReportHomeComponent, ProductionReportHomeComponent, ProductionReportComponent, 
+    TransactionReportHomeComponent, TransactionReportComponent, AddExpenseComponent, 
+    ExpenseMgmtComponent, IncomeMgmtComponent, AddIncomeComponent, PurchaseDetailsComponent,
+     SalesDetailsComponent, FactoryMgmtComponent, AddFactoryComponent, UpdateFactoryComponent,
+      PaymentStatusMgmtComponent, AddPaymentStatusComponent, UpdatePaymentStatusComponent, 
+      UpdateItemStatusComponent, AddItemStatusComponent, ItemStatusMgmtComponent, AppStartComponent, SideMenuComponent, SideMenuHorizontalComponent, DashboardComponent],
   imports: [
     CommonModule,
     BrowserModule,

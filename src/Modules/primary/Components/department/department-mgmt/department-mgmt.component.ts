@@ -72,6 +72,7 @@ SearchEvent(event): void {
 
 // DB OPERATION FUNCTION
 DoDBOperation(operationType: DB_OPERATION, item: any): void {
+  this.baseService.LoaderOn();
   let URL: string = '';
   switch (operationType) {
     case DB_OPERATION.CREATE:
@@ -95,6 +96,7 @@ DoDBOperation(operationType: DB_OPERATION, item: any): void {
       this.wrapperItemList.ListOfData = data.ListOfData;
       this.wrapperItemList.TotalRecords = data.TotalRecords;
       this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+      this.baseService.LoaderOff();
     }
     );
 }

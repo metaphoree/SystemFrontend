@@ -1,0 +1,123 @@
+<ul id="menu">
+  
+  <li>
+    <a routerLink="dashboard">Home</a>
+  </li>
+  
+  <li><a >Production</a>
+    <ul>
+      <li *ngIf="roleVM.Staff"><a routerLink="staff-mgmt-home">Staff Management</a></li>
+      <li *ngIf="roleVM.Item || roleVM.ItemCategory || roleVM.Stock"><a href="#">Inventory</a>
+        <ul>
+          <li *ngIf="roleVM.Item"><a routerLink="item-mgmt-home">Item Management</a></li>
+          <li *ngIf="roleVM.ItemCategory"><a routerLink="item-category-mgmt-home">Item Category Management</a></li>
+          <li *ngIf="roleVM.Stock"><a routerLink="stock-mgmt-home">Stock Management</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+
+  <li *ngIf="roleVM.Customer || roleVM.Sales"><a >Sales</a>
+    <ul>
+      <li *ngIf="roleVM.Customer">
+        <a routerLink="client-mgmt-home">Customer Management</a>
+      </li>
+      <li *ngIf="roleVM.Sales">
+        <a routerLink="sales-mgmt">Add Sales</a>
+      </li>
+    </ul>
+  </li>
+
+
+  <li  *ngIf="roleVM.Purchase || roleVM.Supplier"><a >Purchase</a>
+    <ul>
+      <li *ngIf="roleVM.Purchase">
+        <a routerLink="purchase-mgmt">Add Purchase</a>
+      </li>
+      <li *ngIf="roleVM.Supplier">
+        <a routerLink="supplier-mgmt-home">Supplier Management</a>
+      </li>
+    </ul>
+  </li>
+
+
+  <li *ngIf="roleVM.Department || roleVM.Equipment  || roleVM.EquipmentCategory || roleVM.ExpenseType  || roleVM.InvoiceType  || roleVM.IncomeType  || roleVM.PaymentStatus  || roleVM.ItemStatus || roleVM.Registration">
+    <!-- Settings -->
+    <a>Settings</a>
+    <ul>
+      <li *ngIf="roleVM.Department">
+        <a routerLink="department-mgmt-home">Department Management</a>
+      </li>
+      <li *ngIf="roleVM.Equipment">
+        <a routerLink="equipment-mgmt-home">Equipment Management</a>
+      </li>
+      <li *ngIf="roleVM.EquipmentCategory">
+        <a routerLink="equipment-category-mgmt-home">Equipment Category Management</a>
+      </li>
+      <li *ngIf="roleVM.InvoiceType">
+        <a routerLink="invoice-type-mgmt-home">Invoice Type Management</a>
+      </li>
+      <li *ngIf="roleVM.IncomeType">
+        <a routerLink="income-type-mgmt-home">Income Type Management</a>
+      </li>
+      <li *ngIf="roleVM.ExpenseType">
+        <a routerLink="expense-type-mgmt-home">Expense Type Management</a>
+      </li>
+      <li *ngIf="roleVM.PaymentStatus">
+        <a routerLink="payment-status-mgmt">Payment Status Management</a>
+      </li>
+      <li *ngIf="roleVM.ItemStatus">
+        <a routerLink="item-status-mgmt">Item Status Management</a>
+      </li>
+      <li *ngIf="roleVM.Registration">
+        <a routerLink="register-staff">Register Management Staff</a>
+      </li>
+    </ul>
+  </li>
+
+  <li *ngIf="roleVM.Income">
+    <a routerLink="income-mgmt">Income</a>
+  </li>
+
+  <li *ngIf="roleVM.Expense">
+    <a routerLink="expense-mgmt">Expense</a>
+  </li>
+
+
+  <li *ngIf="roleVM.MonthlyAccountReport ||roleVM.MonthlyExpenseReport || roleVM.MonthlyProductionReport || roleVM.MonthlyIncomeReport || roleVM.MonthlyPayableReport || roleVM.MonthlyRecievableReport"><a >Monthly Report</a>
+    <ul>
+      <li *ngIf="roleVM.MonthlyExpenseReport">
+        <a routerLink="expense-report-home">Expense Report</a>
+      </li>
+      <li *ngIf="roleVM.MonthlyProductionReport">
+        <a routerLink="production-report-home">Production Report</a>
+      </li>
+      <li *ngIf="roleVM.MonthlyIncomeReport">
+        <a routerLink="income-report-home">Income Report</a>
+      </li>
+      <li *ngIf="roleVM.MonthlyPayableReport">
+        <a routerLink="payable-report-home">Payable Report</a>
+      </li>
+      <li *ngIf="roleVM.MonthlyRecievableReport">
+        <a routerLink="recievable-report-home">Recievable Report</a>
+      </li>
+      <li *ngIf="roleVM.MonthlyAccountReport">
+        <a routerLink="transaction-report-home">Account Report</a>
+      </li>
+    </ul>
+  </li>
+
+
+  <li *ngIf="roleVM.Factory">
+    <a routerLink="factory-mgmt">Factories</a>
+  </li>
+
+  <li>
+    <!-- <button class="blue button large" type="button" label="Logout" (click)="Logout()"></button> -->
+    <a class="pointer"(click)="Logout()">Logout</a>
+  </li>
+</ul>
+
+
+<!-- https://techonestop.com/create-horizontal-menu-bar-using-html-and-css -->

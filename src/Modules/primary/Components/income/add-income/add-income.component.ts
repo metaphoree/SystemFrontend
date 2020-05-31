@@ -9,6 +9,8 @@ import { PageData } from 'src/Modules/primary/domainModels/PageData';
 import { UtilService } from 'src/Services/util-service/util.service';
 import { SessionService } from 'src/Services/session-service/session.service';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-add-income',
@@ -20,7 +22,8 @@ export class AddIncomeComponent implements OnInit {
   showSupplier: boolean;
   showStaff: boolean;
   showCustomer: boolean;
-
+  message: string;
+  clientTypeId: string;
   selectedCustomer: CustomerVM;
   selectedStaff: StaffVM;
   selectedSupplier: SupplierVM;
@@ -35,16 +38,18 @@ export class AddIncomeComponent implements OnInit {
     private util: UtilService,
     private session: SessionService,
     private dynamicDialogRef: DynamicDialogRef,
-    private dynamicDialogConfig: DynamicDialogConfig) {
-      this.pageData = new PageData();
-      this.selectedSupplier = new SupplierVM();
-      this.selectedStaff = new StaffVM();
-      this.selectedCustomer = new CustomerVM();
-      this.selectedIncomeType = new IncomeTypeVM();
-      this.viewModel = new IncomeVM();
-      this.showCustomer = false;
-      this.showStaff = false;
-      this.showSupplier = false;
+    private dynamicDialogConfig: DynamicDialogConfig,
+    private baseService: BaseServiceService,
+    private messageService: MessageService) {
+    this.pageData = new PageData();
+    this.selectedSupplier = new SupplierVM();
+    this.selectedStaff = new StaffVM();
+    this.selectedCustomer = new CustomerVM();
+    this.selectedIncomeType = new IncomeTypeVM();
+    this.viewModel = new IncomeVM();
+    this.showCustomer = false;
+    this.showStaff = false;
+    this.showSupplier = false;
     this.clientTypeList = this.util.getClientType();
     this.pageData = this.dynamicDialogConfig.data.pageData;
   }
@@ -59,7 +64,7 @@ export class AddIncomeComponent implements OnInit {
     console.log(event);
   }
   CustomerSelected(event): void {
-    this.viewModel.ClientId = event.value.Id;
+    this.viewModel.ClientId = event.value.CustomerId;
     this.viewModel.ClientName = event.value.Name;
     console.log(event.value);
     console.log(event);
@@ -71,17 +76,18 @@ export class AddIncomeComponent implements OnInit {
     console.log(event);
   }
   ClientTypeSelected(event): void {
-    if (event.val == 'Customer') {
+    this.clientTypeId = event.value;
+    if (event.value == 'Customer') {
       this.showCustomer = true;
       this.showStaff = false;
       this.showSupplier = false;
     }
-    else if (event.val == 'Supplier') {
+    else if (event.value == 'Supplier') {
       this.showCustomer = false;
       this.showStaff = false;
       this.showSupplier = true;
     }
-    else if (event.val == 'Staff') {
+    else if (event.value == 'Staff') {
       this.showCustomer = false;
       this.showStaff = true;
       this.showSupplier = false;
@@ -121,11 +127,36 @@ export class AddIncomeComponent implements OnInit {
         return val.Name == InvoiceType[InvoiceType.Income];
       })[0].Id;
 
-
+    if (!this.IsValidIncomeVM(this.viewModel)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+      return;
+    }
     this.dynamicDialogRef.close(this.viewModel);
 
   }
-
+  IsValidIncomeVM(vm: IncomeVM): boolean {
+    if (!this.baseService.isValidString(this.clientTypeId)) {
+      this.message = " Client Type  ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.ClientId)) {
+      this.message = " Client ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.Description)) {
+      this.message = " Description ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.Purpose)) {
+      this.message = " Purpose ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.IncomeTypeId)) {
+      this.message = " Income Type ";
+      return false;
+    }
+    return true;;
+  }
 
 
 

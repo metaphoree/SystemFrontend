@@ -73,6 +73,7 @@ export class SupplierHistoryComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         // this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
         console.log(this.wrapperItemList.ListOfData);
+        this.baseService.LoaderOff();
       });
   }
 
@@ -153,6 +154,7 @@ export class SupplierHistoryComponent implements OnInit {
         // this.purchaseVm.FactoryId = this.session.getFactoryId();      
         //console.log(this.purchaseVm.InvoiceType);
         console.log(this.ddModelVms);
+        this.baseService.LoaderOff();
       });
   }
 
@@ -217,6 +219,7 @@ export class SupplierHistoryComponent implements OnInit {
         //  this.wrapperItemList.TotalRecoreds = data.TotalRecoreds;
         console.log(this.wrapperItemList);
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+     this.baseService.LoaderOff();
       }
       );
   }

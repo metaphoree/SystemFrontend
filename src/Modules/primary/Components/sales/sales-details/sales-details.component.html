@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-sm-12">
+        <table  id="new-table" >
+            <thead>
+                <tr>
+                    <th *ngFor="let column of childColumnList">
+                        {{column.header}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dataR of viewModel">
+                    <td *ngFor="let col of childColumnList">
+                        <span *ngIf="col.field == 'Action'">
+                            <!-- <span (click)="ModifyEvent($event,'Edit',dataRow)" style="padding: 3px;"><i
+                                class="pi pi-check"></i></span> -->
+                            <!-- <span (click)="ModifyEvent($event,'Details',dataR)" style="padding: 3px;"><i
+                                    class="pi pi-times"></i></span> -->
+                        </span>
+                        <span *ngIf="col.field != 'Action'">
+                            <span *ngIf="col.fieldType == 'date'">
+                                {{dataR[col.field] |  date:'medium'}}
+                            </span>
+                            <span *ngIf="col.fieldType != 'date'">
+                                {{dataR[col.field]}}
+                            </span>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <button pButton type="button" label="Close " (click)="Add($event)"></button>
+    </div>
+</div>

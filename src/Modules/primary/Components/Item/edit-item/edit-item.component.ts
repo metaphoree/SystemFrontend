@@ -4,6 +4,8 @@ import { ItemVM } from 'src/Modules/primary/domainModels/item/ItemVM';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { DDModel } from 'src/Models/Utils/DDModel';
 import { UtilService } from 'src/Services/util-service/util.service';
+import { BaseServiceService } from 'src/Services/base-service/base-service.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-edit-item',
@@ -16,9 +18,12 @@ export class EditItemComponent implements OnInit {
   categories : ItemCategoryVM[];
   selectedItem : string;
   ddModel : DDModel[];
+  message : string;
   constructor(private dynamicDialogRef : DynamicDialogRef,
     private  dynamicDialogConfig : DynamicDialogConfig,
-    private util : UtilService) { 
+    private util : UtilService,
+    private baseService: BaseServiceService,
+    private messageService: MessageService) { 
     this.categories = this.dynamicDialogConfig.data.categoriesData;
     this.viewModel =  this.dynamicDialogConfig.data.modelData;
     this.selectedItem = this.viewModel.CategoryId;
@@ -30,7 +35,24 @@ export class EditItemComponent implements OnInit {
 
   Edit(event) : void{
     this.viewModel.CategoryId = this.selectedItem;
+    if (!this.IsValidItemVM(this.viewModel)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+      return;
+    }
     this.dynamicDialogRef.close(this.viewModel);
+  }
+
+
+  IsValidItemVM(vm: ItemVM): boolean {
+    if (!this.baseService.isValidString(vm.CategoryId)) {
+      this.message = " Category ";
+      return false;
+    }
+    if (!this.baseService.isValidString(vm.Name)) {
+      this.message = " Item Name ";
+      return false;
+    }
+    return true;;
   }
 
 }

@@ -15,6 +15,8 @@ import { SalesItemVM } from 'src/Modules/primary/domainModels/sales/SalesItemVM'
 import { SessionService } from 'src/Services/session-service/session.service';
 import { WrapperSalesListVM } from 'src/Modules/primary/domainModels/sales/WrapperSalesListVM';
 import { DB_OPERATION } from 'src/AppUtils/AppConstant/app-constant';
+import { SalesDetailsComponent } from '../sales-details/sales-details.component';
+import { ItemStatusVM } from 'src/Modules/primary/domainModels/item-status/ItemStatusVM';
 
 @Component({
   selector: 'app-sale-product',
@@ -33,21 +35,14 @@ export class SaleProductComponent implements OnInit {
   selectedCustomer: CustomerVM = new CustomerVM();
   selectedItem: ItemVM = new ItemVM();
   selectedItemCategory: ItemCategoryVM = new ItemCategoryVM();
-
-
-
-
-
+  selectedItemStatus: ItemStatusVM = new ItemStatusVM();
 
   columnList: any;
   childColumnList: any;
   CurrentPageNo: number = 1;
   CurrentPageSize: number = 10;
   wrapperItemList: WrapperSalesListVM;
-
-
-
-
+  message : string;
 
 
   // CONSTRUCTOR
@@ -75,7 +70,7 @@ export class SaleProductComponent implements OnInit {
       { field: 'UnitPrice', header: 'UnitPrice', fieldType: 'number' },
       { field: 'Month', header: 'Month', fieldType: 'string' }
     ];
-    this.wrapperItemList= new WrapperSalesListVM();
+    this.wrapperItemList = new WrapperSalesListVM();
   }
   ngOnInit(): void {
     this.getDataListVM = new GetDataListVM();
@@ -168,6 +163,7 @@ export class SaleProductComponent implements OnInit {
         this.salesVm.FactoryId = this.session.getFactoryId();
         this.salesVm.InvoiceType = this.initLoadDataVM.InvoiceTypeVMs.filter((value, index, arr) => { return value.Name == 'Sales' })[0];
         console.log(this.ddModelVms);
+        this.baseService.LoaderOff();
       });
   }
   ItemSelected(event): void {
@@ -209,6 +205,7 @@ export class SaleProductComponent implements OnInit {
     item.ItemCategory = this.selectedItemCategory;
     item.Quantity = quantity;
     item.UnitPrice = unitPrice;
+    item.ItemStatus = this.selectedItemStatus;
     this.salesVm.ItemList.push(item);
     this.CalculateTotal(this.salesVm);
   }
@@ -239,20 +236,51 @@ export class SaleProductComponent implements OnInit {
       arr[i].CustomerVM = this.salesVm.CustomerVM;
       arr[i].EmployeeId = this.session.getCurrentUserId();
       arr[i].FactoryId = this.session.getFactoryId();
-      arr[i].ItemStatus = this.initLoadDataVM.ItemStatusVMs.filter((value, i, arr) => {
-        return arr[i].Name == 'GOOD'
-      })[0];
+      // arr[i].ItemStatus = this.initLoadDataVM.ItemStatusVMs.filter((value, i, arr) => {
+      //   return arr[i].Name == 'GOOD'
+      // })[0];
     });
     console.log(this.salesVm);
+    if (!this.IsValidSalesVM(this.salesVm)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+      return;
+    }
     this.baseService.set<WrapperSalesListVM>(ApiUrl.AddSales, this.salesVm)
       .subscribe((data) => {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
- 
 
+        this.baseService.LoaderOff();
       });
   }
+  IsValidSalesVM(vm: SalesVM): boolean {
+    console.log("Before Validation");
+    console.log(vm);
+    if(vm.CustomerVM == null || vm.CustomerVM == undefined ){
+      this.message = " Customer ";
+      return false;
+    }
+    if(!this.baseService.isValidString(vm.CustomerVM.CustomerId)){
+      this.message = " Customer ";
+      return false;
+    }
+    if(vm.ItemList.length <= 0){
+      this.message = " atleast one item ";
+      return false;
+    }
+    return true;;
+  }
+
+
+
+
+
+
+
+
+
+
   // DB OPERATION FUNCTION
   DoDBOperation(operationType: DB_OPERATION, item: any): void {
     let URL: string = '';
@@ -278,6 +306,7 @@ export class SaleProductComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+      this.baseService.LoaderOff();
       }
       );
   }
@@ -323,24 +352,43 @@ export class SaleProductComponent implements OnInit {
     // }
     if (operationType == 'Details') {
       //this.confirm(entity);
+      this.showSalesDetails(entity.ItemList);
     }
+  }
+
+  showSalesDetails(list: ItemVM[]): void {
+    this.openModalSalesDetails(list);
+  }
+
+  // MODAL FUNCTION
+  openModalSalesDetails(list: ItemVM[]) {
+    const ref = this.dialogService.open(SalesDetailsComponent, {
+      data: {
+        //pageData: this.pageData,
+        model: list
+      },
+      header: 'Give necessary  info',
+      width: '70%',
+      height: '90%',
+      footer: "This is footer"
+    });
+    ref.onClose.subscribe((item: any) => {
+      if (item) {
+        //this.DoDBOperation(DB_OPERATION.CREATE, item);
+      }
+    });
+  }
+  ItemStatusSelected(event): void {
+
+
+
   }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+  Refresh(): void {
+    this.GetInitData();
+  }
 
 
 

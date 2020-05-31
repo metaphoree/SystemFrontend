@@ -1,15 +1,22 @@
-<div class="row">
+<div class="row header">
+    <div class="col-lg-12">
+        <label> Staff History List</label>
+    </div>
+  </div>
+
+<div class="row crud-row">
     <div class="col-sm-4 form-group">
         <p-dropdown [options]="ddModelVmsPageSpecific.StaffVMs" [(ngModel)]="selectedCustomer" [filter]="true"
             filterBy="label" (onChange)="SelectedCustomer($event)"></p-dropdown>
     </div>
 </div>
 <div class="row">
-    <div class="col-sm-12 col-lg-12 custom-table-n">
+    <div class="col-sm-12 col-lg-12"  >
 
-        <table class="table table-striped table-hover table-condensed">
+        <table  id="new-table" >
             <thead>
                 <tr>
+                    <th>Purpose</th>
                     <th>ItemName</th>
                     <th>CategoryName</th>
                     <th>UnitPrice</th>
@@ -24,6 +31,8 @@
             <tbody>
                 <tr *ngFor="let dataRow of wrapperItemList.ListOfData">
 
+
+                    <td>{{dataRow.Purpose}}</td>
                     <!-- Invoice     -->
                     <td *ngIf="dataRow.Type == 'InvoiceItem'" colspan="5">Invoice Total : {{dataRow.InvoiceTotalAfterDiscount}}</td>
                     <td *ngIf="dataRow.Type == 'InvoiceItem'" colspan="3">Paid :
@@ -43,10 +52,30 @@
 
 
 
-                    <!-- Income -->
+                    <!-- Expense -->
                     <td *ngIf="dataRow.Type == 'ExpenseItem'" colspan="5">Paid to Staff</td>
                     <td *ngIf="dataRow.Type == 'ExpenseItem'" colspan="3">{{dataRow.PaidAmount}}</td>
                     <td *ngIf="dataRow.Type == 'ExpenseItem'"> {{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+
+
+                    <!-- Income -->
+                    <td *ngIf="dataRow.Type == 'IncomeItem'" colspan="5">Recieved from Staff</td>
+                    <td *ngIf="dataRow.Type == 'IncomeItem'" colspan="3">{{dataRow.RecievedAmount}}</td>
+                    <td *ngIf="dataRow.Type == 'IncomeItem'"> {{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+
+
+                    <!-- Payable -->
+                    <td *ngIf="dataRow.Type == 'PayableItem'" colspan="5">Payable to Staff</td>
+                    <td *ngIf="dataRow.Type == 'PayableItem'" colspan="3">{{dataRow.PayableAmount}}</td>
+                    <td *ngIf="dataRow.Type == 'PayableItem'"> {{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+
+                    <!-- Recievable -->
+                    <td *ngIf="dataRow.Type == 'RecievableItem'" colspan="5">Recievable from Staff</td>
+                    <td *ngIf="dataRow.Type == 'RecievableItem'" colspan="3">{{dataRow.RecievableAmount}}</td>
+                    <td *ngIf="dataRow.Type == 'RecievableItem'"> {{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+
+
+
 
                     <!-- this.columnList = [
                     // { field: 'Action', header: 'Action', fieldType: 'icon' },
@@ -64,7 +93,7 @@
             </tbody>
         </table>
     </div>
-    <div class="col-sm-6" style="text-align: center;"></div>
+
     <div class="col-sm-12 paging">
         <span (click)="GoToPage('-')" class="space-around paging-icons"><i class="pi pi-fast-backward"></i></span>
         <span class="space-around page-no">{{this.CurrentPageNo}}</span>

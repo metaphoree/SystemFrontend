@@ -41,10 +41,14 @@ export class SupplierMgmtComponent implements OnInit {
       { field: 'Action', header: 'Action' },
       { field: 'Name', header: 'Name' },
       { field: 'Email', header: 'Email' },
-      { field: 'PermanentAddress', header: 'Permanent Address' },
+    //  { field: 'PermanentAddress', header: 'Permanent Address' },
       { field: 'PresentAddress', header: 'Present Address' },
       { field: 'CellNo', header: 'CellNo' },
-      { field: 'AlternateCellNo', header: 'Alternate CellNo' }
+    //  { field: 'AlternateCellNo', header: 'Alternate CellNo' },
+      { field: 'PaidAmount', header: 'Paid' },
+      { field: 'PayableAmount', header: 'Payable' },
+      { field: 'RecievedAmount', header: 'Recieved' },
+      { field: 'RecievableAmount', header: 'Recievable' }
 
     ];
     this.getDataListVM.PageNumber = 1;
@@ -99,7 +103,7 @@ export class SupplierMgmtComponent implements OnInit {
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
-     
+        this.baseService.LoaderOff();
      
       }
       );
@@ -190,10 +194,10 @@ export class SupplierMgmtComponent implements OnInit {
 
   goto(event, option): void {
     if (option == 'payment') {
-      this.router.navigateByUrl('/supplier-mgmt-home/payment')
+      this.router.navigateByUrl('home/supplier-mgmt-home/payment')
     }
     else if (option == 'history') {
-      this.router.navigateByUrl('/supplier-mgmt-home/history');
+      this.router.navigateByUrl('home/supplier-mgmt-home/history');
     }
   }
 }

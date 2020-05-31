@@ -1,0 +1,60 @@
+<div class="row header">
+    <div class="col-lg-12">
+        <label> Item Status List</label>
+    </div>
+  </div>
+<div class="row crud-row">
+    <div class="col-sm-3">
+        <button class="blue button large" type="button" label="Add" (click)="AddEvent($event)">Add</button>
+    </div>
+    <div class="col-sm-2">
+        <input type="text" placeholder="Search Data" [(ngModel)]="this.getDataListVM.GlobalFilter" pInputText />
+    </div>
+    <div class="col-sm-2">
+        <button class="blue button large" type="button" label="Search"
+            (click)="SearchEvent($event)">Search</button>
+    </div>
+    <div class="col-sm-2">
+        <button class="blue button large" type="button" label="Reset" (click)="Reset()">Reset</button>
+    </div>
+    <div class="col-sm-2 form-group">
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 ">
+        <table  id="new-table" >
+            <thead>
+                <tr>
+                    <th *ngFor="let column of columnList">
+                        {{column.header}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let dataRow of wrapperItemList.ListOfData">
+                    <td *ngFor="let col of columnList">
+                        <span *ngIf="col.field == 'Action'">
+                            <!-- <span (click)="ModifyEvent($event,'Edit',dataRow)" style="padding: 3px;"><i
+                                    class="pi pi-check"></i></span>
+                            <span (click)="ModifyEvent($event,'Delete',dataRow)" style="padding: 3px;"><i
+                                    class="pi pi-times"></i></span> -->
+                                    <button class="blue button small" type="button" label="Edit"
+                                    (click)="ModifyEvent($event,'Edit',dataRow)">Edit </button>
+                                <button class="blue button small" type="button" label="Delete"
+                                    (click)="ModifyEvent($event,'Delete',dataRow)">Delete</button>
+                        </span>
+                        <span *ngIf="col.field != 'Action'">
+                            {{dataRow[col.field]}}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-sm-12 paging">
+        <span (click)="GoToPage('-')" class="space-around paging-icons"><i class="pi pi-fast-backward"></i></span>
+        <span class="space-around page-no">{{this.CurrentPageNo}}</span>
+        <span (click)="GoToPage('+')" class="space-around paging-icons"><i class="pi pi-fast-forward"></i></span>
+    </div>
+</div>

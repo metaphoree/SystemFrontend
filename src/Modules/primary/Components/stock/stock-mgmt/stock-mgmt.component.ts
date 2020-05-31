@@ -62,7 +62,7 @@ export class StockMgmtComponent implements OnInit {
       { field: 'Quantity', header: 'Quantity', fieldType: 'number' },
       { field: 'ExpiryDate', header: 'Expiry Date', fieldType: 'date' }
     ];
-
+    this.baseService.LoaderOn();
     this.util.initDD_Data.subscribe(
       (data: PageData) => {
         this.pageData = data;
@@ -157,7 +157,7 @@ export class StockMgmtComponent implements OnInit {
           this.getDataListVM.PageNumber = this.CurrentPageNo;
           this.getDataListVM.PageSize = this.CurrentPageSize;
           this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
-
+          this.baseService.LoaderOff();
         }
         );
     }
@@ -168,6 +168,7 @@ export class StockMgmtComponent implements OnInit {
           this.wrapperItemList.ListOfData = data.ListOfData;
           this.wrapperItemList.TotalRecords = data.TotalRecords;
           this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+          this.baseService.LoaderOff();
         }
         );
     }
@@ -309,10 +310,10 @@ export class StockMgmtComponent implements OnInit {
 
   goto(event, option): void {
     if (option == 'PurchaseReturn') {
-      this.router.navigateByUrl('/stock-mgmt-home/purchaseReturn')
+      this.router.navigateByUrl('home/stock-mgmt-home/purchaseReturn')
     }
     else if (option == 'SalesReturn') {
-      this.router.navigateByUrl('/stock-mgmt-home/salesReturn');
+      this.router.navigateByUrl('home/stock-mgmt-home/salesReturn');
     }
 
   }

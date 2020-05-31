@@ -1,28 +1,30 @@
-<div>
-    <div class="row">
-        <div class="col-lg-12">
-            <label>New Purchase</label>
-        </div>
+<div class="row">
+    <div class="col-lg-2">
+        <label class="bold">Select Client</label>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <p-dropdown [options]="ddModelVmsPageSpecific.SupplierVMs" (onChange)="CustomerSelected($event)"
-                [(ngModel)]="selectedSupplier" [filter]="true" filterBy="label"></p-dropdown>
-        </div>
+    <div class="col-lg-10">
+        <p-dropdown [options]="ddModelVmsPageSpecific.SupplierVMs" (onChange)="CustomerSelected($event)"
+            [(ngModel)]="selectedSupplier" [filter]="true" filterBy="label"></p-dropdown>
     </div>
-    <div class="row">
-        <div class="col-lg-6 bord">Name : {{selectedSupplier.Name}}</div>
-        <div class="col-lg-6 bord">Email : {{selectedSupplier.Email}}</div>
+</div>
 
-        <div class="col-lg-6 bord">Permanent Address : {{selectedSupplier.PermanentAddress}}</div>
-        <div class="col-lg-6 bord">Present Address : {{selectedSupplier.PresentAddress}}</div>
+<p-panel header="Client Info">
+    <div class="row bold">
+        <div class="col-lg-12">Name : {{selectedSupplier.Name}}</div>
+        <div class="col-lg-12">Email : {{selectedSupplier.Email}}</div>
+
+        <div class="col-lg-12">Permanent Address : {{selectedSupplier.PermanentAddress}}</div>
+        <div class="col-lg-12">Present Address : {{selectedSupplier.PresentAddress}}</div>
     </div>
-    <div class="row">
-        <div class="col-lg-12"></div>
-    </div>
-    <div class="row">
+</p-panel>
+
+
+
+<p-panel header="Select Item to Add">
+    <div class="row bold">
         <div class="col-lg-2"><label class="bord-bott color-blue">Name</label></div>
         <div class="col-lg-2"><label class="bord-bott color-blue">Category</label></div>
+        <div class="col-lg-2"><label class="bord-bott color-blue">Status</label></div>
         <div class="col-lg-2"><label class="bord-bott color-blue">Quantity</label></div>
         <div class="col-lg-2"><label class="bord-bott color-blue">UnitPrice</label></div>
     </div>
@@ -36,130 +38,152 @@
                 (onChange)="ItemCategorySelected($event)" [filter]="true" filterBy="label"></p-dropdown>
         </div>
         <div class="col-lg-2">
+            <p-dropdown [options]="ddModelVmsPageSpecific.ItemStatusVMs" [(ngModel)]="selectedItemStatus"
+                (onChange)="ItemStatusSelected($event)" [filter]="true" filterBy="label"></p-dropdown>
+        </div>
+        <div class="col-lg-2">
             <input type="text" placeholder="Quantity" [(ngModel)]="quantity" pInputText />
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
             <input type="text" placeholder="UnitPrice" [(ngModel)]="unitPrice" pInputText />
+
+        </div>
+        <div class="col-lg-2">
             <button pButton type="button" label="Add Item"
                 (click)="Add($event,selectedItem,selectedItemCategory,quantity,unitPrice)"></button>
         </div>
+
+    </div>
+</p-panel>
+
+
+<p-panel header="Item Details">
+    <!-- <div class="row">
+            <div class="col-lg-2 bord"><label>Name</label></div>
+            <div class="col-lg-2 bord"><label>ItemCategory</label></div>
+            <div class="col-lg-2 bord"><label>Quantity</label></div>
+            <div class="col-lg-2 bord"><label>UnitPrice</label></div>
+            <div class="col-lg-2 bord"><label>Total</label></div>
+            <div class="col-lg-1 bord"><label>Action</label></div>
+        </div>
+        <div class="row" *ngFor="let temp of purchaseVm.ItemList">
+            <div class="col-lg-2 bord"><label>{{temp.Item.Name}}</label></div>
+            <div class="col-lg-2 bord"><label>{{temp.ItemCategory.Name}}</label></div>
+            <div class="col-lg-2 bord"><label>{{temp.Quantity}}</label></div>
+            <div class="col-lg-2 bord"><label>{{temp.UnitPrice}}</label></div>
+            <div class="col-lg-2 bord"><label>{{temp.UnitPrice * temp.Quantity}}</label></div>
+            <div class="col-lg-1 bord"><i (click)="Remove(temp)" class="fa fa-remove"></i></div>
+        </div> -->
+
+    <table id="new-table">
+        <thead>
+            <th>Name</th>
+            <th>ItemCategory</th>
+            <th>Quantity</th>
+            <th>UnitPrice</th>
+            <th>Total</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let temp of purchaseVm.ItemList">
+                <td>{{temp.Item.Name}}</td>
+                <td>{{temp.ItemCategory.Name}}</td>
+                <td>{{temp.Quantity}}</td>
+                <td>{{temp.UnitPrice}}</td>
+                <td>{{temp.UnitPrice * temp.Quantity}}</td>
+                <td><i (click)="Remove(temp)" class="fa fa-remove"></i></td>
+            </tr>
+        </tbody>
+    </table>
+
+</p-panel>
+<div class="row bold">
+    <div class="col-lg-2">
+        <label>Paid Amount</label>
+        <input type="text" placeholder="UnitPrice" (input)="Changed('PaidAmount')" [(ngModel)]="purchaseVm.PaidAmount"
+            pInputText />
+    </div>
+    <div class="col-lg-2">
+        <label>Due Amount</label>
+        <input type="text" placeholder="UnitPrice" [(ngModel)]="purchaseVm.DueAmount" pInputText />
     </div>
 
-    <div class="row">
-        <div class="col-lg-2 bord"><label>Name</label></div>
-        <div class="col-lg-2 bord"><label>ItemCategory</label></div>
-        <div class="col-lg-2 bord"><label>Quantity</label></div>
-        <div class="col-lg-2 bord"><label>UnitPrice</label></div>
-        <div class="col-lg-2 bord"><label>Total</label></div>
-        <div class="col-lg-1 bord"><label>Action</label></div>
+    <div class="col-lg-2">
+        <label>Discount Amount</label>
+        <input type="text" placeholder="UnitPrice" (input)="Changed('DiscountAmount')"
+            [(ngModel)]="purchaseVm.DiscountAmount" pInputText />
     </div>
-    <div class="row" *ngFor="let temp of purchaseVm.ItemList">
-        <div class="col-lg-2 bord"><label>{{temp.Item.Name}}</label></div>
-        <div class="col-lg-2 bord"><label>{{temp.ItemCategory.Name}}</label></div>
-        <div class="col-lg-2 bord"><label>{{temp.Quantity}}</label></div>
-        <div class="col-lg-2 bord"><label>{{temp.UnitPrice}}</label></div>
-        <div class="col-lg-2 bord"><label>{{temp.UnitPrice * temp.Quantity}}</label></div>
-        <div class="col-lg-1 bord"><i (click)="Remove(temp)" class="fa fa-remove"></i></div>
+    <div class="col-lg-2">
+        <label>Total Amount</label>
+        <input type="text" placeholder="UnitPrice" [(ngModel)]="purchaseVm.TotalAmount" pInputText />
     </div>
 
-    <div class="row">
-        <div class="col-lg-2">
-            <label>Paid Amount</label>
-            <input type="text" placeholder="UnitPrice" (input)="Changed('PaidAmount')"
-                [(ngModel)]="purchaseVm.PaidAmount" pInputText />
-        </div>
-        <div class="col-lg-2">
-            <label>Due Amount</label>
-            <input type="text" placeholder="UnitPrice" [(ngModel)]="purchaseVm.DueAmount" pInputText />
-        </div>
-
-        <div class="col-lg-2">
-            <label>Discount Amount</label>
-            <input type="text" placeholder="UnitPrice" (input)="Changed('DiscountAmount')"
-                [(ngModel)]="purchaseVm.DiscountAmount" pInputText />
-        </div>
-        <div class="col-lg-2">
-            <label>Total Amount</label>
-            <input type="text" placeholder="UnitPrice" [(ngModel)]="purchaseVm.TotalAmount" pInputText />
-        </div>
+    <!-- <div class="col-lg-2">
+        <label>Refresh Purchase List</label>
+       <button pButton type="button" label="Refresh Purchase List" (click)="Refresh()"></button> 
+ <button pButton type="button" label="Add New Purchase" (click)="AddPurchase()"></button> 
+    </div> -->
+</div>
+<div class="row" style="padding: 20px;">
+    <div class="col-lg-3" style="text-align: center;">
+        <p-splitButton label="Add New Purchase" icon="pi pi-check" (click)="AddPurchase()" styleClass="ui-button-info">
+        </p-splitButton>
     </div>
-    <div class="row">
-        <div class="col-lg-2">
+    <div class="col-lg-3" style="text-align: center;">
+        <p-splitButton label="Refresh Purchase List" icon="pi pi-check" (click)="Refresh()" styleClass="ui-button-info">
+        </p-splitButton>
+    </div>
+</div>
+<!-- <div class="row">
+        <div class="col-lg-offset-4 col-lg-2">
             <button pButton type="button" label="Add" (click)="AddPurchase()"></button>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-2">
             <button pButton type="button" label="Refresh" (click)="Refresh()"></button>
         </div>
-    </div>
-</div>
+    </div> -->
+<p-panel header="Added Item Details">
+    <div class="row">
+        <div class="col-sm-12">
+            <table id="new-table">
+                <thead>
+                    <tr>
+                        <th *ngFor="let column of columnList">
+                            {{column.header}}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dataRow of wrapperItemList.ListOfData">
+                        <td *ngFor="let col of columnList" style="clear: both;" rowspan="1">
+                            <span *ngIf="col.field == 'Action'">
+                                <!-- <span (click)="ModifyEvent($event,'Details',dataRow)" style="padding: 3px;"><i
+                                        class="pi pi-check"></i></span>
+                                <span (click)="ModifyEvent($event,'Details',dataRow)" style="padding: 3px;"><i
+                                        class="pi pi-times"></i></span> -->
+                                <button class="blue button small" type="button" label="Edit"
+                                    (click)="ModifyEvent($event,'Details',dataRow)">Edit </button>
 
-<div class="row">
-    <div class="col-sm-8 custom-table-n">
-        <table class="table table-striped table-hover table-condensed">
-            <thead>
-                <tr>
-                    <th *ngFor="let column of columnList">
-                        {{column.header}}
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let dataRow of wrapperItemList.ListOfData">
-                    <td *ngFor="let col of columnList" style="clear: both;" rowspan="1">
-                        <span *ngIf="col.field == 'Action'">
-                            <!-- <span (click)="ModifyEvent($event,'Edit',dataRow)" style="padding: 3px;"><i
-                                    class="pi pi-check"></i></span> -->
-                            <span (click)="ModifyEvent($event,'Details',dataRow)" style="padding: 3px;"><i
-                                    class="pi pi-times"></i></span>
-                        </span>
-                        <span *ngIf="col.field != 'Action'">
-                            <span *ngIf="col.fieldType == 'date'">
-                                {{dataRow[col.field] |  date:'medium'}}
                             </span>
-                            <span *ngIf="col.fieldType != 'date'">
-                                {{dataRow[col.field]}}
+                            <span *ngIf="col.field != 'Action'">
+                                <span *ngIf="col.fieldType == 'date'">
+                                    {{dataRow[col.field] |  date:'medium'}}
+                                </span>
+                                <span *ngIf="col.fieldType != 'date'">
+                                    {{dataRow[col.field]}}
+                                </span>
                             </span>
-                        </span>
-                    </td>
-                    <td rowspan="1" colspan="4" style="display: block !important;clear: both; ">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th *ngFor="let column of childColumnList">
-                                        {{column.header}}
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let dataR of dataRow.ItemList">
-                                    <td *ngFor="let col of childColumnList">
-                                        <span *ngIf="col.field == 'Action'">
-                                            <!-- <span (click)="ModifyEvent($event,'Edit',dataRow)" style="padding: 3px;"><i
-                                                class="pi pi-check"></i></span> -->
-                                            <span (click)="ModifyEvent($event,'Details',dataR)" style="padding: 3px;"><i
-                                                    class="pi pi-times"></i></span>
-                                        </span>
-                                        <span *ngIf="col.field != 'Action'">
-                                            <span *ngIf="col.fieldType == 'date'">
-                                                {{dataR[col.field] |  date:'medium'}}
-                                            </span>
-                                            <span *ngIf="col.fieldType != 'date'">
-                                                {{dataR[col.field]}}
-                                            </span>
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div class="col-sm-12 paging">
+            <span (click)="GoToPage('-')" class="space-around paging-icons"><i class="pi pi-fast-backward"></i></span>
+            <span class="space-around page-no">{{this.CurrentPageNo}}</span>
+            <span (click)="GoToPage('+')" class="space-around paging-icons"><i class="pi pi-fast-forward"></i></span>
+        </div>
     </div>
-    <div class="col-sm-6" style="text-align: center;"></div>
-    <div class="col-sm-6 paging">
-        <span (click)="GoToPage('-')" class="space-around paging-icons"><i class="pi pi-fast-backward"></i></span>
-        <span class="space-around page-no">{{this.CurrentPageNo}}</span>
-        <span (click)="GoToPage('+')" class="space-around paging-icons"><i class="pi pi-fast-forward"></i></span>
-    </div>
-</div>
+</p-panel>

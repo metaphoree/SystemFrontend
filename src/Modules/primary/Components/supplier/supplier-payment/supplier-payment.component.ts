@@ -27,6 +27,7 @@ export class SupplierPaymentComponent implements OnInit {
   public ddModelVms: DDModelVMs_;
   public ddModelVmsPageSpecific: DDModelVMs_;
   public selectedSupplier: SupplierVM;
+  public message : string;
 
   constructor(private baseService: BaseServiceService,
     private util: UtilService,
@@ -85,18 +86,21 @@ export class SupplierPaymentComponent implements OnInit {
       return arr[index].Name == ExpenseType[ExpenseType.SupplierPayment];
     })[0].Id;
 
-    this.dynamicDialogRef.close(this.viewModel);
+    //this.dynamicDialogRef.close(this.viewModel);
+    if(this.IsValidPaymentVM(this.viewModel)){
+      this.dynamicDialogRef.close(this.viewModel);
+    }
+    else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide' + this.message });
+    }
 
-    // this.baseService.set<CommonResponse>(ApiUrl.GiveSupplierPayment, this.viewModel)
-    //   .subscribe((data) => {
-    //     if (data.Success) {
-    //       this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
-    
-    //     }
-    //     else {
-    //       this.messageService.add({ severity: 'failed', summary: 'Something Wrong', detail: 'Operation failed' });
-    //     }
-    //   });
+  }
+  IsValidPaymentVM(vm: PaymentVM): boolean {
+    if (this.baseService.isValidString(vm.ClientId)) {
+      return true;
+    }
+    this.message = " Client Name ";
+    return false;
   }
 
 }

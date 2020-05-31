@@ -7,7 +7,7 @@
             [(ngModel)]="selectedClientType" [filter]="true" filterBy="label"></p-dropdown>
     </div>
 </div>
-<div class="row"  ngShow="showSupplier">
+<div class="row"  *ngIf="showSupplier">
     <div class="col-lg-3 bold">
         <label>Select Supplier </label>
     </div>
@@ -17,7 +17,7 @@
            ></p-dropdown>
     </div>
 </div>
-<div class="row"  ngShow="showStaff">
+<div class="row"  *ngIf="showStaff">
     <div class="col-lg-3 bold">
         <label>Select Staff </label>
     </div>
@@ -26,7 +26,7 @@
             [(ngModel)]="selectedStaff" [filter]="true" filterBy="label"></p-dropdown>
     </div>
 </div>
-<div class="row" ngShow="showCustomer">
+<div class="row" *ngIf="showCustomer">
     <div class="col-lg-3 bold">
         <label>Select Customer</label>
     </div>
