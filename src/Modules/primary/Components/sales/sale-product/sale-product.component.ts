@@ -42,7 +42,7 @@ export class SaleProductComponent implements OnInit {
   CurrentPageNo: number = 1;
   CurrentPageSize: number = 10;
   wrapperItemList: WrapperSalesListVM;
-  message : string;
+  message: string;
 
 
   // CONSTRUCTOR
@@ -200,6 +200,12 @@ export class SaleProductComponent implements OnInit {
   }
 
   Add(event, selectedItem, selectedItemCategory, quantity, unitPrice): void {
+    if (!this.baseService.isValidString(this.selectedItem.Id) ||
+      !this.baseService.isValidString(this.selectedItemCategory.Id) ||
+      !this.baseService.isValidString(this.selectedItemStatus.Id)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide all the values' });
+      return;
+    }
     let item = new SalesItemVM();
     item.Item = this.selectedItem;
     item.ItemCategory = this.selectedItemCategory;
@@ -247,25 +253,30 @@ export class SaleProductComponent implements OnInit {
     }
     this.baseService.set<WrapperSalesListVM>(ApiUrl.AddSales, this.salesVm)
       .subscribe((data) => {
+        if(data.HasMessage){
+          this.messageService.add({ severity: 'success', summary: 'Well Done', detail: data.Message });
+        }
+        else{
+          this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
+        }
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
-        this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
-
+      
         this.baseService.LoaderOff();
       });
   }
   IsValidSalesVM(vm: SalesVM): boolean {
     console.log("Before Validation");
     console.log(vm);
-    if(vm.CustomerVM == null || vm.CustomerVM == undefined ){
+    if (vm.CustomerVM == null || vm.CustomerVM == undefined) {
       this.message = " Customer ";
       return false;
     }
-    if(!this.baseService.isValidString(vm.CustomerVM.CustomerId)){
+    if (!this.baseService.isValidString(vm.CustomerVM.CustomerId)) {
       this.message = " Customer ";
       return false;
     }
-    if(vm.ItemList.length <= 0){
+    if (vm.ItemList.length <= 0) {
       this.message = " atleast one item ";
       return false;
     }
@@ -295,7 +306,7 @@ export class SaleProductComponent implements OnInit {
         URL = ApiUrl.UpdateItem + '/' + item.Id;
         break;
       case DB_OPERATION.DELETE:
-        URL = ApiUrl.DeleteItem;
+        URL = ApiUrl.DeleteSales;
         break;
       default:
         break;
@@ -303,10 +314,14 @@ export class SaleProductComponent implements OnInit {
     console.log(URL);
     this.baseService.set<WrapperSalesListVM>(URL, item)
       .subscribe((data) => {
+        if(data.HasMessage){
+          this.messageService.add({ severity: 'success', summary: 'Well Done', detail: data.Message });
+        }
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
-      this.baseService.LoaderOff();
+        this.baseService.LoaderOff();
+        
       }
       );
   }
@@ -347,9 +362,9 @@ export class SaleProductComponent implements OnInit {
     // if (operationType == 'Edit') {
     //   this.openModalUpdate(entity);
     // }
-    // if (operationType == 'Delete') {
-    //   this.confirm(entity);
-    // }
+    if (operationType == 'Delete') {
+      this.confirm(entity);
+    }
     if (operationType == 'Details') {
       //this.confirm(entity);
       this.showSalesDetails(entity.ItemList);
@@ -391,7 +406,20 @@ export class SaleProductComponent implements OnInit {
   }
 
 
+  // DELETION CONFIRMATION
+  confirm(entity: any) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        //Actual logic to perform a confirmation
+        this.DoDBOperation(DB_OPERATION.DELETE, entity);
+      },
+      reject: () => {
 
+
+      }
+    });
+  }
 
 
 

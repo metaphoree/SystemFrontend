@@ -37,7 +37,7 @@
                     <td *ngIf="dataRow.Type == 'InvoiceItem'" colspan="5">Invoice Total : {{dataRow.InvoiceTotalAfterDiscount}}</td>
                     <td *ngIf="dataRow.Type == 'InvoiceItem'" colspan="3">Paid :
                         {{dataRow.PaidAmount}},&nbsp;&nbsp;Payable : {{dataRow.PayableAmount}}</td>
-                    <td *ngIf="dataRow.Type == 'InvoiceItem'">{{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+                    <td *ngIf="dataRow.Type == 'InvoiceItem'">{{dataRow.OccurranceDate  |  date:'medium' }}</td>
 
 
                     <!-- Sales -->
@@ -48,31 +48,31 @@
                     <td *ngIf="dataRow.Type == 'ProductionItem'" colspan="4">
                         {{dataRow.UnitPrice * dataRow.Quantity}}
                     </td>
-                    <td *ngIf="dataRow.Type == 'ProductionItem'">{{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+                    <td *ngIf="dataRow.Type == 'ProductionItem'">{{dataRow.OccurranceDate  |  date:'medium' }}</td>
 
 
 
                     <!-- Expense -->
                     <td *ngIf="dataRow.Type == 'ExpenseItem'" colspan="5">Paid to Staff</td>
                     <td *ngIf="dataRow.Type == 'ExpenseItem'" colspan="3">{{dataRow.PaidAmount}}</td>
-                    <td *ngIf="dataRow.Type == 'ExpenseItem'"> {{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+                    <td *ngIf="dataRow.Type == 'ExpenseItem'"> {{dataRow.OccurranceDate  |  date:'medium' }}</td>
 
 
                     <!-- Income -->
                     <td *ngIf="dataRow.Type == 'IncomeItem'" colspan="5">Recieved from Staff</td>
                     <td *ngIf="dataRow.Type == 'IncomeItem'" colspan="3">{{dataRow.RecievedAmount}}</td>
-                    <td *ngIf="dataRow.Type == 'IncomeItem'"> {{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+                    <td *ngIf="dataRow.Type == 'IncomeItem'"> {{dataRow.OccurranceDate  |  date:'medium' }}</td>
 
 
                     <!-- Payable -->
                     <td *ngIf="dataRow.Type == 'PayableItem'" colspan="5">Payable to Staff</td>
                     <td *ngIf="dataRow.Type == 'PayableItem'" colspan="3">{{dataRow.PayableAmount}}</td>
-                    <td *ngIf="dataRow.Type == 'PayableItem'"> {{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+                    <td *ngIf="dataRow.Type == 'PayableItem'"> {{dataRow.OccurranceDate  |  date:'medium' }}</td>
 
                     <!-- Recievable -->
                     <td *ngIf="dataRow.Type == 'RecievableItem'" colspan="5">Recievable from Staff</td>
                     <td *ngIf="dataRow.Type == 'RecievableItem'" colspan="3">{{dataRow.RecievableAmount}}</td>
-                    <td *ngIf="dataRow.Type == 'RecievableItem'"> {{dataRow.OccurranceDate  |  date:"dd-MMM-yyyy" }}</td>
+                    <td *ngIf="dataRow.Type == 'RecievableItem'"> {{dataRow.OccurranceDate  |  date:'medium' }}</td>
 
 
 

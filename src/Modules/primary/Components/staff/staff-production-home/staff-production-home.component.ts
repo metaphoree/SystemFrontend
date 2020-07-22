@@ -65,6 +65,7 @@ export class StaffProductionHomeComponent implements OnInit {
       { field: 'StaffName', header: 'Staff', fieldType: 'string' },
       { field: 'ItemName', header: 'Item', fieldType: 'string' },
       { field: 'ItemCategoryName', header: 'Category', fieldType: 'string' },
+      { field: 'ItemStatusName', header: 'Status', fieldType: 'string' },
       { field: 'EquipmentName', header: 'Equipment', fieldType: 'string' },
       { field: 'UnitPrice', header: 'Rate', fieldType: 'number' },
       { field: 'Quantity', header: 'Quantity', fieldType: 'number' },

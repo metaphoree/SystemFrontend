@@ -79,6 +79,7 @@
         <thead>
             <th>Name</th>
             <th>ItemCategory</th>
+            <th>ItemStatus</th>
             <th>Quantity</th>
             <th>UnitPrice</th>
             <th>Total</th>
@@ -88,6 +89,7 @@
             <tr *ngFor="let temp of purchaseVm.ItemList">
                 <td>{{temp.Item.Name}}</td>
                 <td>{{temp.ItemCategory.Name}}</td>
+                <td>{{temp.ItemStatus.Name}}</td>
                 <td>{{temp.Quantity}}</td>
                 <td>{{temp.UnitPrice}}</td>
                 <td>{{temp.UnitPrice * temp.Quantity}}</td>
@@ -162,7 +164,9 @@
                                 <span (click)="ModifyEvent($event,'Details',dataRow)" style="padding: 3px;"><i
                                         class="pi pi-times"></i></span> -->
                                 <button class="blue button small" type="button" label="Edit"
-                                    (click)="ModifyEvent($event,'Details',dataRow)">Edit </button>
+                                    (click)="ModifyEvent($event,'Details',dataRow)">Details </button>
+                                    <button class="blue button small" type="button" label="Edit"
+                                    (click)="ModifyEvent($event,'Delete',dataRow)">Delete </button>
 
                             </span>
                             <span *ngIf="col.field != 'Action'">

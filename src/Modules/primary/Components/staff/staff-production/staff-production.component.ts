@@ -15,6 +15,7 @@ import { EquipmentVM } from 'src/Modules/primary/domainModels/equipment/Equipmen
 import { InitialLoadDataVM } from 'src/Modules/primary/domainModels/InitLoadDataVM';
 import { DDModelVMs_ } from 'src/Modules/primary/domainModels/DDModelVMs';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { ItemStatusVM } from 'src/Modules/primary/domainModels/item-status/ItemStatusVM';
 
 @Component({
   selector: 'app-staff-production',
@@ -30,7 +31,9 @@ export class StaffProductionComponent implements OnInit {
   // selected objects from the dropdown
   public selectedStaff: StaffVM;
   public selectedItem: ItemVM;
+  public selectedItemStatus: ItemStatusVM;
   public selectedItemList: ItemVM[];
+  public selectedItemStatusList: ItemStatusVM[];
   public selectedItemCategory: ItemCategoryVM;
   public selectedItemCategoryList: ItemCategoryVM[];
   public selectedEquipment: EquipmentVM;
@@ -56,11 +59,13 @@ export class StaffProductionComponent implements OnInit {
     this.selctedQuantityList = [];
     this.selectedStaff = new StaffVM();
     this.selectedItem = new ItemVM();
+    this.selectedItemStatus = new ItemStatusVM();
     this.selectedItemCategory = new ItemCategoryVM();
     this.selectedEquipment = new EquipmentVM();
     this.selectedItemList = [];
     this.selectedItemCategoryList = [];
     this.selctedUnitPriceList = [];
+    this.selectedItemStatusList = [];
     this.ddModelVms = new DDModelVMs_();
     this.ddModelVmsPageSpecific = new DDModelVMs_();
     this.initLoadDataVM = new InitialLoadDataVM();
@@ -68,13 +73,12 @@ export class StaffProductionComponent implements OnInit {
 
     this.ddModelVms = this.dynamicDialogConfig.data.ddModel;
     this.initLoadDataVM = this.dynamicDialogConfig.data.initLoadDataVM;
-
-
     this.ddModelVmsPageSpecific.EquipmentVMs = this.ddModelVms.EquipmentVMs.slice();
     this.ddModelVmsPageSpecific.ItemCategoryVMs = this.ddModelVms.ItemCategoryVMs.slice();
     this.ddModelVmsPageSpecific.ItemVMs = this.ddModelVms.ItemVMs.slice();
     this.ddModelVmsPageSpecific.StaffVMs = this.ddModelVms.StaffVMs.slice();
     this.ddModelVmsPageSpecific.InvoiceTypeVMs = this.ddModelVms.InvoiceTypeVMs.slice();
+    this.ddModelVmsPageSpecific.ItemStatusVMs = this.ddModelVms.ItemStatusVMs.slice();
   }
 
   ngOnInit(): void {
@@ -97,8 +101,18 @@ export class StaffProductionComponent implements OnInit {
     // console.log(event);
     console.log(this.selectedItem);
   }
+  SelectedItemStatus(event): void {
+    let status = event.value;
+    this.viewModel.ItemStatusId = status.Id;
+    this.SelectedItemStatus = this.ddModelVms.ItemStatusVMs.find(x => x.value.Id == event.value.Id).value;
+    this.viewModel.ItemStatusId = this.selectedItemStatus.Id;
+    // console.log(event.value);
+    // console.log(event);
+    console.log(this.selectedItem);
+  }
   AddSelectedItem(): void {
     this.selectedItemList.push(this.selectedItem);
+    this.selectedItemStatusList.push(this.selectedItemStatus);
     this.selectedItemCategoryList.push(this.selectedItemCategory);
     this.selctedQuantityList.push(this.viewModel.Quantity);
     this.selctedUnitPriceList.push(this.viewModel.UnitPrice);
@@ -129,12 +143,11 @@ export class StaffProductionComponent implements OnInit {
   }
 
   Add(event): void {
-
     this.viewModel.FactoryId = this.session.getFactoryId();
     this.viewModel.ExecutorId = this.session.getCurrentUserId();
-    this.viewModel.ItemStatusId = this.initLoadDataVM.ItemStatusVMs.filter((value, i, arr) => {
-      return arr[i].Name == StatusItem[StatusItem.GOOD];
-    })[0].Id;
+    // this.viewModel.ItemStatusId = this.initLoadDataVM.ItemStatusVMs.filter((value, i, arr) => {
+    //   return arr[i].Name == StatusItem[StatusItem.GOOD];
+    // })[0].Id;
     this.viewModel.InvoiceTypeId = this.initLoadDataVM.InvoiceTypeVMs.filter((value, i, arr) => {
       return arr[i].Name == InvoiceType[InvoiceType.StaffProduction];
     })[0].Id;
@@ -147,6 +160,8 @@ export class StaffProductionComponent implements OnInit {
       let vm = { ...this.viewModel };
       vm.ItemCategoryId = this.selectedItemCategoryList[index].Id;
       vm.ItemId = this.selectedItemList[index].Id;
+      vm.ItemStatusId = this.selectedItemStatusList[index].Id;
+      vm.ItemStatusName = this.selectedItemStatusList[index].Name;
       vm.ItemCategoryName = this.selectedItemCategoryList[index].Name;
       vm.ItemName = this.selectedItemList[index].Name;
       vm.Quantity = this.selctedQuantityList[index];
@@ -154,8 +169,6 @@ export class StaffProductionComponent implements OnInit {
       this.viewModelList.push(vm);
     }
      this.dynamicDialogRef.close(this.viewModelList);
-
-
   }
 
   IsValidStaffProductionVM(vm: AddProductionVM): boolean {

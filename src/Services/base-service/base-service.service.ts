@@ -43,10 +43,36 @@ export class BaseServiceService {
 
   // GET
   public get<T>(url) {
+    let log = new LoginResponseVM();
+    log = this.sessionService.getLoginData();
+    if (!this.isValidString(log.AuthToken)) {
+      log.AuthToken = null;
+    }
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        // 'Access-Control-Allow-Origin' : '*'
+        'Authorization': 'Bearer ' + log.AuthToken
+      })
+    };
+
     return this.http.get<T>(AppConstant.BASE_URL + url, this.httpOptions).pipe(catchError(this.handleError));
   }
   // POST
   public set<T>(url, postBody: any) {
+    let log = new LoginResponseVM();
+    log = this.sessionService.getLoginData();
+    if (!this.isValidString(log.AuthToken)) {
+      log.AuthToken = null;
+    }
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        // 'Access-Control-Allow-Origin' : '*'
+        'Authorization': 'Bearer ' + log.AuthToken
+      })
+    };
+
     this.LoaderOn();
     postBody["FactoryId"] = this.sessionService.getFactoryId();
     return this.http.post<T>(AppConstant.BASE_URL + url, postBody, this.httpOptions)
@@ -57,10 +83,36 @@ export class BaseServiceService {
   }
   // GET
   public getNo(url) {
+    let log = new LoginResponseVM();
+    log = this.sessionService.getLoginData();
+    if (!this.isValidString(log.AuthToken)) {
+      log.AuthToken = null;
+    }
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        // 'Access-Control-Allow-Origin' : '*'
+        'Authorization': 'Bearer ' + log.AuthToken
+      })
+    };
+
     return this.http.get(AppConstant.BASE_URL + url, this.httpOptions).pipe(catchError(this.handleError));
   }
   // POST
   public setNo(url, postBody: any) {
+    let log = new LoginResponseVM();
+    log = this.sessionService.getLoginData();
+    if (!this.isValidString(log.AuthToken)) {
+      log.AuthToken = null;
+    }
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        // 'Access-Control-Allow-Origin' : '*'
+        'Authorization': 'Bearer ' + log.AuthToken
+      })
+    };
+   
     postBody["FactoryId"] = this.sessionService.getFactoryId();
     return this.http.post(AppConstant.BASE_URL + url, postBody, this.httpOptions)
       .pipe(

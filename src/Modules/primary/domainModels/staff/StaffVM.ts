@@ -13,7 +13,7 @@ export class StaffVM {
 
     CellNo: string;
     AlternateCellNo: string;
-
+    Role: string;
 
     FactoryId: string;
     Id: string;

@@ -59,8 +59,8 @@ export class StockMgmtComponent implements OnInit {
       { field: 'Action', header: 'Action', fieldType: 'icon' },
       { field: 'ItemName', header: 'Item Name', fieldType: 'string' },
       { field: 'ItemStatus', header: 'Item Status', fieldType: 'string' },
-      { field: 'Quantity', header: 'Quantity', fieldType: 'number' },
-      { field: 'ExpiryDate', header: 'Expiry Date', fieldType: 'date' }
+      { field: 'Quantity', header: 'Quantity', fieldType: 'number' }
+      // { field: 'ExpiryDate', header: 'Expiry Date', fieldType: 'date' }
     ];
     this.baseService.LoaderOn();
     this.util.initDD_Data.subscribe(

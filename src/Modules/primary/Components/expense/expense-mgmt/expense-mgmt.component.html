@@ -44,7 +44,7 @@
                         </span>
                         <span *ngIf="col.field != 'Action'">
                             <span *ngIf="col.fieldType == 'date'">
-                                {{dataRow[col.field] |  date:"dd-MMM-yyyy"}}
+                                {{dataRow[col.field] |   date:'medium'}}
                             </span>
                             <span *ngIf="col.fieldType != 'date'">
                                 {{dataRow[col.field]}}

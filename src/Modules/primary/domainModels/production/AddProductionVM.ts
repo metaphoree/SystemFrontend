@@ -5,6 +5,7 @@ export class AddProductionVM {
     StaffName: string;
     InvoiceTypeId: string;
     ItemId: string;
+    ItemStatusName: string;
     ItemStatusId: string;
     ItemName: string;
     ItemCategoryId: string;
@@ -39,5 +40,6 @@ export class AddProductionVM {
         this.UpdatedDateTime = new Date();
         this.ExecutorId = '';
         this.ItemStatusId = '';
+        this.ItemStatusName = '';
     }
 }

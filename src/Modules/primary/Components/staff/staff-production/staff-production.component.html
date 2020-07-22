@@ -7,26 +7,34 @@
 
 
 
-  <div class="col-lg-3 form-group">
-    <label>Select Item : </label>
+  <div class="col-lg-4 form-group">
+    <div>Select Item : </div>
     <p-dropdown [options]="ddModelVmsPageSpecific.ItemVMs" [(ngModel)]="selectedItem" [filter]="true" filterBy="label"
       (onChange)="SelectedItem($event)"></p-dropdown>
   </div>
-  <div class="col-lg-3 form-group">
-    <label>Select Item category : </label>
+  <div class="col-lg-4 form-group">
+    <div>Select Item category : </div>
     <p-dropdown [options]="ddModelVmsPageSpecific.ItemCategoryVMs" [(ngModel)]="selectedItemCategory" [filter]="true"
       filterBy="label" (onChange)="SelectedItemCategory($event)"></p-dropdown>
   </div>
-  <div class="col-lg-3 form-group">
-    <label>Quantity : </label>
+
+  <div class="col-lg-4 form-group">
+    <div>Select Item Status : </div>
+    <p-dropdown [options]="ddModelVmsPageSpecific.ItemStatusVMs" [(ngModel)]="selectedItemStatus" [filter]="true"
+      filterBy="label" (onChange)="SelectedItemStatus($event)"></p-dropdown>
+  </div>
+
+
+  <div class="col-lg-4 form-group">
+    <div>Quantity : </div>
     <input type="text" placeholder="Name" [(ngModel)]="viewModel.Quantity" pInputText />
   </div>
-  <div class="col-lg-3 form-group">
-    <label>Unit Price : </label>
+  <div class="col-lg-4 form-group">
+    <div>Unit Price : </div>
     <input type="text" placeholder="Name" [(ngModel)]="viewModel.UnitPrice" pInputText />
   </div>
-  <div class="col-lg-6 form-group">
-    <button pButton type="button" label="Add Item" (click)="AddSelectedItem()"></button>
+  <div class="col-lg-4 form-group">
+    <button pButton type="button" class="blue button large" label="Add Item" (click)="AddSelectedItem()"></button>
   </div>
 
 
@@ -36,6 +44,8 @@
       <tr>
         <th>Item</th>
         <th>Item Category</th>
+        <th>Item Status</th>
+        <th>Quabtity</th>
         <th>Unit Price</th>
       </tr>
     </thead>
@@ -43,6 +53,7 @@
       <tr *ngFor="let category of selectedItemCategoryList;let i=index">
         <td>{{selectedItemList[i].Name}}</td>
         <td>{{selectedItemCategoryList[i].Name}}</td>
+        <td>{{selectedItemStatusList[i].Name}}</td>
         <td>{{selctedQuantityList[i]}}</td>
         <td>{{selctedUnitPriceList[i]}}</td>
       </tr>

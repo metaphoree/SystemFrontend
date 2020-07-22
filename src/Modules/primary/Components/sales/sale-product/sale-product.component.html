@@ -151,10 +151,12 @@
                                         class="pi pi-times"></i></span>
                                 <span (click)="ModifyEvent($event,'Details',dataRow)" style="padding: 3px;"><i
                                         class="pi pi-check"></i></span> -->
-                                        <!-- <button class="blue button small" type="button" label="Edit"
+                                <!-- <button class="blue button small" type="button" label="Edit"
                                         (click)="ModifyEvent($event,'Edit',dataRow)">Edit </button> -->
-                                    <button class="blue button small" type="button" label="Details"
-                                        (click)="ModifyEvent($event,'Details',dataRow)">Details</button>
+                                <button class="blue button small" type="button" label="Details"
+                                    (click)="ModifyEvent($event,'Details',dataRow)">Details</button>
+                                <button class="blue button small" type="button" label="Delete"
+                                    (click)="ModifyEvent($event,'Delete',dataRow)">Delete</button>
                             </span>
                             <span *ngIf="col.field != 'Action'">
                                 <span *ngIf="col.fieldType == 'date'">

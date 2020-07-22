@@ -44,6 +44,7 @@ export class TransactionReportComponent implements OnInit {
       { field: 'Amount', header: 'Amount', fieldType: 'number' },
       { field: 'CreatedDateTime', header: 'CreatedDateTime', fieldType: 'date' }
     ];
+    this.Search();
   }
 
 
@@ -51,6 +52,15 @@ export class TransactionReportComponent implements OnInit {
     this.MonthSelectedManual();
   }
 
+
+  Search(): void {
+    this.getDataListVM.FactoryId = this.sessionService.getFactoryId();
+    this.getDataListVM.PageNumber = 1;
+    this.getDataListVM.PageSize = 20;
+    this.getDataListVM.Month = this.selectedMonth;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+
+  }
   MonthSelected($event): void {
     this.getDataListVM.FactoryId = this.sessionService.getFactoryId();
     this.getDataListVM.PageNumber = 1;

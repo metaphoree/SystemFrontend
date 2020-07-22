@@ -20,6 +20,7 @@ export class ExpenseReportComponent implements OnInit {
   columnList: any;
   CurrentPageNo: number = 1;
   CurrentPageSize: number = 10;
+
   wrapperItemList: WrapperMonthExpenseVM;
   totalAmount: number;
   constructor(private util: UtilService,
@@ -36,17 +37,27 @@ export class ExpenseReportComponent implements OnInit {
     this.GetInitialData();
     this.columnList = [
       // { field: 'Action', header: 'Action', fieldType: 'icon' },
-       { field: 'ClientName', header: 'ClientName', fieldType: 'string' },
+      { field: 'ClientName', header: 'ClientName', fieldType: 'string' },
       { field: 'Month', header: 'Month', fieldType: 'string' },
       { field: 'Purpose', header: 'Purpose', fieldType: 'string' },
       { field: 'Amount', header: 'Amount', fieldType: 'number' },
       { field: 'CreatedDateTime', header: 'CreatedDateTime', fieldType: 'date' }
     ];
+    this.Search();
   }
 
 
   Refresh(): void {
     this.MonthSelectedManual();
+  }
+
+  Search(): void {
+    this.getDataListVM.FactoryId = this.sessionService.getFactoryId();
+    this.getDataListVM.PageNumber = 1;
+    this.getDataListVM.PageSize = 20;
+    this.getDataListVM.Month = this.selectedMonth;
+    this.DoDBOperation(DB_OPERATION.READ, this.getDataListVM);
+
   }
 
   MonthSelected($event): void {

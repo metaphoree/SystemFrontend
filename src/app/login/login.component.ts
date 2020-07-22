@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   loginResponse: LoginResponseVM;
   userName: string = '';
   password: string = '';
-  SuccessFull_login: boolean = false;
   selectedFactory: FactoryVM;
   getDataListVM: GetDataListVM;
   ddModel: DDModelVMs_;
@@ -50,12 +49,18 @@ export class LoginComponent implements OnInit {
         this.loginResponse = data;
 
         this.baseService.setLoginData(this.loginResponse);
+      
+      
         if (this.loginResponse.LoginSuccess) {
           // window.location.href = "home/staff-mgmt-home/payment";
           // this.router.navigate(['home/staff-mgmt-home/payment']);
           if (!this.loginResponse.Leader) {
             window.location.href = "home/dashboard";
-          } else if (this.loginResponse.Leader) {
+          } 
+          
+          
+          
+          else if (this.loginResponse.Leader) {
 
             this.getDataListVM.PageNumber = 1;
             this.getDataListVM.PageSize = 100;
@@ -71,7 +76,7 @@ export class LoginComponent implements OnInit {
               );
 
           }
-          this.SuccessFull_login = true;
+      
           // window.location.reload();
         }
 

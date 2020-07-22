@@ -2,23 +2,33 @@
     <div class="col-lg-12">
         <label> Monthly Expense Report</label>
     </div>
-  </div>
+</div>
 <div class="row crud-row">
-    <div class="col-sm-2">
+    <!-- <div class="col-sm-2">
         <p-dropdown [options]="MonthList" (onChange)="MonthSelected($event)" [(ngModel)]="selectedMonth" [filter]="true"
             filterBy="label"></p-dropdown>
+    </div> -->
+    <div class="col-sm-3">
+        <label>From : </label>
+        <p-calendar [(ngModel)]="getDataListVM.From" [showIcon]="true" [hideOnDateTimeSelect]="true" view="date"
+            showTime="true" hourFormat="12" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
+            yearRange="2000:2030">
+        </p-calendar>
     </div>
-    <div class="col-sm-2">
-        <!-- <input type="text" placeholder="Search Data" [(ngModel)]="this.getDataListVM.GlobalFilter" pInputText /> -->
+    <div class="col-sm-3">
+        <label>To : </label>
+        <p-calendar [(ngModel)]="getDataListVM.To" [showIcon]="true" [hideOnDateTimeSelect]="true" view="date"
+        showTime="true" hourFormat="12" dateFormat="dd/mm/yy" [monthNavigator]="true" [yearNavigator]="true"
+        yearRange="2000:2030">
+    </p-calendar>
     </div>
     <div class="col-sm-1">
-        <!-- <button class="blue button large" type="button" label="Search"
-            (click)="SearchEvent($event)">Search</button> -->
+        <button class="blue button large" type="button" label="Search" (click)="Search()">Search</button>
     </div>
-    <div class="col-sm-1">
+    <!-- <div class="col-sm-1">
         <button class="blue button large" type="button" label="Refresh" (click)="Refresh()">Refresh</button>
-    </div>
-    <div class="col-sm-4 form-group">
+    </div> -->
+    <div class="col-sm-2 form-group">
     </div>
 </div>
 
@@ -30,7 +40,7 @@
     <div class="row" style="font-size: medium;">
         <div class="col-lg-6">
             <label>
-              Monthly Total :
+                Monthly Total :
             </label>
             <label>{{wrapperItemList.Total_Monthly}}</label>
         </div>
@@ -54,7 +64,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <table  id="new-table" >
+        <table id="new-table">
             <thead>
                 <tr>
                     <th *ngFor="let column of columnList">

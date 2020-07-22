@@ -41,7 +41,7 @@ export class PurchaseProductComponent implements OnInit {
   selectedItemStatus: ItemStatusVM = new ItemStatusVM();
 
 
-  message : string;
+  message: string;
   columnList: any;
   childColumnList: any;
   CurrentPageNo: number = 1;
@@ -191,6 +191,14 @@ export class PurchaseProductComponent implements OnInit {
   }
 
   Add(event, selectedItem, selectedItemCategory, quantity, unitPrice): void {
+
+    if (!this.baseService.isValidString(this.selectedItem.Id) ||
+      !this.baseService.isValidString(this.selectedItemCategory.Id) ||
+      !this.baseService.isValidString(this.selectedItemStatus.Id)) {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Please Provide all the values' });
+      return;
+    }
+
     let item = new PurchaseItemVM();
     item.Item = this.selectedItem;
     item.ItemCategory = this.selectedItemCategory;
@@ -241,6 +249,9 @@ export class PurchaseProductComponent implements OnInit {
     console.log(this.purchaseVm);
     this.baseService.set<WrapperPurchaseListVM>(ApiUrl.AddPurchase, this.purchaseVm)
       .subscribe((data) => {
+        if(data.HasMessage){
+          this.messageService.add({ severity: 'success', summary: 'Well Done', detail: data.Message });
+        }
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
@@ -251,15 +262,15 @@ export class PurchaseProductComponent implements OnInit {
   IsValidPurchaseVM(vm: PurchaseVM): boolean {
     console.log("Before Validation");
     console.log(vm);
-    if(vm.SupplierVM == null || vm.SupplierVM == undefined ){
+    if (vm.SupplierVM == null || vm.SupplierVM == undefined) {
       this.message = " Supplier ";
       return false;
     }
-    if(!this.baseService.isValidString(vm.SupplierVM.Id)){
+    if (!this.baseService.isValidString(vm.SupplierVM.Id)) {
       this.message = " Supplier ";
       return false;
     }
-    if(vm.ItemList.length <= 0){
+    if (vm.ItemList.length <= 0) {
       this.message = " atleast one item ";
       return false;
     }
@@ -282,7 +293,7 @@ export class PurchaseProductComponent implements OnInit {
         URL = ApiUrl.UpdateItem + '/' + item.Id;
         break;
       case DB_OPERATION.DELETE:
-        URL = ApiUrl.DeleteItem;
+        URL = ApiUrl.DeletePurchase;
         break;
       default:
         break;
@@ -290,67 +301,12 @@ export class PurchaseProductComponent implements OnInit {
     console.log(URL);
     this.baseService.set<WrapperPurchaseListVM>(URL, item)
       .subscribe((data) => {
+        if(data.HasMessage){
+          this.messageService.add({ severity: 'success', summary: 'Well Done', detail: data.Message });
+        }
         this.wrapperItemList.ListOfData = data.ListOfData;
         this.wrapperItemList.TotalRecords = data.TotalRecords;
         this.messageService.add({ severity: 'success', summary: 'Well Done', detail: 'Operation Successfull' });
-
-
-        // let SupplierNameLen = -1;
-        // let TotalAmountLen = -1;
-        // let PaidAmountLen = -1;
-        // let DueAmountLen = -1;
-        // let DiscountAmountLen = -1;
-        // let OcurranceDateLen = -1;
-        // let characterToPadd = '_';
-        // let extraCh = '_______________';
-        // this.wrapperItemList.ListOfData.forEach((val, i, arr) => {
-        //   if (val.SupplierName.length > SupplierNameLen) {
-        //     SupplierNameLen = val.SupplierName.length;
-        //   }
-        //   if (val.TotalAmount.toString().length > TotalAmountLen) {
-        //     TotalAmountLen = val.TotalAmount.toString().length;
-        //   }
-        //   if (val.PaidAmount.toString().length > PaidAmountLen) {
-        //     PaidAmountLen = val.PaidAmount.toString().length;
-        //   }
-        //   if (val.DueAmount.toString().length > DueAmountLen) {
-        //     DueAmountLen = val.DueAmount.toString().length;
-        //   }
-        //   if (val.DiscountAmount.toString().length > DiscountAmountLen) {
-        //     DiscountAmountLen = val.DiscountAmount.toString().length;
-        //   }
-        //   // if (val.OcurranceDate.toUTCString().length > OcurranceDateLen) {
-        //   //   OcurranceDateLen = val.OcurranceDate.toUTCString().length;
-        //   // }
-
-        //   //arr[i].stringVersion = val.SupplierName + "  -----------  " + val.TotalAmount + "-----------    " + val.PaidAmount + " -----------   " + val.DueAmount + " -----------   " + val.DiscountAmount + "    "
-        //   //  + val.OcurranceDate
-        // });
-        // this.wrapperItemList.ListOfData.forEach((val, i, arr) => {
-
-
-        //   arr[i].stringVersion =
-        //     this.util.pad(characterToPadd, val.SupplierName, false, SupplierNameLen)
-        //     + extraCh +  this.util.pad(characterToPadd, val.TotalAmount.toString(), false, TotalAmountLen*2)
-        //     + extraCh + this.util.pad(characterToPadd, val.PaidAmount.toString(), false, PaidAmountLen*2)
-        //     + extraCh +   this.util.pad(characterToPadd, val.DueAmount.toString(), false, DueAmountLen*2)
-        //     + extraCh +   this.util.pad(characterToPadd, val.DiscountAmount.toString(), false, DiscountAmountLen*2)
-        //     + extraCh +   val.OcurranceDate.toString()
-        //     //+ this.util.pad('-', val.OcurranceDate.toUTCString(), false, OcurranceDateLen)
-        // });
-        // this.headerTable = 
-        //     this.util.pad(characterToPadd, 'Supplier', false, SupplierNameLen )
-        //   + extraCh +   this.util.pad(characterToPadd, 'Total', false, TotalAmountLen )
-        //   + extraCh +   this.util.pad(characterToPadd, 'Paid', false, PaidAmountLen )
-        //   + extraCh +   this.util.pad(characterToPadd, 'Due', false, DueAmountLen )
-        //   + extraCh+   this.util.pad(characterToPadd, 'Discount', false, DiscountAmountLen )
-        //   + extraCh+  this.util.pad(characterToPadd, 'Occurance', false, 0 + 12);
-        //   this.wrapperItemList.ListOfData.forEach((val, i, arr) => {
-        //   val.ItemList.forEach((val, i, arr) => {
-        //     val.stringVersion = val.ItemName + " -----------   " + val.ItemCategoryName + "-----------   " + val.Status + " -----------   " + val.Quantity + "  -----------  " + val.Quantity + "  -----------  " + val.UnitPrice;
-        //   });
-        // });
-
         this.baseService.LoaderOff();
       }
       );
@@ -394,13 +350,27 @@ export class PurchaseProductComponent implements OnInit {
     // if (operationType == 'Edit') {
     //   this.openModalUpdate(entity);
     // }
-    // if (operationType == 'Delete') {
-    //   this.confirm(entity);
-    // }
+    if (operationType == 'Delete') {
+      this.confirm(entity);
+    }
     if (operationType == 'Details') {
       //this.confirm(entity);
       this.showPurchaseDetails(entity.ItemList);
     }
+  }
+  // DELETION CONFIRMATION
+  confirm(entity: any) {
+    this.confirmationService.confirm({
+      message: 'Are you sure that you want to perform this action?',
+      accept: () => {
+        //Actual logic to perform a confirmation
+        this.DoDBOperation(DB_OPERATION.DELETE, entity);
+      },
+      reject: () => {
+
+
+      }
+    });
   }
 
   showPurchaseDetails(list: ItemVM[]): void {

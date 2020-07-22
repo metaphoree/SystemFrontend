@@ -10,6 +10,8 @@ export class ApiUrl {
     static GetStaffById = 'api/hr/Staff/getById';
     static UpdateStaff = 'api/hr/Staff/update';
     static DeleteStaff = 'api/hr/Staff/delete';
+    static AddStaffAsItAdmin = 'api/hr/Staff/addToAdmin';
+    
 
     static SetSupplier = 'api/hr/Supplier/add';
     static GetSupplier = 'api/hr/Supplier/getAll';
@@ -78,6 +80,9 @@ export class ApiUrl {
 
     static GetPurchaseInitData = 'api/business/purchase/getInitData';
     static AddPurchase = 'api/business/purchase/add';
+    static DeletePurchase = 'api/business/purchase/delete';
+
+    static DeleteSales = 'api/business/sales/delete';
     static GetSalesInitData = 'api/business/sales/getInitData';
     static AddSales = 'api/business/sales/add';
 

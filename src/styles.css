@@ -29,7 +29,7 @@ text-align: center;
     border-top: 4px solid #70B9E8;
 }
 .crud-row {
-    border: 4px solid mediumslateblue;
+    /* border: 4px solid mediumslateblue; */
     border-radius: 500px;
     padding: 10px;
 }
@@ -191,6 +191,7 @@ align-items: center;
 .login-form {
     width: 440px;
     margin: 50px auto;
+    background-color: blue;
 }
 .login-form #gorm {        
     margin-bottom: 15px;
